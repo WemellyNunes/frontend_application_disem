@@ -12,6 +12,7 @@ export default {
             primary: {
               light: '#1351b4',
               hover: '#6082B9',
+              dark: '#555555',
             },
             secondary: {
               hover: '#D7E3F5',
