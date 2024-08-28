@@ -7,14 +7,28 @@ export default {
         "./src/**/*.{js,jsx,ts,tsx}",
       ],
       theme: {
-        extend: {},
+        extend: {
+          colors: {
+            primary: {
+              light: '#1351b4',
+              hover: '#6082B9',
+            },
+            secondary: {
+              hover: '#D7E3F5',
+            },
+          },
+        },
       },
       plugins: [],
     }
     
   ],
   theme: {
-    extend: {},
+    extend: {
+      fontFamily: {
+        sans: ['Rawline', 'sans-serif'],
+      },
+    },
   },
   plugins: [],
 }

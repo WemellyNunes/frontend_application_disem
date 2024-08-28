@@ -1,3 +1,9 @@
+@import url('https://fonts.cdnfonts.com/css/rawline');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+body {
+    @apply font-sans;
+}
