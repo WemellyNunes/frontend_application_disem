@@ -4,11 +4,23 @@ import ButtonTertiary from "./components/buttons/buttonTertiary";
 import Header from "./components/header";
 import InputPrimary from "./components/inputs/inputPrimary";
 import InputSecondary from "./components/inputs/inputSecondary";
-import { FaEye, FaArrowRight, FaSearch } from 'react-icons/fa'; // Exemplo de ícones da biblioteca react-icons
+import { FaEye, FaArrowRight, FaSearch } from 'react-icons/fa'; 
+import InputSelect from "./components/inputs/inputSelect";// Exemplo de ícones da biblioteca react-icons
 
 
 
 function App() {
+
+  const unidades = [
+    { label: 'Instituto de Geociências e Engenharias', value: 'geo' },
+    { label: 'Instituto de Ciências e Exatas', value: 'ciex' },
+    { label: 'Instituto de Ciências Humanas', value: 'cih' },
+    { label: 'Centro de Tecnologia e Comunicação', value: 'tec' },
+  ];
+
+  const handleSelectChange = (event) => {
+    console.log('Selecionado:', event.target.value);
+  };
 
   return (
     <>
@@ -17,6 +29,12 @@ function App() {
       </header>
 
       <section>
+        <InputSelect
+        label="Unidade"
+        options={unidades}
+        onChange={handleSelectChange}
+        />
+
         <InputPrimary label="Solicitante" placeholder="Informe" />
         <InputSecondary
           label="Senha"
@@ -30,8 +48,6 @@ function App() {
         </div>
       
       </section>
-
-
 
     </>
   )

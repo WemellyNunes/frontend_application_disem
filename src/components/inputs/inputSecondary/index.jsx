@@ -15,7 +15,7 @@ const InputSecondary = ({ label, placeholder, buttonIcon, onButtonClick, type = 
           />
           <button
             onClick={onButtonClick}
-            className="absolute inset-y-0 right-0 flex items-center pr-3 text-blue-600 focus:outline-none "
+            className="absolute inset-y-0 right-0 flex items-center pr-3 text-primary-light focus:outline-none "
           >
             {buttonIcon}
           </button>
