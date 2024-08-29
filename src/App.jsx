@@ -1,6 +1,6 @@
-import ButtonPrimary from "./components/buttuns/buttonPrimary";
-import ButtonSecondary from "./components/buttuns/buttonSecondary";
-import ButtonTertiary from "./components/buttuns/buttonTertiary";
+import ButtonPrimary from "./components/buttons/buttonPrimary";
+import ButtonSecondary from "./components/buttons/buttonSecondary";
+import ButtonTertiary from "./components/buttons/buttonTertiary";
 import Header from "./components/header";
 
 
