@@ -1,6 +1,6 @@
 const InputPrimary = ({ label, placeholder }) => {
     return (
-      <div className="w-full max-w-xs flex flex-col">
+      <div className="w-full max-w-xs flex flex-col mt-4">
         <label className="block text-sm text-primary-dark font-normal" htmlFor="inputField">
           {label}
         </label>

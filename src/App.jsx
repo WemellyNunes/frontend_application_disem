@@ -12,25 +12,27 @@ function App() {
 
   return (
     <>
-      <div>
-        <Header/>
-        <p>ola</p>
+      <header>
+        <Header />
+      </header>
+
+      <section>
         <InputPrimary label="Solicitante" placeholder="Informe" />
-        <InputSecondary 
-        label="Senha"
-        placeholder="Digite sua senha"
-        type="password"
-        buttonIcon={<FaEye/>}/>
-        <ButtonPrimary>Primário</ButtonPrimary>
-        <ButtonSecondary>Secundário</ButtonSecondary>
-        <ButtonTertiary>Terciário</ButtonTertiary>
-
-
-
-
-      </div>
+        <InputSecondary
+          label="Senha"
+          placeholder="Digite sua senha"
+          type="password"
+          buttonIcon={<FaEye />} />
+        <div className="flex flex-row ">
+          <ButtonPrimary>Primário</ButtonPrimary>
+          <ButtonSecondary>Secundário</ButtonSecondary>
+          <ButtonTertiary>Terciário</ButtonTertiary>
+        </div>
       
-      
+      </section>
+
+
+
     </>
   )
 }
