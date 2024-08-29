@@ -17,7 +17,7 @@ const InputSelect = ({ label, options, onChange }) => {
                 <select
                     className="block appearance-none w-full bg-white border border-gray-300 text-gray-400 
                     h-10 px-4 rounded leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500
-                    focus:border-blue-500 text-sm italic cursor-pointer"
+                    focus:border-blue-500 text-sm italic cursor-pointer my-1"
                     onChange={onChange}
                     onClick={handleToggle}
                     onBlur={() => setIsOpen(false)}
