@@ -9,6 +9,7 @@ import InputSelect from "./components/inputs/inputSelect";
 import MultiSelect from "./components/inputs/multiSelect";
 import PageTitle from "./components/title";
 import { FaCalendarAlt } from 'react-icons/fa';
+import SectionCard from "./components/section";
 
 
 function App() {
@@ -41,43 +42,42 @@ function App() {
       </header>
 
       <section className="flex w-full flex-col">
+
         <div className="flex w-full justify-center px-4">
           <PageTitle
             icon={FaCalendarAlt}
             text="Programação de Ordem de Serviço" />
         </div>
 
-        <div className="flex w-full flex-row justify-center p-4">
-          <div className="flex flex-1 pr-4">
-            <InputSelect
-              label="Unidade"
-              options={unidades}
-              onChange={handleSelectChange}
-            />
-          </div>
-          <div className="flex flex-1 ">
-            <MultiSelect
-              label="Profissional(ais)"
-              options={profissionais}
-              onChange={handleMultiSelectChange}
-            />
-          </div>
-        </div>
+        <SectionCard title="Dados da ordem de serviço">
 
-        <div className="flex flex-1 w-full p-4">
-          <div className="flex-1 pr-4">
+          <InputSelect
+            label="Unidade"
+            options={unidades}
+            onChange={handleSelectChange}
+          />
+
+          <MultiSelect
+            label="Profissional(ais)"
+            options={profissionais}
+            onChange={handleMultiSelectChange}
+          />
+
+        </SectionCard>
+
+        <SectionCard title="Dados do solicitante">
+
             <InputPrimary
               label="Solicitante"
               placeholder="Informe" />
-          </div>
-          <div className="flex-1">
+
             <InputSecondary
               label="Senha"
               placeholder="Digite sua senha"
               type="password"
-              buttonIcon={<FaEye />} />
-          </div>
-        </div>
+              buttonIcon={<FaEye />}/>
+
+        </SectionCard>
 
         <div className="flex w-full flex-row justify-end p-4">
           <div className="">
