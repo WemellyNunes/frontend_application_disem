@@ -7,7 +7,8 @@ import InputSecondary from "./components/inputs/inputSecondary";
 import { FaEye, FaArrowRight, FaSearch } from 'react-icons/fa';
 import InputSelect from "./components/inputs/inputSelect";
 import MultiSelect from "./components/inputs/multiSelect";
-
+import PageTitle from "./components/title";
+import { FaCalendarAlt } from 'react-icons/fa';
 
 
 function App() {
@@ -40,6 +41,12 @@ function App() {
       </header>
 
       <section className="flex w-full flex-col">
+        <div className="flex w-full justify-center px-4">
+          <PageTitle
+            icon={FaCalendarAlt}
+            text="Programação de Ordem de Serviço" />
+        </div>
+
         <div className="flex w-full flex-row justify-center p-4">
           <div className="flex flex-1 pr-4">
             <InputSelect
