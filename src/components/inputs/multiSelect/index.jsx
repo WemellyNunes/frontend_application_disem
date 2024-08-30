@@ -24,7 +24,7 @@ const MultiSelect = ({ label, options, onChange }) => {
     const isSelected = (option) => selectedOptions.includes(option);
 
     return (
-        <div className="w-full max-w-xs mb-4">
+        <div className="w-full mb-4">
             <label className="block text-primary-dark text-sm font-normal mb-2 mt-4">
                 {label}
             </label>
@@ -40,10 +40,10 @@ const MultiSelect = ({ label, options, onChange }) => {
                     {selectedOptions.length > 0
                         ? selectedOptions.map((option) => option.label).join(', ')
                         : 'Selecione'}
-                    {isOpen ? <FaChevronUp className="ml-2" /> : <FaChevronDown className="ml-2" />}
+                    {isOpen ? <FaChevronUp className="h-4 w-4 text-primary-light" /> : <FaChevronDown className="h-4 w-4 text-primary-light" />}
                 </button>
                 {isOpen && (
-                    <div className="absolute z-10 w-full bg-white border border-gray-300 mt-1 rounded shadow-lg max-h-60 overflow-y-auto">
+                    <div className="absolute z-10 w-full bg-white border border-gray-300 rounded shadow-lg max-h-60 overflow-y-auto">
                         {options.map((option) => (
                             <label key={option.value} className="flex items-center px-4 py-2 cursor-pointer hover:bg-gray-100">
                                 <input

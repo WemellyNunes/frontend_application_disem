@@ -41,7 +41,7 @@ function App() {
 
       <section className="flex w-full flex-col">
         <div className="flex w-full flex-row justify-center p-4">
-          <div className="flex flex-1">
+          <div className="flex flex-1 pr-4">
             <InputSelect
               label="Unidade"
               options={unidades}
@@ -58,7 +58,7 @@ function App() {
         </div>
 
         <div className="flex flex-1 w-full p-4">
-          <div className="flex-1">
+          <div className="flex-1 pr-4">
             <InputPrimary
               label="Solicitante"
               placeholder="Informe" />
@@ -72,10 +72,16 @@ function App() {
           </div>
         </div>
 
-        <div className="flex flex-row justify-end p-4">
-          <ButtonPrimary>Primário</ButtonPrimary>
-          <ButtonSecondary>Secundário</ButtonSecondary>
-          <ButtonTertiary>Terciário</ButtonTertiary>
+        <div className="flex w-full flex-row justify-end p-4">
+          <div className="">
+            <ButtonPrimary>Primário</ButtonPrimary>
+          </div>
+          <div>
+            <ButtonSecondary>Secundário</ButtonSecondary>
+          </div>
+          <div>
+            <ButtonTertiary>Terciário</ButtonTertiary>
+          </div>
         </div>
       </section>
 

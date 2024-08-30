@@ -9,7 +9,7 @@ const InputSelect = ({ label, options, onChange }) => {
     };
 
     return (
-        <div className="w-full max-w-xs mb-4">
+        <div className="w-full mb-4">
             <label className="block text-primary-dark text-sm font-normal mb-2 mt-4">
                 {label}
             </label>
