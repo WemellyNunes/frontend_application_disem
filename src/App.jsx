@@ -56,7 +56,7 @@ function App() {
             text="Programação de Ordem de Serviço" />
         </div>
 
-        <div className="flex flex-col md:flex-row">
+        <div className="flex flex-col mx-4 gap-x-2.5 md:flex-row">
           <div className="flex-1">
             <SectionCard title="Dados da ordem de serviço">
               <InputSelect
@@ -90,35 +90,39 @@ function App() {
           </div>
         </div>
         <div className="flex flex-col w-full">
-          <SectionCard title="Dados da ordem de serviço">
 
-            <InputSelect
-              label="Unidade"
-              options={unidades}
-              onChange={handleSelectChange}
-            />
+          <div className="flex-1 mx-4">
+            <SectionCard title="Dados da ordem de serviço">
 
-            <MultiSelect
-              label="Profissional(ais)"
-              options={profissionais}
-              onChange={handleMultiSelectChange}
-            />
+              <InputSelect
+                label="Unidade"
+                options={unidades}
+                onChange={handleSelectChange}
+              />
 
-          </SectionCard>
+              <MultiSelect
+                label="Profissional(ais)"
+                options={profissionais}
+                onChange={handleMultiSelectChange}
+              />
 
-          <SectionCard title="Dados do solicitante">
+            </SectionCard>
 
-            <InputPrimary
-              label="Solicitante"
-              placeholder="Informe" />
+            <SectionCard title="Dados do solicitante">
 
-            <InputSecondary
-              label="Senha"
-              placeholder="Digite sua senha"
-              type="password"
-              buttonIcon={<FaEye />} />
+              <InputPrimary
+                label="Solicitante"
+                placeholder="Informe" />
 
-          </SectionCard>
+              <InputSecondary
+                label="Senha"
+                placeholder="Digite sua senha"
+                type="password"
+                buttonIcon={<FaEye />} />
+
+            </SectionCard>
+
+          </div>
         </div>
 
 
