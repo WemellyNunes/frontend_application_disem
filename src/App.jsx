@@ -14,6 +14,7 @@ import React, { useState } from 'react';
 import SectionSecondary from "./components/section/sectionSecondary";
 import InputUpload from "./components/inputs/inputUpload";
 import RadioInput from "./components/inputs/radioInput";
+import StatCard from "./components/cards";
 
 
 function App() {
@@ -68,6 +69,47 @@ function App() {
             text="Programação de Ordem de Serviço" />
         </div>
 
+        <div className="flex flex-col justify-between mx-4 mt-3 gap-x-2.5 sm:flex-row">
+          <StatCard
+            title="Sipac"
+            approved={13}
+            finalized={6}
+            backgroundColor="bg-primary-light"
+            percentage={65}
+
+          />
+
+          <StatCard
+            title="Mensal"
+            approved={13}
+            finalized={6}
+            backgroundColor="bg-green-700"
+          />
+
+          <StatCard
+            title="Semanal"
+            approved={13}
+            finalized={6}
+            backgroundColor="bg-red-500"
+          />
+
+          <StatCard
+            title="Hoje"
+            approved={13}
+            finalized={6}
+            backgroundColor="bg-orange-500"
+          />
+
+        <StatCard
+            title="Hoje"
+            approved={13}
+            finalized={6}
+            backgroundColor="bg-yellow-500"
+          />
+
+        </div>
+
+
         <div className="flex flex-col mx-4 gap-x-2.5 md:flex-row">
           <div className="flex-1">
             <SectionCard title="Dados da ordem de serviço">
@@ -86,12 +128,12 @@ function App() {
 
               <div>
                 <RadioInput
-                title="Tipo de tratamento"
-                name="tipoTratamento"
-                options={options}
-                selectedValue={selectedOption}
-                onChange={handleRadioChange}
-  
+                  title="Tipo de tratamento"
+                  name="tipoTratamento"
+                  options={options}
+                  selectedValue={selectedOption}
+                  onChange={handleRadioChange}
+
                 />
               </div>
 
