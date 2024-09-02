@@ -78,6 +78,7 @@ function App() {
             finalized={6}
             backgroundColor="bg-primary-light"
             percentage={65}
+            hover="hover:bg-primary-hover"
 
           />
 
@@ -86,6 +87,7 @@ function App() {
             approved={13}
             finalized={6}
             backgroundColor="bg-secondary-light"
+            hover="hover:bg-primary-hover"
           />
 
           <StatCard
