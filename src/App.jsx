@@ -9,11 +9,10 @@ import InputSelect from "./components/inputs/inputSelect";
 import MultiSelect from "./components/inputs/multiSelect";
 import PageTitle from "./components/title";
 import { FaCalendarAlt } from 'react-icons/fa';
-import SectionCard from "./components/section/sectionOrder";
-import VerticalMenu from "./components/verticalMenu";
+import SectionCard from "./components/section/sectionPrimary";
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import SectionProg from "./components/section/sectionPrograming";
+import SectionSecondary from "./components/section/sectionSecondary";
+import InputUpload from "./components/inputs/inputUpload";
 
 
 function App() {
@@ -45,7 +44,6 @@ function App() {
     setIsOpen(!isOpen);
   };
 
-
   return (
     <>
       <Header />
@@ -58,45 +56,39 @@ function App() {
             text="Programação de Ordem de Serviço" />
         </div>
 
-        <div className="flex w-full">
-
+        <div className="flex flex-col md:flex-row">
           <div className="flex-1">
             <SectionCard title="Dados da ordem de serviço">
-
               <InputSelect
                 label="Unidade"
                 options={unidades}
                 onChange={handleSelectChange}
               />
-
               <MultiSelect
                 label="Profissional(ais)"
                 options={profissionais}
                 onChange={handleMultiSelectChange}
               />
 
+              <InputUpload label="Anexar documento(s)" />
             </SectionCard>
           </div>
 
-          <div className="flex-1 ">
-            <SectionProg title="Programação">
-
+          <div className="flex-1">
+            <SectionSecondary title="Programação">
               <InputSelect
                 label="Unidade"
                 options={unidades}
                 onChange={handleSelectChange}
               />
-
               <MultiSelect
                 label="Profissional(ais)"
                 options={profissionais}
                 onChange={handleMultiSelectChange}
               />
-
-            </SectionProg>
+            </SectionSecondary>
           </div>
         </div>
-
         <div className="flex flex-col w-full">
           <SectionCard title="Dados da ordem de serviço">
 
