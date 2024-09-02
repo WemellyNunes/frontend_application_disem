@@ -83,28 +83,28 @@ function App() {
             title="Mensal"
             approved={13}
             finalized={6}
-            backgroundColor="bg-green-700"
+            backgroundColor="bg-secondary-light"
           />
 
           <StatCard
             title="Semanal"
             approved={13}
             finalized={6}
-            backgroundColor="bg-red-500"
+            backgroundColor="bg-tertiary-light"
           />
 
           <StatCard
             title="Hoje"
             approved={13}
             finalized={6}
-            backgroundColor="bg-orange-500"
+            backgroundColor="bg-secondary-light"
           />
 
         <StatCard
             title="Hoje"
             approved={13}
             finalized={6}
-            backgroundColor="bg-yellow-500"
+            backgroundColor="bg-primary-light"
           />
 
         </div>

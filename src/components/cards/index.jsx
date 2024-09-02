@@ -18,3 +18,15 @@ const StatCard = ({ title, approved, finalized, backgroundColor, percentage }) =
   };
   
   export default StatCard;
+
+  /*
+  <div className="flex flex-col justify-between mx-4 mt-3 gap-x-2.5 sm:flex-row">
+          <StatCard
+            title="Sipac"
+            approved={13}
+            finalized={6}
+            backgroundColor="bg-primary-light"
+            percentage={65}
+
+          />
+  */

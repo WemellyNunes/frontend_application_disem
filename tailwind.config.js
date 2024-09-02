@@ -17,7 +17,11 @@ export default {
             secondary: {
               hover: '#D7E3F5',
               back: '#F8F8F8',
+              light: '#13BFD7',
             },
+            tertiary: {
+              light: '#2783ED',
+            }
           },
         },
       },
