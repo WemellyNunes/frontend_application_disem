@@ -9,7 +9,11 @@ import InputSelect from "./components/inputs/inputSelect";
 import MultiSelect from "./components/inputs/multiSelect";
 import PageTitle from "./components/title";
 import { FaCalendarAlt } from 'react-icons/fa';
-import SectionCard from "./components/section";
+import SectionCard from "./components/section/sectionOrder";
+import VerticalMenu from "./components/verticalMenu";
+import React, { useState } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import SectionProg from "./components/section/sectionPrograming";
 
 
 function App() {
@@ -35,13 +39,18 @@ function App() {
     console.log('Selecionado:', selectedOptions);
   };
 
+  const [isOpen, setIsOpen] = useState(true);
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen);
+  };
+
+
   return (
     <>
-      <header>
-        <Header />
-      </header>
+      <Header />
 
-      <section className="flex w-full flex-col">
+      <section className="flex flex-col">
 
         <div className="flex w-full justify-center px-4">
           <PageTitle
@@ -49,23 +58,63 @@ function App() {
             text="Programação de Ordem de Serviço" />
         </div>
 
-        <SectionCard title="Dados da ordem de serviço">
+        <div className="flex w-full">
 
-          <InputSelect
-            label="Unidade"
-            options={unidades}
-            onChange={handleSelectChange}
-          />
+          <div className="flex-1">
+            <SectionCard title="Dados da ordem de serviço">
 
-          <MultiSelect
-            label="Profissional(ais)"
-            options={profissionais}
-            onChange={handleMultiSelectChange}
-          />
+              <InputSelect
+                label="Unidade"
+                options={unidades}
+                onChange={handleSelectChange}
+              />
 
-        </SectionCard>
+              <MultiSelect
+                label="Profissional(ais)"
+                options={profissionais}
+                onChange={handleMultiSelectChange}
+              />
 
-        <SectionCard title="Dados do solicitante">
+            </SectionCard>
+          </div>
+
+          <div className="flex-1 ">
+            <SectionProg title="Programação">
+
+              <InputSelect
+                label="Unidade"
+                options={unidades}
+                onChange={handleSelectChange}
+              />
+
+              <MultiSelect
+                label="Profissional(ais)"
+                options={profissionais}
+                onChange={handleMultiSelectChange}
+              />
+
+            </SectionProg>
+          </div>
+        </div>
+
+        <div className="flex flex-col w-full">
+          <SectionCard title="Dados da ordem de serviço">
+
+            <InputSelect
+              label="Unidade"
+              options={unidades}
+              onChange={handleSelectChange}
+            />
+
+            <MultiSelect
+              label="Profissional(ais)"
+              options={profissionais}
+              onChange={handleMultiSelectChange}
+            />
+
+          </SectionCard>
+
+          <SectionCard title="Dados do solicitante">
 
             <InputPrimary
               label="Solicitante"
@@ -75,9 +124,11 @@ function App() {
               label="Senha"
               placeholder="Digite sua senha"
               type="password"
-              buttonIcon={<FaEye />}/>
+              buttonIcon={<FaEye />} />
 
-        </SectionCard>
+          </SectionCard>
+        </div>
+
 
         <div className="flex w-full flex-row justify-end p-4">
           <div className="">
