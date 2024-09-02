@@ -66,7 +66,9 @@ function App() {
         <div className="flex w-full justify-center px-4">
           <PageTitle
             icon={FaCalendarAlt}
-            text="Programação de Ordem de Serviço" />
+            text="Programação de Ordem de Serviço"
+            backgroundColor="bg-primary-light"
+            textColor="text-white" />
         </div>
 
         <div className="flex flex-col justify-between mx-4 mt-3 gap-x-2.5 sm:flex-row">
