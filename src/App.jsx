@@ -13,6 +13,7 @@ import SectionCard from "./components/section/sectionPrimary";
 import React, { useState } from 'react';
 import SectionSecondary from "./components/section/sectionSecondary";
 import InputUpload from "./components/inputs/inputUpload";
+import RadioInput from "./components/inputs/radioInput";
 
 
 function App() {
@@ -44,6 +45,17 @@ function App() {
     setIsOpen(!isOpen);
   };
 
+  const [selectedOption, setSelectedOption] = useState('comum');
+
+  const handleRadioChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  const options = [
+    { label: 'Comum', value: 'comum' },
+    { label: 'ADM', value: 'adm' },
+  ];
+
   return (
     <>
       <Header />
@@ -71,8 +83,21 @@ function App() {
               />
 
               <InputUpload label="Anexar documento(s)" />
+
+              <div>
+                <RadioInput
+                title="Tipo de tratamento"
+                name="tipoTratamento"
+                options={options}
+                selectedValue={selectedOption}
+                onChange={handleRadioChange}
+  
+                />
+              </div>
+
             </SectionCard>
           </div>
+
 
           <div className="flex-1">
             <SectionSecondary title="Programação">
