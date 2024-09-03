@@ -9,7 +9,7 @@ const SearchInput = ({ placeholder }) => {
     };
 
     return (
-        <div className={`flex items-center ${isExpanded ? 'bg-blue-600 rounded-md w-full max-w-xs' : ''} bg-blue-600 h-10 px-2 rounded`  }>
+        <div className={`flex items-center ${isExpanded ? 'bg-blue-600 rounded-md w-full max-w-xs' : ''} bg-blue-600 h-9 px-2 rounded`  }>
             <FaSearch
                 className="text-white cursor-pointer"
                 onClick={toggleExpand}
