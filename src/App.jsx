@@ -15,6 +15,7 @@ import SectionSecondary from "./components/section/sectionSecondary";
 import InputUpload from "./components/inputs/inputUpload";
 import RadioInput from "./components/inputs/radioInput";
 import StatCard from "./components/cards";
+import SearchInput from "./components/inputs/searchInput";
 
 
 function App() {
@@ -67,8 +68,11 @@ function App() {
           <PageTitle
             icon={FaCalendarAlt}
             text="Programação de Ordem de Serviço"
-            backgroundColor="bg-primary-light"
-            textColor="text-white" />
+            backgroundColor="bg-blue-700"
+            textColor="text-white"
+          >
+            <SearchInput placeholder="Buscar..." />
+          </PageTitle>
         </div>
 
         <div className="flex flex-col justify-between mx-4 mt-3 gap-x-2.5 sm:flex-row">
@@ -104,7 +108,7 @@ function App() {
             backgroundColor="bg-secondary-light"
           />
 
-        <StatCard
+          <StatCard
             title="Hoje"
             approved={13}
             finalized={6}
