@@ -5,6 +5,7 @@ import BarGraphic from "../../components/graphics/barPrimary"
 import SectionSecondary from "../../components/section/sectionSecondary";
 import LocationBarChart from "../../components/graphics/barSecondary";
 import DoughnutChart from "../../components/graphics/doughnutPrimary";
+import DoughnutSystem from "../../components/graphics/doughnutSecondary";
 
 export default function Dashboard() {
     return (
@@ -80,7 +81,9 @@ export default function Dashboard() {
                         </SectionSecondary>
 
                         <SectionSecondary>
-                            <DoughnutChart/>
+                            <div className="w-full pl-8 lg:w-96">
+                                <DoughnutSystem/>
+                            </div>
                         </SectionSecondary>
                     </div>
 
