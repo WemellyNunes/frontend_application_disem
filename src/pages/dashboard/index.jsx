@@ -1,9 +1,9 @@
 import StatCard from "../../components/cards"
 import PageTitle from "../../components/title"
 import { MdStackedBarChart } from "react-icons/md";
-import BarGraphic from "../../components/graphics/bars"
+import BarGraphic from "../../components/graphics/barPrimary"
 import SectionSecondary from "../../components/section/sectionSecondary";
-
+import LocationBarChart from "../../components/graphics/barSecondary";
 
 export default function Dashboard() {
     return (
@@ -67,7 +67,7 @@ export default function Dashboard() {
                         </SectionSecondary>
 
                         <SectionSecondary>
-                            <BarGraphic/>
+                            <LocationBarChart/>
                         </SectionSecondary>
                     </div>
                     <div className="flex flex-col gap-x-2.5 sm:flex-row">
