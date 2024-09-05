@@ -1,6 +1,7 @@
 import PageTitle from "../../components/title"
 import { FaFileInvoice } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import SectionCard from "../../components/section/sectionPrimary";
 import SectionSecondary from "../../components/section/sectionSecondary";
 import SectionTertiary from "../../components/section/sectionTertiary";
@@ -12,6 +13,8 @@ import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
 
 export default function Form() {
+
+    const navigate = useNavigate();
 
     const origin = [
         { label: 'DISEM', value: 'disem' },
@@ -64,16 +67,15 @@ export default function Form() {
         { label: 'ADM', value: 'adm' },
     ];
 
-
     const handleSelectChange = (event) => {
         console.log('Selecionado:', event.target.value);
     };
 
     return (
         <>
-            <div className="flex flex-col">
+            <div className="flex flex-col mt-20">
 
-                <div className="flex justify-center mx-4 pt-20">
+                <div className="flex justify-center mx-4">
                     <PageTitle
                         icon={FaFileInvoice}
                         text="Cadastro de ordem de serviço"
@@ -175,7 +177,7 @@ export default function Form() {
 
                     </div>
                     <div className="flex flex-row m-6 items-center justify-center">
-                        <ButtonPrimary>Salvar</ButtonPrimary>
+                        <ButtonPrimary onClick={e => navigate("../Dashboard")} >Salvar</ButtonPrimary>
                         <ButtonSecondary>Salvar e Programar</ButtonSecondary>
                     </div>
 

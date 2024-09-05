@@ -1,6 +1,6 @@
 const StatCard = ({ title, approved, finalized, backgroundColor, percentage, hover }) => {
     return (
-      <div className={`p-4 rounded-md shadow-md ${backgroundColor} text-white flex flex-col w-full justify-between ${hover}`} >
+      <div className={`p-4 mb-0.5 rounded-md shadow-md ${backgroundColor} text-white flex flex-col w-full justify-between ${hover}`} >
         <div className="flex justify-between items-center mb-4">
           {percentage && (
             <div className="bg-white text-blue-600 rounded-full h-11 w-11 flex items-center justify-center p-4">
