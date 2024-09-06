@@ -74,7 +74,7 @@ export default function Dashboard() {
                             </div>
                         </SectionSecondary>
                     </div>
-                    <div className="flex flex-col gap-x-2.5 sm:flex-row">
+                    <div className="flex flex-col gap-x-2.5 sm:flex-row mb-4">
 
                         <SectionSecondary>
                             <LocationBarChart/>

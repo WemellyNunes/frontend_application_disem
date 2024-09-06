@@ -9,7 +9,7 @@ const DoughnutSystem = ({ data }) => {
         datasets: [
             {
                 label: 'Manutenções',
-                data: [10, 15, 20, 25, 30, 40], // Substitua esses valores pelos dados da API no futuro
+                data: [10, 15, 20, 25, 30, 40], // Substitiyir esses valores pelos dados da API no futuro
                 backgroundColor: [
                     '#667eea', // Civil
                     '#2b6cb0', // Estrutural
