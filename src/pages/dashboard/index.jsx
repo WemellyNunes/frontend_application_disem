@@ -10,7 +10,7 @@ import DoughnutSystem from "../../components/graphics/doughnutSecondary";
 export default function Dashboard() {
     return (
         <>
-            <div className="flex flex-col mt-20">
+            <div className="flex flex-col mt-16 md:mt-20">
 
                 <div className="flex justify-center mx-4">
                     <PageTitle

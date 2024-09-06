@@ -10,7 +10,7 @@ export default function Login() {
 
     return (
         <>
-            <div className="flex flex-col items-center justify-around mt-20 m-10 md:flex-row">
+            <div className="flex flex-col items-center justify-around mt-16 md:mt-20 m-10 md:flex-row">
                 <div className="flex flex-col justify-center items-center content-center w-full mt-10">
                     <div className="mb-6">
                         <h2 className="text-3xl font-semibold text-primary-light">Olá, colaborador. Bem vindo de volta!</h2>

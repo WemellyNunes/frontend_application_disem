@@ -73,7 +73,7 @@ export default function Form() {
 
     return (
         <>
-            <div className="flex flex-col mt-20">
+            <div className="flex flex-col mt-16 md:mt-20">
 
                 <div className="flex justify-center mx-4">
                     <PageTitle
@@ -178,7 +178,7 @@ export default function Form() {
                     </div>
                     <div className="flex flex-col m-6 items-center justify-center md:flex-row gap-y-2">
                         <ButtonPrimary onClick={e => navigate("../Dashboard")} >Salvar</ButtonPrimary>
-                        <ButtonSecondary>Salvar e Programar</ButtonSecondary>
+                        <ButtonSecondary onClick={e => navigate("../Programing")} >Salvar e Programar</ButtonSecondary>
                     </div>
 
 
