@@ -10,14 +10,14 @@ const InputSelect = ({ label, options, onChange }) => {
 
     return (
         <div className="w-full">
-            <label className="block text-primary-dark text-sm font-normal mb-2">
+            <label className="block text-primary-dark text-xs md:text-sm font-normal mb-2">
                 {label}
             </label>
             <div className="relative">
                 <select
                     className="block appearance-none w-full bg-white border border-gray-300 text-gray-400 
-                    h-10 px-4 rounded leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500
-                    focus:border-blue-500 text-sm italic cursor-pointer my-1"
+                    h-9 md:h-10 px-4 rounded leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500
+                    focus:border-blue-500 text-xs md:text-sm italic cursor-pointer my-1"
                     onChange={onChange}
                     onClick={handleToggle}
                     onBlur={() => setIsOpen(false)}

@@ -2,6 +2,10 @@ import PageTitle from "../../components/title"
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import StatusBar from "../../components/title/statusBar";
 import SectionSecondary from "../../components/section/sectionSecondary";
+import InputPrimary from "../../components/inputs/inputPrimary";
+import InputSelect from "../../components/inputs/inputSelect";
+import InputUpload from "../../components/inputs/inputUpload";
+import MultiSelect from "../../components/inputs/multiSelect";
 
 export default function Programing() {
 
@@ -34,6 +38,11 @@ export default function Programing() {
                 <div className="flex flex-col mx-4 gap-x-2.5 md:flex-row">
                     <div className="flex-1">
                         <SectionSecondary title="Dados da ordem de serviço">
+                            <InputPrimary
+                                label="Unidade"
+                                placeholder="Selecione"
+                            
+                            />
 
 
                         </SectionSecondary>
@@ -42,6 +51,10 @@ export default function Programing() {
                         <SectionSecondary title="Programção">
 
                         </SectionSecondary>
+
+                        <div>
+
+                        </div>
 
                     </div>
 
