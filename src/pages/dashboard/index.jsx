@@ -2,7 +2,6 @@ import StatCard from "../../components/cards"
 import PageTitle from "../../components/title"
 import { MdStackedBarChart } from "react-icons/md";
 import BarGraphic from "../../components/graphics/barPrimary"
-import SectionCard from "../../components/section/sectionPrimary";
 import LocationBarChart from "../../components/graphics/barSecondary";
 import DoughnutChart from "../../components/graphics/doughnutPrimary";
 import DoughnutSystem from "../../components/graphics/doughnutSecondary";
@@ -22,7 +21,7 @@ export default function Dashboard() {
                     />
                 </div>
 
-                <div className="flex flex-col justify-between mx-4 mt-2 gap-x-1 sm:flex-row">
+                <div className="flex flex-row justify-between mx-4 mt-2 gap-x-1 overflow-x-auto">
                     <StatCard
                         title="Sipac"
                         approved={13}
@@ -61,29 +60,23 @@ export default function Dashboard() {
                         backgroundColor="bg-primary-light"
                     />
                 </div>
-                <div className="flex flex-col mx-4">
-
-                    <div className="flex flex-col gap-x-1.5 sm:flex-row mb-2 mt-1">
-
+                <div className="flex flex-col mx-4 mb-2">
+                    <div className="flex flex-col gap-x-1.5 sm:flex-row">
                         <Card>
                             <BarGraphic/>
                         </Card>
                         <Card>
                             <DoughnutChart/>
                         </Card>
-
                     </div>
-                    <div className="flex flex-col gap-x-1.5 sm:flex-row mb-4">
+                    <div className="flex flex-col gap-x-1.5 sm:flex-row">
                         <Card>
                             <LocationBarChart/>
                         </Card>
                         <Card>
                             <DoughnutSystem/>
                         </Card>
-
                     </div>
-
-
 
                 </div>
 

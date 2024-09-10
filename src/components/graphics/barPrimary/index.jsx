@@ -9,31 +9,30 @@ const BarGraphic = ({ data }) => {
         datasets: [
             {
                 label: 'Número de OS',
-                data: [26, 35, 30], // Substitua esses dados pela API quando necessário
-                backgroundColor: ['#ff6384', '#4bc0c0', '#36a2eb'],
-                borderColor: ['#ff6384', '#4bc0c0', '#36a2eb'],
-                borderWidth: 1, // Corrigido "Width"
+                data: [26, 35, 30], 
+                backgroundColor: ['#667eea', '#4bc0c0', '#36a2eb'],
+                borderWidth: 0, 
             },
         ],
     };
 
     const options = {
-        indexAxis: 'y', // Gráfico de barras horizontal
+        indexAxis: 'y', 
         responsive: true,
         plugins: {
             legend: {
-                display: false, // Oculta a legenda
+                display: false, 
             },
             title: {
                 display: true,
                 text: 'Classificação das OS para atender em (mês)',
             },
         },
-        scales: { // Corrigido: deve estar fora de "plugins"
+        scales: { 
             x: {
                 beginAtZero: true,
                 ticks: {
-                    stepSize: 10, // Define o intervalo de marcação no eixo X
+                    stepSize: 10, 
                 },
             },
         },

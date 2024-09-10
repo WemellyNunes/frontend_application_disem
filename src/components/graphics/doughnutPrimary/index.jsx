@@ -12,14 +12,14 @@ const DoughnutChart = ({ data }) => {
                 data: [300, 200], // Substitua esses valores pelos dados da API no futuro
                 backgroundColor: ['#4bc0c0', '#003366'], // Cores para Corretiva e Preventiva
                 hoverBackgroundColor: ['#4bc0c0', '#003366'],
-                borderWidth: 1,
+                borderWidth: 2,
             },
         ],
     };
 
     const options = {
         responsive: true,
-        cutout: '60%', // Faz a parte interna maior, criando o efeito de rosca
+        cutout: '70%', // Faz a parte interna maior, criando o efeito de rosca
         plugins: {
             legend: {
                 position: 'right',
@@ -31,13 +31,10 @@ const DoughnutChart = ({ data }) => {
         },
     };
 
-    return (
-        <div className=''>
+    return <Doughnut data={chartData} options={options} />
 
-            <Doughnut data={chartData} options={options} />
-        </div>
 
-    )
+
     
         
 };
