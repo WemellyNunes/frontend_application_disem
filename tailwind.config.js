@@ -21,6 +21,7 @@ export default {
             },
             tertiary: {
               light: '#2783ED',
+              back: '#D9D9D9',
             }
           },
         },

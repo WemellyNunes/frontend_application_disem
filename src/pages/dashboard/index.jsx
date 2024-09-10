@@ -2,10 +2,11 @@ import StatCard from "../../components/cards"
 import PageTitle from "../../components/title"
 import { MdStackedBarChart } from "react-icons/md";
 import BarGraphic from "../../components/graphics/barPrimary"
-import SectionSecondary from "../../components/section/sectionSecondary";
+import SectionCard from "../../components/section/sectionPrimary";
 import LocationBarChart from "../../components/graphics/barSecondary";
 import DoughnutChart from "../../components/graphics/doughnutPrimary";
 import DoughnutSystem from "../../components/graphics/doughnutSecondary";
+import Card from "../../components/cards/cardGraphic";
 
 export default function Dashboard() {
     return (
@@ -21,7 +22,7 @@ export default function Dashboard() {
                     />
                 </div>
 
-                <div className="flex flex-col justify-between mx-4 mt-2 gap-x-2.5 sm:flex-row">
+                <div className="flex flex-col justify-between mx-4 mt-2 gap-x-1 sm:flex-row">
                     <StatCard
                         title="Sipac"
                         approved={13}
@@ -62,29 +63,24 @@ export default function Dashboard() {
                 </div>
                 <div className="flex flex-col mx-4">
 
-                    <div className="flex flex-col gap-x-2.5 sm:flex-row">
+                    <div className="flex flex-col gap-x-1.5 sm:flex-row mb-2 mt-1">
 
-                        <SectionSecondary>
+                        <Card>
                             <BarGraphic/>
-                        </SectionSecondary>
+                        </Card>
+                        <Card>
+                            <DoughnutChart/>
+                        </Card>
 
-                        <SectionSecondary>
-                            <div className="w-full pl-8 lg:w-96">
-                                <DoughnutChart/>
-                            </div>
-                        </SectionSecondary>
                     </div>
-                    <div className="flex flex-col gap-x-2.5 sm:flex-row mb-4">
-
-                        <SectionSecondary>
+                    <div className="flex flex-col gap-x-1.5 sm:flex-row mb-4">
+                        <Card>
                             <LocationBarChart/>
-                        </SectionSecondary>
+                        </Card>
+                        <Card>
+                            <DoughnutSystem/>
+                        </Card>
 
-                        <SectionSecondary>
-                            <div className="w-full pl-8 lg:w-96">
-                                <DoughnutSystem/>
-                            </div>
-                        </SectionSecondary>
                     </div>
 
 

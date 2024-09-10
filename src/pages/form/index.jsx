@@ -3,8 +3,6 @@ import { FaFileInvoice } from "react-icons/fa";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import SectionCard from "../../components/section/sectionPrimary";
-import SectionSecondary from "../../components/section/sectionSecondary";
-import SectionTertiary from "../../components/section/sectionTertiary";
 import InputSelect from "../../components/inputs/inputSelect"
 import InputPrimary from "../../components/inputs/inputPrimary";
 import RadioInput from "../../components/inputs/radioInput";
@@ -88,92 +86,105 @@ export default function Form() {
 
                     <div className="flex-1">
 
-                        <SectionTertiary title={"Dados da ordem de serviço"}>
-                            <InputSelect
-                                label="Origem"
-                                options={origin}
-                                onChange={handleSelectChange}
-                            />
+                        <SectionCard title={"Dados da ordem de serviço"}>
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4 ">
+                                <InputSelect
+                                    label="Origem"
+                                    options={origin}
+                                    onChange={handleSelectChange}
+                                />
 
-                            <InputPrimary
-                                label="N° da requisição"
-                                placeholder="Informe"
-                            />
+                                <InputPrimary
+                                    label="N° da requisição"
+                                    placeholder="Informe"
+                                />
 
-                            <InputSelect
-                                label="Classificação"
-                                options={classification}
-                                onChange={handleSelectChange}
-                            />
-                        </SectionTertiary>
+                                <InputSelect
+                                    label="Classificação"
+                                    options={classification}
+                                    onChange={handleSelectChange}
+                                />
+
+                            </div>
+                        </SectionCard>
 
                     </div>
 
                     <div className="flex-1">
                         <SectionCard title="Dados do solicitante">
-                            <InputPrimary
-                                label="Solicitante"
-                                placeholder="Informe"
-                            />
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
+                                <InputPrimary
+                                    label="Solicitante"
+                                    placeholder="Informe"
+                                />
 
-                            <InputSelect
-                                label="Unidade"
-                                options={unit}
-                                onChange={handleSelectChange}
-                            />
+                                <InputSelect
+                                    label="Unidade"
+                                    options={unit}
+                                    onChange={handleSelectChange}
+                                />
+
+                            </div>
 
                         </SectionCard>
                     </div>
 
                     <div className="flex-1">
-                        <SectionSecondary title="Dados da manutenção">
-                            <InputPrimary
-                                label="Objeto de preparo"
-                                placeholder="Informe"
-                            />
+                        <SectionCard title="Dados da manutenção">
+                            <div className="grid grid-cols-1 md:grid-cols-1">
+                                <InputPrimary
+                                    label="Objeto de preparo"
+                                    placeholder="Informe"
+                                />
+                            </div>
 
-                            <InputSelect
-                                label="Tipo de manutenção"
-                                options={maintence}
-                                onChange={handleSelectChange}
-                            />
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                <InputSelect
+                                    label="Tipo de manutenção"
+                                    options={maintence}
+                                    onChange={handleSelectChange}
+                                />
 
-                            <InputSelect
-                                label="Sistema"
-                                options={system}
-                                onChange={handleSelectChange}
-                            />
+                                <InputSelect
+                                    label="Sistema"
+                                    options={system}
+                                    onChange={handleSelectChange}
+                                />
 
-                            <InputSelect
-                                label="Indicador de manutenção"
-                                options={system}
-                                onChange={handleSelectChange}
-                            />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
+                                <InputSelect
+                                    label="Indicador de manutenção"
+                                    options={system}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                <InputSelect
+                                    label="Unidade da manutenção"
+                                    options={unitMaintence}
+                                    onChange={handleSelectChange}
+                                />
 
-                            <InputSelect
-                                label="Unidade da manutenção"
-                                options={unitMaintence}
-                                onChange={handleSelectChange}
-                            />
-
-                            <InputPrimary
-                                label="Campus"
-                                placeholder="Informe"
-                            />
-
-                            <RadioInput
-                                title="Tipo de tratamento"
-                                name="tipoTratamento"
-                                options={options}
-                                selectedValue={selectedOption}
-                                onChange={handleRadioChange}
-                            />
-
-                            <div className="">
+                                <InputPrimary
+                                    label="Campus"
+                                    placeholder="Informe"
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
+                                <RadioInput
+                                    title="Tipo de tratamento"
+                                    name="tipoTratamento"
+                                    options={options}
+                                    selectedValue={selectedOption}
+                                    onChange={handleRadioChange}
+                                />
+                                
                                 <InputUpload label="Anexar documento(s)"/>
                             </div>
 
-                        </SectionSecondary>
+
+                        </SectionCard>
 
                     </div>
                     <div className="flex flex-col m-6 items-center justify-center md:flex-row gap-y-2">

@@ -1,7 +1,7 @@
 import PageTitle from "../../components/title"
 import { RiCalendarScheduleFill } from "react-icons/ri";
 import StatusBar from "../../components/title/statusBar";
-import SectionSecondary from "../../components/section/sectionSecondary";
+import SectionCard from "../../components/section/sectionPrimary";
 import InputPrimary from "../../components/inputs/inputPrimary";
 import InputSelect from "../../components/inputs/inputSelect";
 import InputUpload from "../../components/inputs/inputUpload";
@@ -37,20 +37,58 @@ export default function Programing() {
                 </div>
                 <div className="flex flex-col mx-4 gap-x-2.5 md:flex-row">
                     <div className="flex-1">
-                        <SectionSecondary title="Dados da ordem de serviço">
-                            <InputPrimary
-                                label="Unidade"
-                                placeholder="Selecione"
-                            
-                            />
+                        <SectionCard title="Dados da ordem de serviço">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                <InputPrimary
+                                    label="Clasificação"
+                                    placeholder="classe x"
+                                />
+                                <InputPrimary
+                                    label="Unidade"
+                                    placeholder="instituto x"
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
+                                 <InputPrimary
+                                    label="Solicitante"
+                                    placeholder="x"
+                                />
+
+                                <InputPrimary
+                                    label="Objeto de preparo"
+                                    placeholder="x"
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                <InputPrimary
+                                    label="Tipo de manutenção"
+                                    placeholder="x"
+                                />
+
+                                <InputPrimary
+                                    label="Sistema"
+                                    placeholder="x"
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                <InputPrimary
+                                    label="Unidade da manutenção"
+                                    placeholder="x"
+                                />
+
+                                <InputPrimary
+                                    label="Campus"
+                                    placeholder="x"
+                                />
+                            </div>
 
 
-                        </SectionSecondary>
+                        </SectionCard>
                     </div>
                     <div className="flex-1">
-                        <SectionSecondary title="Programção">
+                        <SectionCard title="Programação">
 
-                        </SectionSecondary>
+                        </SectionCard>
 
                         <div>
 

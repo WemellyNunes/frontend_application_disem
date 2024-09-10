@@ -24,7 +24,7 @@ const MultiSelect = ({ label, options, onChange }) => {
     const isSelected = (option) => selectedOptions.includes(option);
 
     return (
-        <div className="w-full">
+        <div className="w-full mb-4">
             <label className="block text-primary-dark text-xs md:text-sm font-normal mb-2">
                 {label}
             </label>

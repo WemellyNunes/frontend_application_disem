@@ -2,7 +2,7 @@ import { FaUpload } from 'react-icons/fa';
 
 const InputUpload = ({ label }) => {
   return (
-    <div className='flex justify-start'>
+    <div className='flex mb-4'>
       <label className="flex items-center border border-dashed border-primary-light rounded-md 
       p-4 cursor-pointer w-full max-w-lg mx-auto hover:bg-blue-50 h-9 md:h-10 transition-colors duration-200">
         <FaUpload className="text-primary-light h-4 w-4 mr-3" />
