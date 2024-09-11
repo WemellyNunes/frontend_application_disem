@@ -9,6 +9,22 @@ import MultiSelect from "../../components/inputs/multiSelect";
 
 export default function Programing() {
 
+    const overseer = [
+        { label: 'Almir lima', value: 'encarregado1' },
+        { label: 'Lucas', value: 'encarregado2' },
+    ];
+
+    const options = [
+        { label: '08h ás 12h', value: 'manha' },
+        { label: '14h ás 18h', value: 'tarde' },
+        { label: '19h as 22h', value: 'noite' },
+        { label: '08h as 18h', value: 'integral' }
+    ];
+
+    const handleSelectChange = (event) => {
+        console.log('Selecionado:', event.target.value);
+    };
+
     const handleHistoryClick = () => {
         alert('historico de OS')
     };
@@ -81,19 +97,52 @@ export default function Programing() {
                                     placeholder="x"
                                 />
                             </div>
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                                <InputPrimary
+                                    label="Data do cadastro"
+                                    placeholder="x"
+                                />
 
+                                <InputPrimary
+                                    label="Dias em aberto"
+                                    placeholder="x"
+                                />
+                            </div>
+                            <div className="mt-2" >
+                            
+                                <InputUpload label="Anexar documento(s)"/>
 
+                            </div>
                         </SectionCard>
                     </div>
+
                     <div className="flex-1">
                         <SectionCard title="Programação">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
+                                <InputPrimary
+                                    label="Data"
+                                    placeholder="00/00/0000"
+                                />
+                                <InputSelect
+                                    label="Turno"
+                                    options={options}
+                                    onChange={handleSelectChange}
+                                />
+                                <InputSelect
+                                    label="encarregado"
+                                    options={overseer}
+                                    onChange={handleSelectChange}
+                                />
+                            </div>
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
+                                
+                            </div>
 
                         </SectionCard>
 
                         <div>
 
                         </div>
-
                     </div>
 
                 </div>
