@@ -6,6 +6,8 @@ import InputPrimary from "../../components/inputs/inputPrimary";
 import InputSelect from "../../components/inputs/inputSelect";
 import InputUpload from "../../components/inputs/inputUpload";
 import MultiSelect from "../../components/inputs/multiSelect";
+import ButtonPrimary from "../../components/buttons/buttonPrimary";
+import ButtonSecondary from "../../components/buttons/buttonSecondary";
 
 export default function Programing() {
 
@@ -18,8 +20,19 @@ export default function Programing() {
         { label: '08h ás 12h', value: 'manha' },
         { label: '14h ás 18h', value: 'tarde' },
         { label: '19h as 22h', value: 'noite' },
-        { label: '08h as 18h', value: 'integral' }
+        { label: '08h as 18h', value: 'integral'}
     ];
+
+    const professionals = [
+        { label: 'FULANO', value: 'fulano' },
+        { label: 'CICLANO', value: 'ciclano' },
+        { label: 'BELTRANO', value: 'beltrano' },
+        { label: 'CABOCLO', value: 'caboclo'}
+    ];
+
+    const handleMultiSelectChange = (selectedOptions) => {
+        console.log('Selecionado:', selectedOptions);
+      };
 
     const handleSelectChange = (event) => {
         console.log('Selecionado:', event.target.value);
@@ -52,7 +65,7 @@ export default function Programing() {
                     />
                 </div>
                 <div className="flex flex-col mx-4 gap-x-2.5 md:flex-row">
-                    <div className="flex-1">
+                    <div className="w-full md:w-5/12">
                         <SectionCard title="Dados da ordem de serviço">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                                 <InputPrimary
@@ -134,8 +147,29 @@ export default function Programing() {
                                     onChange={handleSelectChange}
                                 />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
-                                
+                            <div className="grid grid-cols-1 md:grid-cols-1">
+                                <MultiSelect
+                                    label="Profissional(is)"
+                                    options={professionals}
+                                    onChange={handleMultiSelectChange}
+                                    />
+                                <InputPrimary
+                                    label="Custo estimado"
+                                    placeholder="Informe"
+                                />
+                                <InputPrimary
+                                    label="Observação"
+                                    placeholder="Informe"
+                                />
+                            </div>
+                            <div className="flex flex-col md:flex-row justify-end gap-y-2">
+                                <ButtonPrimary>
+                                        Salvar
+                                </ButtonPrimary>
+                            
+                                <ButtonSecondary>
+                                        Cancelar
+                                </ButtonSecondary>
                             </div>
 
                         </SectionCard>
