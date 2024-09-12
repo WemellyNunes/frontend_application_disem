@@ -8,8 +8,11 @@ import InputUpload from "../../components/inputs/inputUpload";
 import MultiSelect from "../../components/inputs/multiSelect";
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
+import { useNavigate } from "react-router-dom";
 
 export default function Programing() {
+
+    const navigate = useNavigate();
 
     const overseer = [
         { label: 'Almir lima', value: 'encarregado1' },
@@ -167,8 +170,7 @@ export default function Programing() {
                                         Salvar
                                 </ButtonPrimary>
                             
-                                <ButtonSecondary>
-                                        Cancelar
+                                <ButtonSecondary onClick={ e => navigate("../Listing")} >Cancelar
                                 </ButtonSecondary>
                             </div>
 
