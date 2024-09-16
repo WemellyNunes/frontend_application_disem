@@ -8,9 +8,12 @@ import InputUpload from "../../components/inputs/inputUpload";
 import MultiSelect from "../../components/inputs/multiSelect";
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+
 
 export default function Programing() {
+
+    const {id} = useParams();
 
     const navigate = useNavigate();
 

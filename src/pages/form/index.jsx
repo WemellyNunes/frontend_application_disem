@@ -187,17 +187,13 @@ export default function Form() {
                         </SectionCard>
 
                     </div>
+
                     <div className="flex flex-col m-6 items-center justify-center md:flex-row gap-y-2">
                         <ButtonPrimary onClick={e => navigate("../Dashboard")} >Salvar</ButtonPrimary>
                         <ButtonSecondary onClick={e => navigate("../Programing")} >Salvar e Programar</ButtonSecondary>
                     </div>
-
-
                 </div>
-
-
             </div>
-
         </>
     )
 };

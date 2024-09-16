@@ -12,7 +12,7 @@ export default function AppRoutes() {
                 <Route path="/" element={<Login />} />
                 <Route path="dashboard" element={<Dashboard />} />
                 <Route path="form" element={<Form />} />
-                <Route path="programing" element={<Programing />} />
+                <Route path="programing/:id" element={<Programing />} />
                 <Route path="listing" element={<Listing />} />
             </Routes>
         </Router>

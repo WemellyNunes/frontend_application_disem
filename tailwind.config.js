@@ -23,6 +23,18 @@ export default {
               light: '#2783ED',
               back: '#D9D9D9',
               border: '#CAD8F6',
+            },
+            status: {
+              open: '#FF9900',
+              bgOpen: '#FDE8C8',
+              prog: '#1351B4',
+              bgProg: '#CADBF6',
+              resp: '#08563F',
+              bgResp: '#3CD8A9',
+              finish: '#042E72',
+              bgFinish: '#C8D4E6',
+              negative: '#851B03',
+              bgNegative: '#FE9E89',
             }
           },
         },
