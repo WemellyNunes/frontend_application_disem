@@ -1,6 +1,6 @@
 import PageTitle from "../../components/title"
 import { FaListUl } from "react-icons/fa";
-import TabsAndTable from "../../components/table";
+import TabsAndTable from "../../components/table/tabsAndTable";
 
 
 export default function Listing() {
