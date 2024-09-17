@@ -1,8 +1,8 @@
 import Row from "../rows";
 
-const Table = ({ filteredData }) => {
+const Table = ({ filteredData, onProgramClick }) => {
     return (
-        <table className="min-w-full table-auto mt-1 shadow-md">
+        <table className="min-w-full table-auto mt-1 ">
             <thead className="font-light">
                 <tr className="bg-white text-primary-light text-sm font-light border-b">
                     <th className=" px-4 py-6">N° Requisição</th>
@@ -19,11 +19,11 @@ const Table = ({ filteredData }) => {
             <tbody>
                 {filteredData.length > 0 ? (
                     filteredData.map((item, index) => (
-                        <Row key={item.id} item={item} index={index} />
+                        <Row key={item.id} item={item} index={index} onProgramClick={onProgramClick} />
                     ))
                 ) : (
                     <tr>
-                        <td colSpan="8" className="p-2 text-center text-primary-dark">
+                        <td colSpan="9" className="p-2 text-center text-primary-dark">
                             Nenhum registro encontrado
                         </td>
                     </tr>

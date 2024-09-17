@@ -1,3 +1,6 @@
+import { FaCirclePlus } from "react-icons/fa6";
+
+
 const Row = ({ item, index, onProgramClick }) => {
 
     const statusClasses = {
@@ -9,13 +12,12 @@ const Row = ({ item, index, onProgramClick }) => {
     };
 
     return (
-        <tr className={`text-center text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+        <tr className={`text-center text-sm  hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
             <td className="px-2 py-3">{item.requisicao}</td>
             <td className="p-2">{item.criacao}</td>
             <td className="p-2">{item.origem}</td>
             <td className="p-2">{item.tipo}</td>
-            <td className="p-2">
-                <a href="#" className="text-blue-500 underline">{item.sistema}</a>
+            <td className="p-2">{item.sistema}
             </td>
             <td className="p-2">{item.unidade}</td>
             <td className="p-2">{item.solicitante}</td>
@@ -25,8 +27,11 @@ const Row = ({ item, index, onProgramClick }) => {
                         Programada
                     </button>
                 ) : (
-                    <button onClick={() => onProgramClick(item.id)} className="text-blue-500 underline">
+                    <button onClick={() => onProgramClick(item.id)} className="flex w-full flex-col text-primary-dark items-center justify-center">
                         Sem programação
+                        <div className="text-primary-light">
+                            <FaCirclePlus />
+                        </div>
                     </button>
                 )}
             </td>
