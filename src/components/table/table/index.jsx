@@ -13,6 +13,7 @@ const Table = ({ filteredData, onProgramClick }) => {
                     <th className="px-4 py-6">Unidade</th>
                     <th className="px-4 py-6">Solicitante</th>
                     <th className="px-4 py-6">Programação</th>
+                    <th className="px-4 py-6">Historico</th>
                     <th className="px-4 py-6">Status</th>
                 </tr>
             </thead>
