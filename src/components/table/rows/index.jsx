@@ -2,6 +2,7 @@ import { FaCirclePlus } from "react-icons/fa6";
 import { MdHistory } from "react-icons/md";
 import { useState } from "react";
 import HistoryCard from "../../cards/historyCard";
+import ActionsMenu from "../../verticalMenu/actionMenu";
 
 
 const Row = ({ item, index, onProgramClick }) => {
@@ -20,6 +21,18 @@ const Row = ({ item, index, onProgramClick }) => {
         `OS Nº ${item.requisicao} Editada em 00/00/0000 agente: Fulano da Silva`,
         `OS Nº ${item.requisicao} Programada em 00/00/0000 agente: Fulano da Silva`
     ];
+
+    const handleView = () => {
+        console.log(`Visualizar OS ${item.id}`);
+    };
+
+    const handleEdit = () => {
+        console.log(`Editar OS ${item.id}`);
+    };
+
+    const handleDelete = () => {
+        console.log(`Excluir OS ${item.id}`);
+    };
 
     return (
         <>
@@ -50,6 +63,9 @@ const Row = ({ item, index, onProgramClick }) => {
                     <div className={`py-2 ${statusClasses[item.status]}`}>
                         {item.status}
                     </div>
+                </td>
+                <td className="p-2">
+                    <ActionsMenu onView={handleView} onEdit={handleEdit} onDelete={handleDelete} />
                 </td>
             </tr>
 

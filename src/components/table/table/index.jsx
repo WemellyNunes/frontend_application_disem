@@ -15,6 +15,7 @@ const Table = ({ filteredData, onProgramClick }) => {
                     <th className="px-4 py-6">Programação</th>
                     <th className="px-4 py-6">Historico</th>
                     <th className="px-4 py-6">Status</th>
+                    <th className="px-4 py-6">Ação</th>
                 </tr>
             </thead>
             <tbody>
