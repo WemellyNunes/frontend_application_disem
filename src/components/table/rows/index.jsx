@@ -5,10 +5,11 @@ import HistoryCard from "../../cards/historyCard";
 import ActionsMenu from "../../verticalMenu/actionMenu";
 import ConfirmationModal from "../../modal/confirmation";
 
-
 const Row = ({ item, index, onProgramClick }) => {
     const [showHistory, setShowHistory] = useState(false);
-
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [actionType, setActionType] = useState(null);
+    
     const statusClasses = {
         'A atender': 'font-medium text-status-open bg-status-bgOpen rounded-full',
         'Em atendimento': 'font-medium  text-status-prog bg-status-bgProg rounded-full',
@@ -23,13 +24,9 @@ const Row = ({ item, index, onProgramClick }) => {
         `OS Nº ${item.requisicao} Programada em 00/00/0000 agente: Fulano da Silva`
     ];
     
-    const [showConfirmation, setShowConfirmation] = useState(false);
-    const [actionType, setActionType] = useState(null);
-    
     const handleView = () => {
         console.log(`Visualizar OS ${item.id}`);
     };
-
 
     const handleEdit = () => {
         setActionType('edit');

@@ -10,7 +10,7 @@ const Tabs = ({ activeTab, setActiveTab }) => {
                     onClick={() => setActiveTab(tab)}
                     className={`px-4 py-4 ${activeTab === tab
                             ? 'border-b-2 border-primary-light text-primary-light'
-                            : 'text-gray-600'
+                            : 'text-primary-dark'
                         }`}
                 >
                     {tab}
