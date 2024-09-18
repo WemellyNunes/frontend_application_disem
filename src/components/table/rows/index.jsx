@@ -11,11 +11,11 @@ const Row = ({ item, index, onProgramClick }) => {
     const [actionType, setActionType] = useState(null);
     
     const statusClasses = {
-        'A atender': 'font-medium text-status-open bg-status-bgOpen rounded-full',
-        'Em atendimento': 'font-medium  text-status-prog bg-status-bgProg rounded-full',
-        'Resolvido': 'font-medium text-status-resp bg-status-bgResp rounded-full',
-        'Finalizada': 'font-medium text-status-finish bg-status-bgFinish rounded-full',
-        'Negada': 'font-medium text-status-negative bg-status-bgNegative rounded-full'
+        'A atender': 'font-medium text-status-open bg-status-bgOpen rounded-full p-1',
+        'Em atendimento': 'font-medium  text-status-prog bg-status-bgProg rounded-full p-1',
+        'Resolvido': 'font-medium text-status-resp bg-status-bgResp rounded-full p-1',
+        'Finalizada': 'font-medium text-status-finish bg-status-bgFinish rounded-full p-1',
+        'Negada': 'font-medium text-status-negative bg-status-bgNegative rounded-full p-1      '
     };
 
     const history = [
@@ -51,7 +51,7 @@ const Row = ({ item, index, onProgramClick }) => {
 
     return (
         <>
-            <tr className={`text-center text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+            <tr className={`text-center text-xs md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                 <td className="px-2 py-3">{item.requisicao}</td>
                 <td className="p-2">{item.criacao}</td>
                 <td className="p-2">{item.origem}</td>
