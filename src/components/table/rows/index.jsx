@@ -1,8 +1,9 @@
-import { FaCirclePlus } from "react-icons/fa6";
+import { FaCirclePlus,  FaRegClock} from "react-icons/fa6";
 import { MdHistory } from "react-icons/md";
 import { useState } from "react";
 import HistoryCard from "../../cards/historyCard";
 import ActionsMenu from "../../verticalMenu/actionMenu";
+import ConfirmationModal from "../../modal/confirmation";
 
 
 const Row = ({ item, index, onProgramClick }) => {
@@ -21,17 +22,34 @@ const Row = ({ item, index, onProgramClick }) => {
         `OS Nº ${item.requisicao} Editada em 00/00/0000 agente: Fulano da Silva`,
         `OS Nº ${item.requisicao} Programada em 00/00/0000 agente: Fulano da Silva`
     ];
-
+    
+    const [showConfirmation, setShowConfirmation] = useState(false);
+    const [actionType, setActionType] = useState(null);
+    
     const handleView = () => {
         console.log(`Visualizar OS ${item.id}`);
     };
 
+
     const handleEdit = () => {
-        console.log(`Editar OS ${item.id}`);
+        setActionType('edit');
+        setShowConfirmation(true);
     };
 
     const handleDelete = () => {
-        console.log(`Excluir OS ${item.id}`);
+        setActionType('delete');
+        setShowConfirmation(true);
+    };
+
+    const handleConfirmAction = () => {
+        setShowConfirmation(false);
+        if (actionType === 'edit') {
+            console.log(`Confirmar Edição da OS ${item.id}`);
+            // Adicione a lógica para editar a OS aqui
+        } else if (actionType === 'delete') {
+            console.log(`Confirmar Exclusão da OS ${item.id}`);
+            // Adicione a lógica para excluir a OS aqui
+        }
     };
 
     return (
@@ -46,17 +64,26 @@ const Row = ({ item, index, onProgramClick }) => {
                 <td className="p-2">{item.solicitante}</td>
                 <td className="p-2">
                     <button onClick={() => onProgramClick(item.id)} className="flex w-full flex-col text-primary-dark items-center justify-center hover:underline">
-                        {item.programada ? 'Programada' : 'Sem programação'}
-                        <div className="text-primary-light">
-                            <FaCirclePlus />
-                        </div>
+                        {item.programada ? (
+                            <>
+                                Programada
+                                <div className="text-primary-light">
+                                    <FaRegClock />
+                                </div>
+                            </>
+                        ) : (
+                            <>
+                                Sem programação
+                                <div className="text-primary-light">
+                                    <FaCirclePlus />
+                                </div>
+                            </>
+                        )}
                     </button>
                 </td>
                 <td className="p-2">
                     <button onClick={() => setShowHistory(true)} className="flex w-full flex-col text-primary-dark items-center justify-center hover:underline">
-                        {/* Ícone ou texto para Histórico */}
-                        <span>Histórico</span>
-                        <span className="text-primary-light" ><MdHistory /></span>
+                        <div className="text-primary-light" ><MdHistory size={20} /></div>
                     </button>
                 </td>
                 <td className="p-2">
@@ -66,6 +93,15 @@ const Row = ({ item, index, onProgramClick }) => {
                 </td>
                 <td className="p-2">
                     <ActionsMenu onView={handleView} onEdit={handleEdit} onDelete={handleDelete} />
+
+                    {showConfirmation && (
+                <ConfirmationModal
+                    title={actionType === 'delete' ? "Confirmar Exclusão" : "Confirmar Edição"}
+                    message={`Tem certeza que deseja ${actionType === 'delete' ? "excluir" : "editar"} a OS ${item.id}?`}
+                    onConfirm={handleConfirmAction}
+                    onCancel={() => setShowConfirmation(false)}
+                />
+            )}
                 </td>
             </tr>
 
