@@ -12,7 +12,7 @@ export default function Dashboard() {
         <>
             <div className="flex flex-col mt-16 md:mt-20">
 
-                <div className="flex justify-center mx-4">
+                <div className="flex justify-center mx-1.5 md:mx-4">
                     <PageTitle
                         icon={MdStackedBarChart}
                         text="Visão geral"
@@ -21,7 +21,7 @@ export default function Dashboard() {
                     />
                 </div>
 
-                <div className="flex flex-row justify-between mx-4 mt-2 gap-x-1 overflow-x-auto">
+                <div className="flex flex-row justify-between mx-1.5 md:mx-4 mt-2 gap-x-1 overflow-x-auto">
                     <StatCard
                         title="Sipac"
                         approved={13}
@@ -60,7 +60,7 @@ export default function Dashboard() {
                         backgroundColor="bg-primary-light"
                     />
                 </div>
-                <div className="flex flex-col mx-4 mb-2">
+                <div className="flex flex-col mx-1.5 md:mx-4 mb-2">
                     <div className="flex flex-col gap-x-1.5 sm:flex-row">
                         <Card>
                             <BarGraphic/>

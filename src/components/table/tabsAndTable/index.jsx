@@ -46,6 +46,7 @@ const TabsAndTable = () => {
     const filteredData = filterData();
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const currentItems = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    
     const handlePageChange = (pageNumber) => {
         setCurrentPage(pageNumber);
     };

@@ -16,7 +16,7 @@ export default function Login() {
                         <h2 className="text-3xl font-semibold text-primary-light">Olá, colaborador. Bem vindo de volta!</h2>
                         <p className="text-lg font-normal text-primary-dark">Realize seu login e bom trabalho!</p>
                     </div>
-                    <div className="hidden md:block"> {/* Imagem oculta em telas pequenas, visível em md+ */}
+                    <div className="hidden md:block">
                         <img src="./images/imgLogin.png" alt="" width={"550px"} />
                     </div>
                 </div>
