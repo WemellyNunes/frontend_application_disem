@@ -1,24 +1,31 @@
 import { FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
-const SearchInput = ({ placeholder }) => {
+const SearchInput = ({ placeholder, onSearch }) => {
     const [isExpanded, setIsExpanded] = useState(false);
+    const [searchTerm, setSearchTerm] = useState('');
 
     const toggleExpand = () => {
         setIsExpanded(!isExpanded);
     };
 
+    const handleInputChange = (e) => {
+        setSearchTerm(e.target.value);
+        onSearch(e.target.value); // Chame a função de pesquisa ao digitar
+    };
+
     return (
-        <div className={`flex items-center ${isExpanded ? 'bg-blue-600 rounded-md w-full max-w-xs' : ''} bg-blue-600 h-9 px-2 rounded`  }>
+        <div className={`flex items-center bg-white border border-gray-300 shadow-sm h-9 px-2 rounded-md transition-all duration-300 ease-in-out ${isExpanded ? 'w-full' : 'w-9'} md:w-1/4`}>
             <FaSearch
-                className="text-white cursor-pointer"
+                className="text-primary-light cursor-pointer"
                 onClick={toggleExpand}
             />
             <input
                 type="text"
                 placeholder={placeholder}
-                className={`bg-blue-600 text-white placeholder-white rounded-md py-1 px-2 focus:outline-none w-full transition-all duration-300 ease-in-out ${isExpanded ? 'ml-2 block' : 'hidden'
-                    } md:block`}
+                value={searchTerm}
+                onChange={handleInputChange}
+                className={`bg-white text-primary-dark w-full placeholder-primary-dark rounded-md py-1 px-2 focus:outline-none transition-all duration-300 ease-in-out ${isExpanded ? 'ml-2 block' : 'hidden'} md:block w-full' `}
             />
         </div>
     );

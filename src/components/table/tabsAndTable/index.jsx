@@ -2,10 +2,11 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Tabs from '../tabs';
 import Table from '../table';
+import SearchInput from '../../inputs/searchInput';
 
 const data = [
-    { id: 1, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
-    { id: 2, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
+    { id: 1, requisicao: '90000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false  },
+    { id: 2, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'SANITARIO', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
     { id: 3, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Em atendimento', programada: true },
     { id: 4, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
     { id: 5, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
@@ -19,6 +20,7 @@ const TabsAndTable = () => {
     const [activeTab, setActiveTab] = useState('Abertas');
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(10);
+    const [searchTerm, setSearchTerm] = useState('');
     
     const navigate = useNavigate();
 
@@ -31,6 +33,10 @@ const TabsAndTable = () => {
         setOsData(updatedData);
     };
 
+    const handleSearch = (term) => {
+        setSearchTerm(term);
+    };
+
     const filterData = () => {
         const statusMap = {
             'Abertas': 'A atender',
@@ -40,10 +46,23 @@ const TabsAndTable = () => {
             'Negadas': 'Negada'
         };
 
-        return osData.filter(item => item.status === statusMap[activeTab]);
+        let filteredData = osData.filter(item => item.status === statusMap[activeTab]);
+
+        if (searchTerm) {
+            filteredData = filteredData.filter(item => 
+                item.requisicao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.solicitante.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.tipo.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                item.unidade.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.sistema.toLowerCase().includes(searchTerm.toLowerCase())
+            );
+        }
+
+        return filteredData; // Faltava retornar os dados filtrados
     };
 
     const filteredData = filterData();
+    
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const currentItems = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
     
@@ -53,22 +72,21 @@ const TabsAndTable = () => {
 
     const handleItemsPerPageChange = (event) => {
         setItemsPerPage(Number(event.target.value));
-        setCurrentPage(1); // Resetar para a primeira página
+        setCurrentPage(1); 
     };
 
     return (
         <div className="mx-4 mt-1 w-full">
+            <div className= 'flex mb-1.5 mx-1.5 md:mx-0 '>
+                <SearchInput placeholder="Buscar..." onSearch={handleSearch} /> {/* Adicione onSearch aqui */}
+            </div>
+
             <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
             <Table filteredData={currentItems} onProgramClick={handleProgramClick} />
-            
-            {/* Footer para Paginação */}
             <div className="flex justify-between  bg-white items-center px-4 py-2 text-xs text-primary-dark">
-                {/* Contador de itens */}
                 <div>
                     {filteredData.length} itens de {filteredData.length}
                 </div>
-                
-                {/* Limite de itens por página */}
                 <div>
                     <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
                         <option value={10}>10</option>
@@ -76,8 +94,6 @@ const TabsAndTable = () => {
                         <option value={30}>30</option>
                     </select>
                 </div>
-
-                {/* Navegação entre páginas */}
                 <div>
                     <button onClick={() => handlePageChange(Math.max(currentPage - 1, 1))} disabled={currentPage === 1}>
                         &lt;
