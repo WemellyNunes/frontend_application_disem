@@ -9,6 +9,7 @@ import MultiSelect from "../../components/inputs/multiSelect";
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
 import { useNavigate, useParams } from "react-router-dom";
+import DateTimePicker from "../../components/inputs/dateTimePicker";
 
 
 export default function Programing() {
@@ -46,6 +47,10 @@ export default function Programing() {
 
     const handleHistoryClick = () => {
         alert('historico de OS')
+    };
+
+    const handleDateChange = (date) => {
+        console.log("Data selecionada:", date);
     };
 
     return (
@@ -138,10 +143,13 @@ export default function Programing() {
                     <div className="flex-1">
                         <SectionCard title="Programação">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
-                                <InputPrimary
-                                    label="Data"
-                                    placeholder="00/00/0000"
+
+                                <DateTimePicker 
+                                    label="Data programada"
+                                    placeholder="exemplo: 00/00/0000"
+                                    onDateChange={handleDateChange}
                                 />
+                                
                                 <InputSelect
                                     label="Turno"
                                     options={options}

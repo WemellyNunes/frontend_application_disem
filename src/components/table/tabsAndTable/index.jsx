@@ -5,11 +5,11 @@ import Table from '../table';
 import SearchInput from '../../inputs/searchInput';
 
 const data = [
-    { id: 1, requisicao: '90000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false  },
-    { id: 2, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'SANITARIO', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
-    { id: 3, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Em atendimento', programada: true },
+    { id: 1, requisicao: '90000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'SANITARIO', unidade: 'UNIDADE X', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false  },
+    { id: 2, requisicao: '15230', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'SANITARIO', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false  },
+    { id: 3, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true },
     { id: 4, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
-    { id: 5, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
+    { id: 5, requisicao: '00000', criacao: '00/00/0000', origem: 'SIPAC', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
     { id: 6, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
     { id: 7, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  },
     { id: 8, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false  }
