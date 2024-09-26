@@ -10,29 +10,27 @@ import './index.css'
 registerLocale('pt-BR', ptBR);
 
 const DateTimePicker = ({ label, placeholder, onDateChange }) => {
-  const [inputValue, setInputValue] = useState(""); // Para manter o valor digitado
-  const [startDate, setStartDate] = useState(null); // Estado da data
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); // Controla exibição do calendário
+  const [inputValue, setInputValue] = useState(""); // 
+  const [startDate, setStartDate] = useState(null); // 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
 
-  // Função para formatar a data digitada no formato dd/MM/yyyy
+ 
   const formatInputDate = (value) => {
-    // Remove qualquer caractere que não seja número
     let cleanValue = value.replace(/\D/g, "");
 
-    // Formatação de data no estilo dd/MM/yyyy
+   
     if (cleanValue.length >= 2) cleanValue = cleanValue.slice(0, 2) + "/" + cleanValue.slice(2);
     if (cleanValue.length >= 5) cleanValue = cleanValue.slice(0, 5) + "/" + cleanValue.slice(5, 9);
 
     return cleanValue;
   };
 
-  // Função para lidar com a mudança no input
   const handleInputChange = (e) => {
     const value = e.target.value;
     const formattedValue = formatInputDate(value);
     setInputValue(formattedValue);
 
-    // Tenta parsear a data apenas se o valor tiver 10 caracteres (dd/MM/yyyy)
+   
     if (formattedValue.length === 10) {
       const parsedDate = parse(formattedValue, "dd/MM/yyyy", new Date());
       if (isValid(parsedDate)) {

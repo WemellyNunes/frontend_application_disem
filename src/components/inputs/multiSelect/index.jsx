@@ -1,27 +1,45 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
-const MultiSelect = ({ label, options, onChange }) => {
+const MultiSelect = ({ label, options, onChange, selectedValues = [] }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState([]);
+    const [selectedOptions, setSelectedOptions] = useState(selectedValues);
+
+    // Verificar se o estado de `selectedValues` mudou para evitar loops infinitos
+    useEffect(() => {
+        // Somente atualizar se `selectedValues` for diferente de `selectedOptions`
+        if (JSON.stringify(selectedOptions) !== JSON.stringify(selectedValues)) {
+            setSelectedOptions(selectedValues);
+        }
+    }, [selectedValues]);  // `useEffect` só depende de `selectedValues`
 
     const handleToggle = () => {
         setIsOpen(!isOpen);
     };
 
     const handleSelectOption = (option) => {
-        const alreadySelected = selectedOptions.includes(option);
+        const alreadySelected = selectedOptions.find((item) => item.value === option.value);
+
+        let updatedSelections;
 
         if (alreadySelected) {
-            setSelectedOptions(selectedOptions.filter((item) => item !== option));
+            // Se a opção já está selecionada, removê-la
+            updatedSelections = selectedOptions.filter((item) => item.value !== option.value);
         } else {
-            setSelectedOptions([...selectedOptions, option]);
+            // Se não está selecionada, adicioná-la
+            updatedSelections = [...selectedOptions, option];
         }
 
-        onChange([...selectedOptions, option]);
+        // Atualizar o estado local
+        setSelectedOptions(updatedSelections);
+
+        // Passar as seleções atualizadas para o componente pai
+        onChange(updatedSelections);
     };
 
-    const isSelected = (option) => selectedOptions.includes(option);
+    const isSelected = (option) => {
+        return selectedOptions.some((item) => item.value === option.value);
+    };
 
     return (
         <div className="w-full mb-4">
@@ -30,7 +48,7 @@ const MultiSelect = ({ label, options, onChange }) => {
             </label>
             <div className="relative">
                 <button
-                    className=" appearance-none w-full bg-white border border-gray-300
+                    className="appearance-none w-full bg-white border border-gray-300
                      text-gray-400 px-4 h-9 md:h-10 rounded leading-tight focus:outline-none 
                      focus:ring-2 focus:ring-blue-500 focus:border-blue-500 flex justify-between 
                      items-center my-1 text-sm italic"
@@ -63,26 +81,3 @@ const MultiSelect = ({ label, options, onChange }) => {
 };
 
 export default MultiSelect;
-
-
-/*
-como usa:
-
-const profissionais = [
-    { label: 'FULANINHO COSTA DA SILVA - FUNÇÃO', value: 'fulaninho' },
-    { label: 'CICLANINHO ALMEIDA - FUNÇÃO', value: 'ciclaninho' },
-    { label: 'BELTRANINHO PEREIRA - FUNÇÃO', value: 'beltraninho' },
-  ];
-
-  const handleMultiSelectChange = (selectedOptions) => {
-    console.log('Selecionado:', selectedOptions);
-  };
-
-   <MultiSelect
-          label="Profissional(is)"
-          options={profissionais}
-          onChange={handleMultiSelectChange}
-        />
-
-
-*/

@@ -8,13 +8,12 @@ import MessageBox from '../../box/message';
 import Tag from '../../tag';
 import { FiFilter } from "react-icons/fi";
 
-
 const data = [
-    { id: 1, requisicao: '90000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'SANITARIO', unidade: 'UNIDADE X', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 2, requisicao: '15230', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'SANITARIO', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 3, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true },
-    { id: 4, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
-    { id: 5, requisicao: '00000', criacao: '00/00/0000', origem: 'SIPAC', tipo: 'MANUTENÇÃO CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false }
+    { id: 1, requisicao: '90000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false },
+    { id: 2, requisicao: '15230', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false },
+    { id: 3, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true },
+    { id: 4, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
+    { id: 5, requisicao: '00000', criacao: '00/00/0000', origem: 'SIPAC', tipo: 'PREVENTIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false }
 ];
 
 const TabsAndTable = () => {
@@ -43,23 +42,27 @@ const TabsAndTable = () => {
     };
 
     const handleApplyFilters = (filters) => {
-        setAppliedFilters(filters);
-        setIsFilterModalOpen(false);
+        setAppliedFilters(filters);  // Salva os filtros aplicados
+        setIsFilterModalOpen(false);  // Fecha o modal após aplicar os filtros
     };
 
     const removeFilter = (filterKey, filterValue = null) => {
         setAppliedFilters((prev) => {
             const updatedFilters = { ...prev };
 
+            // Se o filtro for um array (ex: unidade, sistemas), remova o item específico
             if (filterValue && Array.isArray(updatedFilters[filterKey])) {
                 updatedFilters[filterKey] = updatedFilters[filterKey].filter((item) => item !== filterValue);
 
+                // Se o array ficar vazio, remova completamente o filtro do estado
                 if (updatedFilters[filterKey].length === 0) {
                     delete updatedFilters[filterKey];
                 }
             } else {
+                // Para filtros que não são arrays, remova o filtro inteiro
                 delete updatedFilters[filterKey];
             }
+
             return updatedFilters;
         });
     };
@@ -86,46 +89,68 @@ const TabsAndTable = () => {
         }
 
         if (appliedFilters) {
-            if (appliedFilters.requisicao) {
-                filtered = filtered.filter(item => item.requisicao.includes(appliedFilters.requisicao));
-            }
+
+            // Filtro por solicitante
             if (appliedFilters.solicitante) {
                 filtered = filtered.filter(item => item.solicitante.toLowerCase().includes(appliedFilters.solicitante.toLowerCase()));
             }
+
+            // Filtro por unidade (suportando múltiplas seleções)
             if (appliedFilters.unidade && appliedFilters.unidade.length > 0) {
                 filtered = filtered.filter(item =>
-                    appliedFilters.unidade.some(unit => item.unidade.toLowerCase().includes(unit.toLowerCase()))
+                    appliedFilters.unidade.some(unit => 
+                        item.unidade.toLowerCase().includes(unit.value.toLowerCase()))
                 );
             }
-            if (appliedFilters.tipoManutencao) {
-                filtered = filtered.filter(item => item.tipo.toLowerCase().includes(appliedFilters.tipoManutencao.toLowerCase()));
+
+            // Filtro por tipo de manutenção
+            if (appliedFilters.tipoManutencao && appliedFilters.tipoManutencao.length > 0) {
+                filtered = filtered.filter(item =>
+                    appliedFilters.tipoManutencao.some(tipo => 
+                        item.tipo.toLowerCase().includes(tipo.value.toLowerCase()))
+                );
             }
+
+            // Filtro por sistemas (suportando múltiplas seleções)
             if (appliedFilters.sistemas && appliedFilters.sistemas.length > 0) {
                 filtered = filtered.filter(item =>
-                    appliedFilters.sistemas.some(system => item.sistema.toLowerCase().includes(system.toLowerCase()))
+                    appliedFilters.sistemas.some(system => 
+                        item.sistema.toLowerCase().includes(system.value.toLowerCase()) // Comparando com `system.value`
+                    )
                 );
             }
-            if (appliedFilters.origem) {
-                filtered = filtered.filter(item => item.origem.toLowerCase().includes(appliedFilters.origem.toLowerCase()));
+        
+            // Filtro por origem (suportando múltiplas seleções)
+            if (appliedFilters.origem && appliedFilters.origem.length > 0) {
+                filtered = filtered.filter(item =>
+                    appliedFilters.origem.some(origin => 
+                        item.origem.toLowerCase().includes(origin.value.toLowerCase()))
+                );
             }
         }
 
         return filtered;
     };
 
-
-
     const memoizedFilteredData = useMemo(filterData, [appliedFilters, searchTerm, osData, activeTab]);
 
+    // Modificação para evitar exibir mensagem de erro nas abas 'Finalizadas' e 'Negadas'
     useEffect(() => {
         setFilteredData(memoizedFilteredData);
 
-        if (memoizedFilteredData.length === 0) {
-            setShowMessageBox(true);
+        if (memoizedFilteredData.length === 0 && Object.keys(appliedFilters).length === 0) {
+            if (activeTab === 'Finalizadas' || activeTab === 'Negadas') {
+                // Não exibir mensagem de erro para abas que ainda não possuem registros
+                setShowMessageBox(false);
+            } else {
+                // Exibir a mensagem de erro quando não houver resultados com base no estado atual
+                setShowMessageBox(true);
+            }
         } else {
+            // Ocultar a mensagem de erro se houver resultados ou filtros foram removidos
             setShowMessageBox(false);
         }
-    }, [memoizedFilteredData]);
+    }, [memoizedFilteredData, appliedFilters, activeTab]);
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
     const currentItems = filteredData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -145,10 +170,14 @@ const TabsAndTable = () => {
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
                     onClick={() => setIsFilterModalOpen(true)}
-                    className="flex items-center gap-2 bg-primary-light text-white px-4 h-9 rounded hover:bg-blue-600"
+                    className="flex items-center gap-2 bg-primary-light text-white px-3 md:px-4 h-9 rounded hover:bg-blue-600"
                 >
-                    <FiFilter size={15} />
-                    Filtrar
+                    <span>
+                        <FiFilter size={15} />
+                    </span>
+                    <span className='hidden md:block'>
+                        Filtrar
+                    </span>
                 </button>
             </div>
 
@@ -159,17 +188,18 @@ const TabsAndTable = () => {
                             appliedFilters[filterKey].map((item, idx) => (
                                 <Tag
                                     key={`${filterKey}-${idx}`}
-                                    label={item}
+                                    label={item.label || item.value || item}  // Extrai o label ou value se for um objeto
                                     onRemove={() => removeFilter(filterKey, item)}
                                 />
                             ))
                         ) : (
                             <Tag
                                 key={filterKey}
-                                label={appliedFilters[filterKey]}
+                                label={appliedFilters[filterKey].label || appliedFilters[filterKey].value || appliedFilters[filterKey]}  // Extrai o label ou value se for um objeto
                                 onRemove={() => removeFilter(filterKey)}
                             />
-                        ))
+                        )
+                    )
                 ))}
             </div>
 
@@ -208,6 +238,7 @@ const TabsAndTable = () => {
                 isOpen={isFilterModalOpen}
                 onClose={() => setIsFilterModalOpen(false)}
                 onApplyFilters={handleApplyFilters}
+                appliedFilters={appliedFilters}  // Passando os filtros aplicados
             />
 
             {showMessageBox && (

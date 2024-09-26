@@ -6,12 +6,12 @@ import MultiSelect from "../../inputs/multiSelect";
 import ButtonPrimary from "../../buttons/buttonPrimary";
 import ButtonSecondary from "../../buttons/buttonSecondary";
 
-const FilterModal = ({ isOpen, onClose, onApplyFilters }) => {
+const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  // Recebendo appliedFilters
   const options = [
-    { label: 'Instituto de Geociências e Engenharias', value: 'geo' },
-    { label: 'Instituto de Ciências e Exatas', value: 'ciex' },
-    { label: 'Instituto de Ciências Humanas', value: 'cih' },
-    { label: 'Centro de Tecnologia e Comunicação', value: 'tec' },
+    { label: 'IGE', value: 'ige' },
+    { label: 'ICE', value: 'ice' },
+    { label: 'ICH', value: 'ich' },
+    { label: 'CTIC', value: 'ctic' },
   ];
 
   const system = [
@@ -54,13 +54,11 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters }) => {
   };
 
   const handleMultiSelectChange = (name, selectedOptions) => {
-    if (selectedOptions && Array.isArray(selectedOptions)) {
-      setFilters((prevFilters) => ({
+    setFilters((prevFilters) => ({
         ...prevFilters,
-        [name]: selectedOptions.map((opt) => opt.value),
-      }));
-    }
-  };
+        [name]: selectedOptions,  // Atualiza o estado com as seleções do MultiSelect
+    }));
+};
 
   const handleApplyFilters = () => {
     const validFilters = Object.fromEntries(
@@ -69,6 +67,13 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters }) => {
     onApplyFilters(validFilters);
     onClose();
   };
+
+  // Inicializando os campos de filtros com os appliedFilters passados como prop
+  useEffect(() => {
+    if (appliedFilters) {
+      setFilters(appliedFilters);
+    }
+  }, [appliedFilters]);
 
   useEffect(() => {
     if (isOpen && inputRef.current) {
@@ -98,37 +103,35 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters }) => {
         </div>
 
         <div className="space-y-4">
-          <InputPrimary
-            label="N° da requisição"
-            name="requisicao"
-            placeholder="Informe"
-            onChange={handleInputChange}
-            ref={inputRef}
-          />
           <DateTimePicker
             label="Data de criação"
             placeholder="00/00/0000"
             onDateChange={handleDateChange}
+            value={filters.dataCriacao}  // Setando valor
           />
           <MultiSelect
             label="Unidade"
             options={options}
             onChange={(selectedOptions) => handleMultiSelectChange('unidade', selectedOptions)}
+            selectedValues={filters.unidade}  // Setando valor
           />
           <MultiSelect
             label="Sistemas"
             options={system}
             onChange={(selectedOptions) => handleMultiSelectChange('sistemas', selectedOptions)}
+            selectedValues={filters.sistemas}  // Setando valor
           />
           <MultiSelect
             label="Tipo de manutenção"
             options={maintence}
             onChange={(selectedOptions) => handleMultiSelectChange('tipoManutencao', selectedOptions)}
+            selectedValues={filters.tipoManutencao}  // Setando valor
           />
           <MultiSelect
             label="Origem"
             options={origin}
             onChange={(selectedOptions) => handleMultiSelectChange('origem', selectedOptions)}
+            selectedValues={filters.origem}  // Setando valor
           />
         </div>
 
