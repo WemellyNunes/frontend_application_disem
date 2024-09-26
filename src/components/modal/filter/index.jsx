@@ -1,0 +1,144 @@
+import React, { useState, useEffect, useRef } from 'react';
+import { FaTimes } from 'react-icons/fa';
+import DateTimePicker from "../../inputs/dateTimePicker";
+import InputPrimary from "../../inputs/inputPrimary";
+import MultiSelect from "../../inputs/multiSelect";
+import ButtonPrimary from "../../buttons/buttonPrimary";
+import ButtonSecondary from "../../buttons/buttonSecondary";
+
+const FilterModal = ({ isOpen, onClose, onApplyFilters }) => {
+  const options = [
+    { label: 'Instituto de Geociências e Engenharias', value: 'geo' },
+    { label: 'Instituto de Ciências e Exatas', value: 'ciex' },
+    { label: 'Instituto de Ciências Humanas', value: 'cih' },
+    { label: 'Centro de Tecnologia e Comunicação', value: 'tec' },
+  ];
+
+  const system = [
+    { label: 'CIVIL', value: 'civil' },
+    { label: 'ELETRICO', value: 'eletrico' },
+    { label: 'HIDROSANITARIO', value: 'hidro' },
+    { label: 'REFRIGERAÇÃO', value: 'refri' },
+    { label: 'MISTO', value: 'misto' }
+  ];
+
+  const maintence = [
+    { label: 'CORRETIVA', value: 'corretiva' },
+    { label: 'PREVENTIVA', value: 'preventiva' },
+  ];
+
+  const origin = [
+    { label: 'DISEM', value: 'disem' },
+    { label: 'SIPAC', value: 'sipac' },
+  ];
+
+  const [filters, setFilters] = useState({
+    requisicao: '',
+    dataCriacao: '',
+    unidade: [],
+    solicitante: '',
+    tipoManutencao: [],
+    sistemas: [],
+    origem: [],
+  });
+
+  const inputRef = useRef(null);
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setFilters({ ...filters, [name]: value });
+  };
+
+  const handleDateChange = (date) => {
+    setFilters({ ...filters, dataCriacao: date });
+  };
+
+  const handleMultiSelectChange = (name, selectedOptions) => {
+    if (selectedOptions && Array.isArray(selectedOptions)) {
+      setFilters((prevFilters) => ({
+        ...prevFilters,
+        [name]: selectedOptions.map((opt) => opt.value),
+      }));
+    }
+  };
+
+  const handleApplyFilters = () => {
+    const validFilters = Object.fromEntries(
+      Object.entries(filters).filter(([key, value]) => value && value.length > 0)
+    );
+    onApplyFilters(validFilters);
+    onClose();
+  };
+
+  useEffect(() => {
+    if (isOpen && inputRef.current) {
+      inputRef.current.focus();
+    }
+
+    const handleEsc = (event) => {
+      if (event.key === 'Escape') {
+        onClose();
+      }
+    };
+
+    document.addEventListener('keydown', handleEsc);
+    return () => document.removeEventListener('keydown', handleEsc);
+  }, [isOpen, onClose]);
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+      <div className="bg-white p-6 rounded-md shadow-lg w-96 max-w-full">
+        <div className="flex justify-between items-center mb-4">
+          <h3 className="text-xl font-medium text-primary-light">Filtrar por:</h3>
+          <button onClick={onClose}>
+            <FaTimes className="text-gray-500 hover:text-red-500" />
+          </button>
+        </div>
+
+        <div className="space-y-4">
+          <InputPrimary
+            label="N° da requisição"
+            name="requisicao"
+            placeholder="Informe"
+            onChange={handleInputChange}
+            ref={inputRef}
+          />
+          <DateTimePicker
+            label="Data de criação"
+            placeholder="00/00/0000"
+            onDateChange={handleDateChange}
+          />
+          <MultiSelect
+            label="Unidade"
+            options={options}
+            onChange={(selectedOptions) => handleMultiSelectChange('unidade', selectedOptions)}
+          />
+          <MultiSelect
+            label="Sistemas"
+            options={system}
+            onChange={(selectedOptions) => handleMultiSelectChange('sistemas', selectedOptions)}
+          />
+          <MultiSelect
+            label="Tipo de manutenção"
+            options={maintence}
+            onChange={(selectedOptions) => handleMultiSelectChange('tipoManutencao', selectedOptions)}
+          />
+          <MultiSelect
+            label="Origem"
+            options={origin}
+            onChange={(selectedOptions) => handleMultiSelectChange('origem', selectedOptions)}
+          />
+        </div>
+
+        <div className="flex justify-between mt-10">
+          <ButtonSecondary onClick={onClose}>Cancelar</ButtonSecondary>
+          <ButtonPrimary onClick={handleApplyFilters}>Adicionar</ButtonPrimary>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default FilterModal;

@@ -52,7 +52,7 @@ const DateTimePicker = ({ label, placeholder, onDateChange }) => {
   };
 
   return (
-    <div className="relative">
+    <div className="relative mb-4">
       <label className="block text-xs md:text-sm font-normal text-primary-dark mb-2">{label}</label>
       <div className="flex items-center border border-gray-300 rounded h-9 md:h-10 pl-4 pr-1 shadow-sm">
         <input
