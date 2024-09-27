@@ -4,7 +4,6 @@ import Tabs from '../tabs';
 import Table from '../table';
 import SearchInput from '../../inputs/searchInput';
 import FilterModal from '../../modal/filter';
-import MessageBox from '../../box/message';
 import Tag from '../../tag';
 import { FiFilter } from "react-icons/fi";
 
@@ -25,8 +24,15 @@ const TabsAndTable = () => {
     const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
     const [appliedFilters, setAppliedFilters] = useState({});
     const [filteredData, setFilteredData] = useState([]);
-    const [showMessageBox, setShowMessageBox] = useState(false);
     const navigate = useNavigate();
+
+    // Carrega os filtros do localStorage ao montar o componente
+    useEffect(() => {
+        const savedFilters = localStorage.getItem('appliedFilters');
+        if (savedFilters) {
+            setAppliedFilters(JSON.parse(savedFilters));
+        }
+    }, []);
 
     const handleProgramClick = (id) => {
         navigate(`/programing/${id}`);
@@ -42,26 +48,27 @@ const TabsAndTable = () => {
     };
 
     const handleApplyFilters = (filters) => {
-        setAppliedFilters(filters);  // Salva os filtros aplicados
-        setIsFilterModalOpen(false);  // Fecha o modal após aplicar os filtros
+        setAppliedFilters(filters);
+        setIsFilterModalOpen(false);
+        localStorage.setItem('appliedFilters', JSON.stringify(filters));  // Salva os filtros no localStorage
     };
 
     const removeFilter = (filterKey, filterValue = null) => {
         setAppliedFilters((prev) => {
             const updatedFilters = { ...prev };
 
-            // Se o filtro for um array (ex: unidade, sistemas), remova o item específico
             if (filterValue && Array.isArray(updatedFilters[filterKey])) {
                 updatedFilters[filterKey] = updatedFilters[filterKey].filter((item) => item !== filterValue);
 
-                // Se o array ficar vazio, remova completamente o filtro do estado
                 if (updatedFilters[filterKey].length === 0) {
                     delete updatedFilters[filterKey];
                 }
             } else {
-                // Para filtros que não são arrays, remova o filtro inteiro
                 delete updatedFilters[filterKey];
             }
+
+            // Atualiza o localStorage após remover o filtro
+            localStorage.setItem('appliedFilters', JSON.stringify(updatedFilters));
 
             return updatedFilters;
         });
@@ -90,12 +97,10 @@ const TabsAndTable = () => {
 
         if (appliedFilters) {
 
-            // Filtro por solicitante
             if (appliedFilters.solicitante) {
                 filtered = filtered.filter(item => item.solicitante.toLowerCase().includes(appliedFilters.solicitante.toLowerCase()));
             }
 
-            // Filtro por unidade (suportando múltiplas seleções)
             if (appliedFilters.unidade && appliedFilters.unidade.length > 0) {
                 filtered = filtered.filter(item =>
                     appliedFilters.unidade.some(unit => 
@@ -103,7 +108,6 @@ const TabsAndTable = () => {
                 );
             }
 
-            // Filtro por tipo de manutenção
             if (appliedFilters.tipoManutencao && appliedFilters.tipoManutencao.length > 0) {
                 filtered = filtered.filter(item =>
                     appliedFilters.tipoManutencao.some(tipo => 
@@ -111,16 +115,13 @@ const TabsAndTable = () => {
                 );
             }
 
-            // Filtro por sistemas (suportando múltiplas seleções)
             if (appliedFilters.sistemas && appliedFilters.sistemas.length > 0) {
                 filtered = filtered.filter(item =>
                     appliedFilters.sistemas.some(system => 
-                        item.sistema.toLowerCase().includes(system.value.toLowerCase()) // Comparando com `system.value`
-                    )
+                        item.sistema.toLowerCase().includes(system.value.toLowerCase()))
                 );
             }
         
-            // Filtro por origem (suportando múltiplas seleções)
             if (appliedFilters.origem && appliedFilters.origem.length > 0) {
                 filtered = filtered.filter(item =>
                     appliedFilters.origem.some(origin => 
@@ -134,22 +135,8 @@ const TabsAndTable = () => {
 
     const memoizedFilteredData = useMemo(filterData, [appliedFilters, searchTerm, osData, activeTab]);
 
-    // Modificação para evitar exibir mensagem de erro nas abas 'Finalizadas' e 'Negadas'
     useEffect(() => {
         setFilteredData(memoizedFilteredData);
-
-        if (memoizedFilteredData.length === 0 && Object.keys(appliedFilters).length === 0) {
-            if (activeTab === 'Finalizadas' || activeTab === 'Negadas') {
-                // Não exibir mensagem de erro para abas que ainda não possuem registros
-                setShowMessageBox(false);
-            } else {
-                // Exibir a mensagem de erro quando não houver resultados com base no estado atual
-                setShowMessageBox(true);
-            }
-        } else {
-            // Ocultar a mensagem de erro se houver resultados ou filtros foram removidos
-            setShowMessageBox(false);
-        }
     }, [memoizedFilteredData, appliedFilters, activeTab]);
 
     const totalPages = Math.ceil(filteredData.length / itemsPerPage);
@@ -188,14 +175,14 @@ const TabsAndTable = () => {
                             appliedFilters[filterKey].map((item, idx) => (
                                 <Tag
                                     key={`${filterKey}-${idx}`}
-                                    label={item.label || item.value || item}  // Extrai o label ou value se for um objeto
+                                    label={item.label || item.value || item}
                                     onRemove={() => removeFilter(filterKey, item)}
                                 />
                             ))
                         ) : (
                             <Tag
                                 key={filterKey}
-                                label={appliedFilters[filterKey].label || appliedFilters[filterKey].value || appliedFilters[filterKey]}  // Extrai o label ou value se for um objeto
+                                label={appliedFilters[filterKey].label || appliedFilters[filterKey].value || appliedFilters[filterKey]}
                                 onRemove={() => removeFilter(filterKey)}
                             />
                         )
@@ -238,17 +225,8 @@ const TabsAndTable = () => {
                 isOpen={isFilterModalOpen}
                 onClose={() => setIsFilterModalOpen(false)}
                 onApplyFilters={handleApplyFilters}
-                appliedFilters={appliedFilters}  // Passando os filtros aplicados
+                appliedFilters={appliedFilters}
             />
-
-            {showMessageBox && (
-                <MessageBox
-                    type="error"
-                    title="Erro:"
-                    message="Nenhum resultado encontrado para os filtros aplicados."
-                    onClose={() => setShowMessageBox(false)}
-                />
-            )}
         </div>
     );
 };
