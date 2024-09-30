@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import DateTimePicker from "../../inputs/dateTimePicker";
-import InputPrimary from "../../inputs/inputPrimary";
 import MultiSelect from "../../inputs/multiSelect";
 import ButtonPrimary from "../../buttons/buttonPrimary";
 import ButtonSecondary from "../../buttons/buttonSecondary";
@@ -31,6 +30,8 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
     { label: 'DISEM', value: 'disem' },
     { label: 'SIPAC', value: 'sipac' },
   ];
+
+  
 
   const [filters, setFilters] = useState({
     requisicao: '',

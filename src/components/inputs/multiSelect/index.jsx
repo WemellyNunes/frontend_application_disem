@@ -26,14 +26,11 @@ const MultiSelect = ({ label, options, onChange, selectedValues = [] }) => {
             // Se a opção já está selecionada, removê-la
             updatedSelections = selectedOptions.filter((item) => item.value !== option.value);
         } else {
-            // Se não está selecionada, adicioná-la
             updatedSelections = [...selectedOptions, option];
         }
 
-        // Atualizar o estado local
         setSelectedOptions(updatedSelections);
 
-        // Passar as seleções atualizadas para o componente pai
         onChange(updatedSelections);
     };
 

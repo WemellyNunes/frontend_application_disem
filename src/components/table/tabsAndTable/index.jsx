@@ -8,11 +8,12 @@ import Tag from '../../tag';
 import { FiFilter } from "react-icons/fi";
 
 const data = [
-    { id: 1, requisicao: '90000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 2, requisicao: '15230', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 3, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE II', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true },
-    { id: 4, requisicao: '00000', criacao: '00/00/0000', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
-    { id: 5, requisicao: '00000', criacao: '00/00/0000', origem: 'SIPAC', tipo: 'PREVENTIVA', sistema: 'CIVIL', unidade: 'UNIDADE X', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false }
+    { id: 1, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false },
+    { id: 2, requisicao: '15230', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'ICH', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false },
+    { id: 3, requisicao: '00000', criacao: '24/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true },
+    { id: 4, requisicao: '00000', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
+    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'PREVENTIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false },
+    { id: 6, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false }
 ];
 
 const TabsAndTable = () => {
@@ -26,7 +27,6 @@ const TabsAndTable = () => {
     const [filteredData, setFilteredData] = useState([]);
     const navigate = useNavigate();
 
-    // Carrega os filtros do localStorage ao montar o componente
     useEffect(() => {
         const savedFilters = localStorage.getItem('appliedFilters');
         if (savedFilters) {
@@ -50,7 +50,7 @@ const TabsAndTable = () => {
     const handleApplyFilters = (filters) => {
         setAppliedFilters(filters);
         setIsFilterModalOpen(false);
-        localStorage.setItem('appliedFilters', JSON.stringify(filters));  // Salva os filtros no localStorage
+        localStorage.setItem('appliedFilters', JSON.stringify(filters));
     };
 
     const removeFilter = (filterKey, filterValue = null) => {
@@ -67,11 +67,16 @@ const TabsAndTable = () => {
                 delete updatedFilters[filterKey];
             }
 
-            // Atualiza o localStorage após remover o filtro
             localStorage.setItem('appliedFilters', JSON.stringify(updatedFilters));
 
             return updatedFilters;
         });
+    };
+
+    // Função auxiliar para converter uma string de data no formato DD/MM/YYYY para um objeto Date
+    const parseDate = (dateStr) => {
+        const [day, month, year] = dateStr.split('/');
+        return new Date(`${year}-${month}-${day}`);
     };
 
     const filterData = () => {
@@ -91,40 +96,42 @@ const TabsAndTable = () => {
                 item.solicitante.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.tipo.toLowerCase().includes(searchTerm.toLowerCase()) ||
                 item.unidade.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                item.sistema.toLowerCase().includes(searchTerm.toLowerCase())
+                item.sistema.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.criacao.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                item.origem.toLowerCase().includes(searchTerm.toLowerCase())
             );
         }
 
         if (appliedFilters) {
-
-            if (appliedFilters.solicitante) {
-                filtered = filtered.filter(item => item.solicitante.toLowerCase().includes(appliedFilters.solicitante.toLowerCase()));
+            // Filtro por data de criação
+            if (appliedFilters.dataCriacao) {
+                filtered = filtered.filter(item => item.criacao === appliedFilters.dataCriacao);
             }
 
             if (appliedFilters.unidade && appliedFilters.unidade.length > 0) {
                 filtered = filtered.filter(item =>
-                    appliedFilters.unidade.some(unit => 
+                    appliedFilters.unidade.some(unit =>
                         item.unidade.toLowerCase().includes(unit.value.toLowerCase()))
                 );
             }
 
             if (appliedFilters.tipoManutencao && appliedFilters.tipoManutencao.length > 0) {
                 filtered = filtered.filter(item =>
-                    appliedFilters.tipoManutencao.some(tipo => 
+                    appliedFilters.tipoManutencao.some(tipo =>
                         item.tipo.toLowerCase().includes(tipo.value.toLowerCase()))
                 );
             }
 
             if (appliedFilters.sistemas && appliedFilters.sistemas.length > 0) {
                 filtered = filtered.filter(item =>
-                    appliedFilters.sistemas.some(system => 
+                    appliedFilters.sistemas.some(system =>
                         item.sistema.toLowerCase().includes(system.value.toLowerCase()))
                 );
             }
-        
+
             if (appliedFilters.origem && appliedFilters.origem.length > 0) {
                 filtered = filtered.filter(item =>
-                    appliedFilters.origem.some(origin => 
+                    appliedFilters.origem.some(origin =>
                         item.origem.toLowerCase().includes(origin.value.toLowerCase()))
                 );
             }
@@ -157,7 +164,7 @@ const TabsAndTable = () => {
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
                     onClick={() => setIsFilterModalOpen(true)}
-                    className="flex items-center gap-2 bg-primary-light text-white px-3 md:px-4 h-9 rounded hover:bg-blue-600"
+                    className="flex items-center gap-2 bg-primary-light text-white px-3 md:px-4 h-9 rounded hover:bg-primary-hover"
                 >
                     <span>
                         <FiFilter size={15} />
@@ -182,7 +189,7 @@ const TabsAndTable = () => {
                         ) : (
                             <Tag
                                 key={filterKey}
-                                label={appliedFilters[filterKey].label || appliedFilters[filterKey].value || appliedFilters[filterKey]}
+                                label={filterKey === 'dataCriacao' ? `Data: ${appliedFilters[filterKey]}` : appliedFilters[filterKey]}
                                 onRemove={() => removeFilter(filterKey)}
                             />
                         )

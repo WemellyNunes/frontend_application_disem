@@ -3,26 +3,33 @@ import { FaCalendarAlt } from "react-icons/fa";
 import DatePicker, { registerLocale } from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { isValid, parse, format } from "date-fns";
-import { ptBR } from "date-fns/locale"; 
+import { ptBR } from "date-fns/locale";
 import './index.css'
 
-// Registrando o locale PT-BR
 registerLocale('pt-BR', ptBR);
 
 const DateTimePicker = ({ label, placeholder, onDateChange }) => {
   const [inputValue, setInputValue] = useState(""); // 
   const [startDate, setStartDate] = useState(null); // 
-  const [isCalendarOpen, setIsCalendarOpen] = useState(false); 
+  const [isCalendarOpen, setIsCalendarOpen] = useState(false);
 
- 
+
   const formatInputDate = (value) => {
     let cleanValue = value.replace(/\D/g, "");
 
-   
+
     if (cleanValue.length >= 2) cleanValue = cleanValue.slice(0, 2) + "/" + cleanValue.slice(2);
     if (cleanValue.length >= 5) cleanValue = cleanValue.slice(0, 5) + "/" + cleanValue.slice(5, 9);
 
     return cleanValue;
+  };
+
+  const handleDateSelect = (date) => {
+    const formattedDate = format(date, "dd/MM/yyyy");
+    setInputValue(formattedDate);
+    setStartDate(date);
+    onDateChange && onDateChange(formattedDate); // Passa a data formatada como string
+    setIsCalendarOpen(false);
   };
 
   const handleInputChange = (e) => {
@@ -30,23 +37,13 @@ const DateTimePicker = ({ label, placeholder, onDateChange }) => {
     const formattedValue = formatInputDate(value);
     setInputValue(formattedValue);
 
-   
     if (formattedValue.length === 10) {
       const parsedDate = parse(formattedValue, "dd/MM/yyyy", new Date());
       if (isValid(parsedDate)) {
         setStartDate(parsedDate);
-        onDateChange && onDateChange(parsedDate);
+        onDateChange && onDateChange(formattedValue); // Passa a data formatada como string
       }
     }
-  };
-
-  // Ao selecionar uma data pelo calendário
-  const handleDateSelect = (date) => {
-    const formattedDate = format(date, "dd/MM/yyyy");
-    setInputValue(formattedDate);
-    setStartDate(date);
-    onDateChange && onDateChange(date);
-    setIsCalendarOpen(false); // Fecha o calendário após a seleção
   };
 
   return (

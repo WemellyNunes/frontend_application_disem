@@ -52,14 +52,14 @@ const Row = ({ item, index, onProgramClick }) => {
     return (
         <>
             <tr className={`text-center text-xs md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                <td className="px-2 py-3">{item.requisicao}</td>
-                <td className="p-2">{item.criacao}</td>
-                <td className="p-2">{item.origem}</td>
-                <td className="p-2">{item.tipo}</td>
-                <td className="p-2">{item.sistema}</td>
-                <td className="p-2">{item.unidade}</td>
-                <td className="p-2">{item.solicitante}</td>
-                <td className="p-2">
+                <td className="p-1 md:p-2">{item.requisicao}</td>
+                <td className="p-1 md:p-2">{item.criacao}</td>
+                <td className="p-1 md:p-2">{item.origem}</td>
+                <td className="p-1 md:p-2">{item.tipo}</td>
+                <td className="p-1 md:p-2">{item.sistema}</td>
+                <td className="p-1 md:p-2">{item.unidade}</td>
+                <td className="p-1 md:p-2">{item.solicitante}</td>
+                <td className="p-1 md:p-2">
                     <button onClick={() => onProgramClick(item.id)} className="flex w-full flex-col text-primary-dark items-center justify-center hover:underline">
                         {item.programada ? (
                             <>
