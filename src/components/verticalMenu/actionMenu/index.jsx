@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { GoKebabHorizontal } from "react-icons/go";
+
 
 const ActionsMenu = ({onEdit, onDelete }) => {
     const [isOpen, setIsOpen] = useState(false);
@@ -9,8 +11,8 @@ const ActionsMenu = ({onEdit, onDelete }) => {
 
     return (
         <div className="relative">
-            <button onClick={toggleMenu} className="text-primary-light font-bold text-lg hover:text-blue-900">
-                ⋮
+            <button onClick={toggleMenu} className="text-primary-light font-bold text-lg hover:text-blue-900 p-1 rounded-full hover:bg-status-bgProg">
+                <GoKebabHorizontal/>
             </button>
             {isOpen && (
                 <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10 text-primary-dark">

@@ -8,12 +8,13 @@ import Tag from '../../tag';
 import { FiFilter } from "react-icons/fi";
 
 const data = [
-    { id: 1, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 2, requisicao: '15230', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'ICH', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 3, requisicao: '00000', criacao: '24/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true },
-    { id: 4, requisicao: '00000', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true },
-    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'PREVENTIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false },
-    { id: 6, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false }
+    { id: 1, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 7 dias' },
+    { id: 2, requisicao: '15230', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'ICH', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 15 dias' },
+    { id: 3, requisicao: '00000', criacao: '24/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true, prioridade: 'Execução em até 2 dias' },
+    { id: 4, requisicao: '00000', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true, prioridade: 'Execução em até 7 dias' },
+    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'PREVENTIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 2 dias' },
+    { id: 6, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução Imediata' },
+    { id: 7, requisicao: '90000', criacao: '01/10/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'ELETRICO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução Imediata' }
 ];
 
 const TabsAndTable = () => {
@@ -73,10 +74,11 @@ const TabsAndTable = () => {
         });
     };
 
-    // Função auxiliar para converter uma string de data no formato DD/MM/YYYY para um objeto Date
-    const parseDate = (dateStr) => {
-        const [day, month, year] = dateStr.split('/');
-        return new Date(`${year}-${month}-${day}`);
+    const prioridadesPesos = {
+        'Execução Imediata': 1,
+        'Execução em até 2 dias': 2,
+        'Execução em até 7 dias': 3,
+        'Execução em até 15 dias': 4
     };
 
     const filterData = () => {
@@ -103,7 +105,6 @@ const TabsAndTable = () => {
         }
 
         if (appliedFilters) {
-            // Filtro por data de criação
             if (appliedFilters.dataCriacao) {
                 filtered = filtered.filter(item => item.criacao === appliedFilters.dataCriacao);
             }
@@ -137,8 +138,14 @@ const TabsAndTable = () => {
             }
         }
 
+        // Ordenar pela prioridade com base na criticidade
+        filtered = filtered.sort((a, b) => {
+            return prioridadesPesos[a.prioridade] - prioridadesPesos[b.prioridade];
+        });
+
         return filtered;
     };
+
 
     const memoizedFilteredData = useMemo(filterData, [appliedFilters, searchTerm, osData, activeTab]);
 

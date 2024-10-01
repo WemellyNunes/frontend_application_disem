@@ -4,6 +4,7 @@ import { useState } from "react";
 import HistoryCard from "../../cards/historyCard";
 import ActionsMenu from "../../verticalMenu/actionMenu";
 import ConfirmationModal from "../../modal/confirmation";
+import Circle from "../circle";
 
 const Row = ({ item, index, onProgramClick }) => {
     const [showHistory, setShowHistory] = useState(false);
@@ -78,14 +79,20 @@ const Row = ({ item, index, onProgramClick }) => {
                         )}
                     </button>
                 </td>
-                <td className="p-2">
-                    <button onClick={() => setShowHistory(true)} className="flex w-full flex-col text-primary-dark items-center justify-center hover:underline">
-                        <div className="text-primary-light" ><MdHistory size={20} /></div>
+                <td className="p-1 md:p-2">
+                    <button onClick={() => setShowHistory(true)} className="flex w-full flex-col text-primary-dark items-center justify-cente ">
+                        <div className="text-primary-light rounded-full hover:bg-status-bgProg p-1" ><MdHistory size={20} /></div>
                     </button>
                 </td>
                 <td className="p-2">
                     <div className={`py-2 ${statusClasses[item.status]}`}>
                         {item.status}
+                    </div>
+                </td>
+                <td className="p-1 md:p-2">
+                    <div className="flex justify-center">
+                        <Circle prioridade={item.prioridade} />
+
                     </div>
                 </td>
                 <td className="p-2">

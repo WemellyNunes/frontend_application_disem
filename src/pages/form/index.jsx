@@ -8,12 +8,17 @@ import RadioInput from "../../components/inputs/radioInput";
 import InputUpload from "../../components/inputs/inputUpload";
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
-import MessageBox from "../../components/box/message"; // Importe o componente MessageBox
+import MessageBox from "../../components/box/message";
 import { FaFileInvoice } from "react-icons/fa";
+import {calcularValorRisco, calcularPrioridade} from "../../utils/matriz";
 
 export default function Form() {
     const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('comum');
+    const [classe, setClasse] = useState('A'); 
+    const [indiceRisco, setIndiceRisco] = useState(17); 
+    const [valorRisco, setValorRisco] = useState(null); 
+    const [prioridade, setPrioridade] = useState(''); 
     const [showMessageBox, setShowMessageBox] = useState(false);
     const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
 
@@ -62,6 +67,13 @@ export default function Form() {
         { label: 'PREVENTIVA', },
     ];
 
+    const indicesRisco = [
+        { label: 'Risco de Acidentes', value: 'risco_acidentes' },
+        { label: 'Interrupções de Entrada de Parâmetros', value: 'integridade_estrutural' },
+        { label: 'Integridade Estrutural', value: 'sistemas_prevencao' },
+        { label: 'Fechamento de Áreas', value: 'acessibilidade' },
+    ];
+
     const handleRadioChange = (event) => {
         setSelectedOption(event.target.value);
     };
@@ -71,17 +83,21 @@ export default function Form() {
     };
 
     const handleSave = () => {
-        const isSuccess = true; // Simular se o envio foi bem-sucedido ou não
+        const valor = calcularValorRisco(classe, indiceRisco);
+        setValorRisco(valor);
+        
+        const prioridadeCalculada = calcularPrioridade(valor);
+        setPrioridade(prioridadeCalculada);
 
+        const isSuccess = true;
         if (isSuccess) {
-            setMessageContent({ type: 'success',title: 'Sucesso.' , message: 'Ordem de serviço salva com sucesso!' });
+            setMessageContent({ type: 'success', title: 'Sucesso.', message: `Ordem de serviço salva com prioridade: ${prioridadeCalculada}` });
             setShowMessageBox(true);
         } else {
             setMessageContent({ type: 'error', message: 'Erro ao salvar a ordem de serviço.' });
             setShowMessageBox(true);
         }
-        
-    
+
         setTimeout(() => {
             setShowMessageBox(false);
         }, 2000);
@@ -89,7 +105,6 @@ export default function Form() {
 
     return (
         <>
-            {/* Modal de mensagem sobreposto à página */}
             {showMessageBox && (
                 <MessageBox
                     type={messageContent.type}
@@ -125,7 +140,7 @@ export default function Form() {
                                 <InputSelect
                                     label="Classificação"
                                     options={classification}
-                                    onChange={handleSelectChange}
+                                    onChange={(e) => setClasse(e.target.value)}
                                 />
                             </div>
                         </SectionCard>
@@ -170,9 +185,9 @@ export default function Form() {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
                                 <InputSelect
-                                    label="Indicador de manutenção"
-                                    options={system}
-                                    onChange={handleSelectChange}
+                                    label="Indice de risco"
+                                    options={indicesRisco}
+                                    onChange={(e) => setIndiceRisco(parseInt(e.target.value))}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
