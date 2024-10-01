@@ -10,15 +10,15 @@ import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
 import MessageBox from "../../components/box/message";
 import { FaFileInvoice } from "react-icons/fa";
-import {calcularValorRisco, calcularPrioridade} from "../../utils/matriz";
+import { calcularValorRisco, calcularPrioridade } from "../../utils/matriz";
 
 export default function Form() {
     const navigate = useNavigate();
     const [selectedOption, setSelectedOption] = useState('comum');
-    const [classe, setClasse] = useState('A'); 
-    const [indiceRisco, setIndiceRisco] = useState(17); 
-    const [valorRisco, setValorRisco] = useState(null); 
-    const [prioridade, setPrioridade] = useState(''); 
+    const [classe, setClasse] = useState('A');
+    const [indiceRisco, setIndiceRisco] = useState(17);
+    const [valorRisco, setValorRisco] = useState(null);
+    const [prioridade, setPrioridade] = useState('');
     const [showMessageBox, setShowMessageBox] = useState(false);
     const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
 
@@ -85,9 +85,32 @@ export default function Form() {
     const handleSave = () => {
         const valor = calcularValorRisco(classe, indiceRisco);
         setValorRisco(valor);
-        
+
         const prioridadeCalculada = calcularPrioridade(valor);
         setPrioridade(prioridadeCalculada);
+
+        // Simular os dados que seriam enviados
+        const ordemDeServico = {
+            origem: selectedOption,
+            classe,
+            indiceRisco,
+            valorRisco: valor,
+            prioridade: prioridadeCalculada,
+            requisicao: document.querySelector('input[placeholder="Informe"]').value, // Exemplo de como pegar um valor de input
+            solicitante: document.querySelector('input[placeholder="Informe"]').value, // Ajuste conforme o placeholder correto ou adicione estados para armazenar esses valores
+            unidade: document.querySelector('select[name="unidade"]').value, // Ajuste conforme necessário
+            objetoPreparo: document.querySelector('input[placeholder="Informe"]').value,
+            tipoManutencao: document.querySelector('select[name="tipo_manutencao"]').value,
+            sistema: document.querySelector('select[name="sistema"]').value,
+            indiceRisco: document.querySelector('select[name="indice_risco"]').value,
+            unidadeManutencao: document.querySelector('select[name="unidade_manutencao"]').value,
+            campus: document.querySelector('input[placeholder="Informe"]').value,
+            tratamento: selectedOption,
+            documento: "caminho_do_arquivo" // Adicionar lógica para lidar com uploads se necessário
+        };
+
+        // Exibir no console para verificar
+        console.log('Dados da ordem de serviço:', ordemDeServico);
 
         const isSuccess = true;
         if (isSuccess) {
@@ -102,6 +125,7 @@ export default function Form() {
             setShowMessageBox(false);
         }, 2000);
     };
+
 
     return (
         <>
@@ -162,7 +186,7 @@ export default function Form() {
                         </SectionCard>
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-1 mb-20">
                         <SectionCard title="Dados da manutenção">
                             <div className="grid grid-cols-1 md:grid-cols-1">
                                 <InputPrimary
@@ -214,9 +238,16 @@ export default function Form() {
                         </SectionCard>
                     </div>
 
-                    <div className="flex flex-col m-6 items-center justify-center md:flex-row gap-y-2">
+
+
+
+                </div>
+                <div className="flex flex-col fixed bottom-0 left-0 right-0 mx-auto bg-white py-5 mt-4 items-center justify-end md:flex-row h-16 gap-y-2 z-50 shadow-2xl ">
+                    <div className="flex pr-0 md:pr-6">
                         <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
-                        <ButtonSecondary onClick={() => navigate("../Programing")}>Salvar e Programar</ButtonSecondary>
+                        <ButtonSecondary onClick={() => navigate("../Programing")}>
+                            Salvar e Programar
+                        </ButtonSecondary>
                     </div>
                 </div>
             </div>
