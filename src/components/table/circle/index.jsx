@@ -7,7 +7,7 @@ const Circle = ({ prioridade }) => {
     };
 
     return (
-        <div className={`w-4 h-4 rounded-full ${prioridadeClasses[prioridade]}`} />
+        <div className={`w-2.5 h-2.5 rounded-full ${prioridadeClasses[prioridade]}`} />
     );
 };
 
