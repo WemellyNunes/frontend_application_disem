@@ -9,7 +9,7 @@ const InputPrimary = forwardRef(({ label, placeholder }, ref) => {
 
   return (
     <div className="w-full flex flex-col mb-4">
-      <label className="block text-xs md:text-sm text-primary-dark font-normal mb-1" htmlFor="inputField">
+      <label className="block text-xs md:text-sm text-primary-dark font-light mb-1" htmlFor="inputField">
         {label}
       </label>
       <input

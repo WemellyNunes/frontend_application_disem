@@ -10,7 +10,7 @@ const InputSelect = ({ label, options, onChange }) => {
 
     return (
         <div className="w-full mb-4">
-            <label className="block text-primary-dark text-xs md:text-sm font-normal mb-2">
+            <label className="block text-primary-dark text-xs md:text-sm font-light mb-2">
                 {label}
             </label>
             <div className="relative">

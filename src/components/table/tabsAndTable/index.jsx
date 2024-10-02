@@ -5,7 +5,7 @@ import Table from '../table';
 import SearchInput from '../../inputs/searchInput';
 import FilterModal from '../../modal/filter';
 import Tag from '../../tag';
-import { FiFilter } from "react-icons/fi";
+import { FaSlidersH } from "react-icons/fa";
 
 const data = [
     { id: 1, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 7 dias' },
@@ -171,10 +171,10 @@ const TabsAndTable = () => {
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
                     onClick={() => setIsFilterModalOpen(true)}
-                    className="flex items-center gap-2 bg-primary-light text-white px-3 md:px-4 h-9 rounded hover:bg-primary-hover"
+                    className="flex items-center gap-2 bg-white text-primary-light border border-primary-light px-3 md:px-4 h-9 rounded hover:bg-blue-100"
                 >
                     <span>
-                        <FiFilter size={15} />
+                        <FaSlidersH size={15} />
                     </span>
                     <span className='hidden md:block'>
                         Filtrar

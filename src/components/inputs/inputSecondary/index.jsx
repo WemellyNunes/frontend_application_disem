@@ -1,7 +1,7 @@
 const InputSecondary = ({ label, placeholder, buttonIcon, onButtonClick, type = 'text' }) => {
     return (
       <div className="w-full ">
-        <label className="block text-primary-dark text-xs md:text-sm font-normal mb-1" htmlFor="inputWithButton">
+        <label className="block text-primary-dark text-xs md:text-sm font-light mb-1" htmlFor="inputWithButton">
           {label}
         </label>
         <div className="relative flex items-center">

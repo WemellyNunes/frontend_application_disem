@@ -2,7 +2,7 @@ import { GiBackwardTime } from "react-icons/gi";
 
 const StatusBar = ({ requisitionNumber, origin, situation, reopening, onHistoryClick }) => {
     return (
-        <div className="flex justify-between items-center px-2 py-1 mt-1 mx-4 border-b border-primary-light bg-white shadow-md rounded">
+        <div className="flex justify-between items-center px-2 py-1 mt-1 mx-4 border-b border-primary-light bg-white rounded">
             <div className="flex space-x-2 md:space-x-6">
                 <div>
                     <h4 className="text-xs font-medium text-primary-light  md:text-sm">N° da requisição</h4>

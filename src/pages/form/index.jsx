@@ -139,13 +139,14 @@ export default function Form() {
             )}
 
             <div className="flex flex-col mt-16 md:mt-20">
-                <div className="flex justify-center mx-1.5 md:mx-4">
-                    <PageTitle
+                <div className="flex py-6 text-xl text-primary-light font-normal mx-1.5 md:mx-4">
+                    <h2>Cadastro de Ordem de Serviço</h2>
+                    {/*<PageTitle
                         icon={FaFileInvoice}
                         text="Cadastro de ordem de serviço"
                         backgroundColor="bg-primary-light"
                         textColor="text-white"
-                    />
+                    />*/}
                 </div>
 
                 <div className="flex flex-col mx-1.5 md:mx-4">
@@ -172,7 +173,7 @@ export default function Form() {
 
                     <div className="flex-1">
                         <SectionCard title="Dados do solicitante">
-                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
                                 <InputPrimary
                                     label="Solicitante"
                                     placeholder="Informe"
@@ -242,7 +243,7 @@ export default function Form() {
 
 
                 </div>
-                <div className="flex flex-col fixed bottom-0 left-0 right-0 mx-auto bg-white py-5 mt-4 items-center justify-end md:flex-row h-16 gap-y-2 z-50 shadow-2xl ">
+                <div className="flex flex-col fixed bottom-0 left-0 right-0 mx-auto border-t-2 border-secondary-back bg-white py-5 mt-4 items-center justify-end md:flex-row h-16 gap-y-2 z-50 shadow-2xl ">
                     <div className="flex pr-0 md:pr-6">
                         <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
                         <ButtonSecondary onClick={() => navigate("../Programing")}>

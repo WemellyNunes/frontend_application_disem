@@ -32,8 +32,14 @@ export const calcularValorRisco = (classe, indiceRisco) => {
 };
 
 export const calcularPrioridade = (valorRisco) => {
-    if (valorRisco > 45) return 'Execução Imediata';
-    if (valorRisco >= 35) return 'Execução em até 7 dias';
-    if (valorRisco >= 25) return 'Execução em até 15 dias';
+    if (valorRisco > 45){
+        return 'Execução Imediata';
+    }
+    if (valorRisco >= 35) {
+        return 'Execução em até 7 dias';
+    } 
+    if (valorRisco >= 25) {
+        return 'Execução em até 15 dias';
+    } 
     return 'Execução em até 30 dias';
 };

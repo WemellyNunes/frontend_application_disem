@@ -52,7 +52,7 @@ const Row = ({ item, index, onProgramClick }) => {
 
     return (
         <>
-            <tr className={`text-center text-xs md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+            <tr className={`text-center text-xs font-light md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                 <td className="p-1 md:p-2">{item.requisicao}</td>
                 <td className="p-1 md:p-2">{item.criacao}</td>
                 <td className="p-1 md:p-2">{item.origem}</td>
