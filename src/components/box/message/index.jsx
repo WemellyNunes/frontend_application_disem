@@ -21,8 +21,8 @@ const MessageBox = ({ type, title, message, onClose }) => {
                 <div className="flex items-center space-x-3">
                     {iconTypes[type]}
                     <div className="flex items-center space-x-1">
-                        <span className='text-primary-dark text-sm md:text-lg font-medium'>{title}</span>
-                        <span className="text-primary-dark text-sm md:text-lg font-normal">{message}</span>
+                        <span className='text-primary-dark text-sm md:text-base font-medium'>{title}</span>
+                        <span className="text-primary-dark text-sm md:text-base font-normal">{message}</span>
                     </div>
                 </div>
                 <button 
