@@ -26,7 +26,7 @@ const MessageBox = ({ type, title, message, onClose }) => {
                     </div>
                 </div>
                 <button 
-                    className="absolute top-2 right-2 text-green-700 text-sm font-semibold"
+                    className="absolute top-2 right-2 text-primary-dark text-sm font-semibold"
                     onClick={onClose}
                 >
                     X

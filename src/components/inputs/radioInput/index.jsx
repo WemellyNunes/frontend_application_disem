@@ -1,7 +1,7 @@
 const RadioInput = ({ title, options, name, selectedValue, onChange }) => {
     return (
         <div>
-        <p className="text-primary-dark text-xs md:text-sm font-light mb-1">{title}</p>
+        <p className="text-primary-dark text-xs md:text-sm font-normal mb-1">{title}</p>
         <div className="flex items-center space-x-6">
           {options.map((option) => (
             <label key={option.value} className="inline-flex items-center">

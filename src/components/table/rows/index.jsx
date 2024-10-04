@@ -12,9 +12,9 @@ const Row = ({ item, index, onProgramClick }) => {
     const [actionType, setActionType] = useState(null);
     
     const statusClasses = {
-        'A atender': 'font-medium text-status-open bg-status-bgOpen rounded-full p-1',
-        'Em atendimento': 'font-medium  text-status-prog bg-status-bgProg rounded-full p-1',
-        'Resolvido': 'font-medium text-status-resp bg-status-bgResp rounded-full p-1',
+        'A atender': 'font-medium bg-status-open text-white rounded-md p-1',
+        'Em atendimento': 'font-medium  text-status-prog bg-status-bgProg rounded-md p-1',
+        'Resolvido': 'font-medium text-status-resp bg-status-bgResp rounded-md p-1',
         'Finalizada': 'font-medium text-status-finish bg-status-bgFinish rounded-full p-1',
         'Negada': 'font-medium text-status-negative bg-status-bgNegative rounded-full p-1      '
     };
@@ -52,7 +52,7 @@ const Row = ({ item, index, onProgramClick }) => {
 
     return (
         <>
-            <tr className={`text-center text-xs font-light md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+            <tr className={`text-center text-xs font-normal md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
                 <td className="p-1 md:p-2">{item.requisicao}</td>
                 <td className="p-1 md:p-2">{item.criacao}</td>
                 <td className="p-1 md:p-2">{item.origem}</td>

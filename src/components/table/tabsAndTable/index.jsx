@@ -12,7 +12,7 @@ const data = [
     { id: 2, requisicao: '15230', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'ICH', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 15 dias' },
     { id: 3, requisicao: '00000', criacao: '24/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true, prioridade: 'Execução em até 2 dias' },
     { id: 4, requisicao: '00000', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true, prioridade: 'Execução em até 7 dias' },
-    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'PREVENTIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 2 dias' },
+    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 2 dias' },
     { id: 6, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução Imediata' },
     { id: 7, requisicao: '90000', criacao: '01/10/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'ELETRICO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução Imediata' }
 ];

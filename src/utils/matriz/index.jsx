@@ -5,14 +5,14 @@ const pesosClasse = {
 };
 
 const pesosRisco = {
-    risco_acidentes: 17,
-    integridade_estrutural: 16,
-    sistemas_prevencao: 15,
+    riscoAcidentes: 17,
+    integridade: 16,
+    sistemas: 15,
     acessibilidade: 14,
-    normas_seguranca: 13,
-    corte_energia: 12,
+    normasseguranca: 13,
+    corteenergia: 12,
     recurso_hidrico: 11,
-    qualidade_ar: 10,
+    qualidadeAr: 10,
     equipamentos_caros: 9,
     instalacoes: 8,
     residuos: 7,
@@ -25,11 +25,17 @@ const pesosRisco = {
 };
 
 export const calcularValorRisco = (classe, indiceRisco) => {
-    const pesoClasse = pesosClasse[classe];
-    const pesoIndice = pesosRisco[indiceRisco];
-    
-    return pesoClasse * pesoIndice;
+    const pesoClasse = pesosClasse[classe] || 0; // Usando 0 como fallback
+    const pesoIndice = pesosRisco[indiceRisco] || 0; // Usando 0 como fallback
+
+    console.log(`Classe: ${classe}, Peso Classe: ${pesoClasse}, Índice de Risco: ${indiceRisco}, Peso Índice: ${pesoIndice}`);
+
+    const valorRisco = pesoClasse * pesoIndice;
+    console.log(`Valor de Risco Calculado: ${valorRisco}`);
+
+    return valorRisco;
 };
+
 
 export const calcularPrioridade = (valorRisco) => {
     if (valorRisco > 45){
