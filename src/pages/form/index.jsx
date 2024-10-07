@@ -157,7 +157,7 @@ export default function Form() {
         setIsEditing(false);
         setMessageContent({ type: 'success', title: 'Sucesso.', message: `Ordem de serviço salva com prioridade: ${prioridadeCalculada}` });
         setShowMessageBox(true);
-        setTimeout(() => setShowMessageBox(false), 2000);
+        setTimeout(() => setShowMessageBox(false), 2500);
     };
 
 
@@ -181,12 +181,12 @@ export default function Form() {
                 />
             )}
 
-            <div className="flex flex-col mt-16 md:mt-20">
-                <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal mx-1.5 md:mx-4">
+            <div className="flex flex-col mt-16 md:mt-16 mx-1.5 md:mx-4">
+                <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal">
                     <h2>Cadastro de Ordem de Serviço</h2>
                 </div>
 
-                <div className="flex flex-col mx-1.5 md:mx-4">
+                <div className="flex flex-col ">
                     <div className="flex-1">
                         <SectionCard title={"Dados da ordem de serviço"}>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6">
