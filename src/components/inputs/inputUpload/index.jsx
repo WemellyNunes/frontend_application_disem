@@ -1,9 +1,7 @@
 import { useState } from 'react';
-import { FaUpload } from 'react-icons/fa';
-import { FaTrash } from "react-icons/fa";
+import { FaUpload, FaTrash } from 'react-icons/fa';
 
-
-const InputUpload = ({ label }) => {
+const InputUpload = ({ label, disabled }) => {
   const [files, setFiles] = useState([]);
 
   const handleFileChange = (event) => {
@@ -22,8 +20,11 @@ const InputUpload = ({ label }) => {
 
   return (
     <div className="flex flex-col mb-4">
-      <label className="flex items-center border border-dashed border-primary-light rounded-md 
-      p-4 cursor-pointer w-full md:w-2/4 hover:bg-blue-50 h-9 md:h-10 transition-colors duration-200">
+      <label 
+        className={`flex items-center border border-dashed border-primary-light rounded-md 
+        p-4 cursor-pointer w-full md:w-2/4 ${disabled ? 'bg-gray-100 ' : 'hover:bg-blue-50' } 
+        h-9 md:h-10 transition-colors duration-200`}
+      >
         <FaUpload className="text-primary-light h-4 w-4 mr-3" />
         <span className="text-primary-light text-xs md:text-sm italic font-normal">{label}</span>
         <input 
@@ -32,6 +33,7 @@ const InputUpload = ({ label }) => {
           onChange={handleFileChange} 
           accept=".pdf, .png, .jpg, .jpeg"
           multiple 
+          disabled={disabled}
         />
       </label>
       {files.length > 0 && (

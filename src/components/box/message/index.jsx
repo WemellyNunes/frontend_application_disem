@@ -1,4 +1,6 @@
-import { FaCheckCircle, FaTimesCircle, FaExclamationCircle, FaInfoCircle } from 'react-icons/fa';
+
+
+import { FaCheckCircle, FaTimesCircle, FaExclamationCircle, FaInfoCircle, FaTimes } from 'react-icons/fa';
 
 const MessageBox = ({ type, title, message, onClose }) => {
     const iconTypes = {
@@ -25,11 +27,8 @@ const MessageBox = ({ type, title, message, onClose }) => {
                         <span className="text-primary-dark text-sm md:text-base font-normal">{message}</span>
                     </div>
                 </div>
-                <button 
-                    className="absolute top-2 right-2 text-primary-dark text-sm font-semibold"
-                    onClick={onClose}
-                >
-                    X
+                <button onClick={onClose}>
+                        <FaTimes className="text-gray-500 hover:text-red-500" />
                 </button>
             </div>
         </div>

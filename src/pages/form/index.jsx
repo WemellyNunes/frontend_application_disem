@@ -12,24 +12,29 @@ import { calcularValorRisco, calcularPrioridade } from "../../utils/matriz";
 
 export default function Form() {
     const navigate = useNavigate();
-    const [selectedOption, setSelectedOption] = useState('comum');
-    const [classe, setClasse] = useState('');
-    const [indiceRisco, setIndiceRisco] = useState(''); // Inicializando como string
-    const [valorRisco, setValorRisco] = useState(null);
-    const [prioridade, setPrioridade] = useState('');
+
+    const [formData, setFormData] = useState({
+        selectedOption: 'comum',
+        classe: '',
+        indiceRisco: '',
+        valorRisco: null,
+        prioridade: '',
+        requisicao: '',
+        solicitante: '',
+        unidade: '',
+        origem: '',
+        manutencao: '',
+        sistema: '',
+        unidadeManutencao: '',
+        campus: '',
+        objetoPreparo: '',
+    });
+
+    const [emptyFields, setEmptyFields] = useState({});
     const [showMessageBox, setShowMessageBox] = useState(false);
     const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
     const [isEditing, setIsEditing] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
-    const [requisicao, setRequisicao] = useState('');
-    const [solicitante, setSolicitante] = useState('');
-    const [unidade, setUnidade] = useState('');
-    const [origem, setOrigem] = useState('');
-    const [manutencao, setManutencao] = useState('');
-    const [sistema, setSistema] = useState('');
-    const [unidadeManutencao, setUnidadeManutencao] = useState('');
-    const [campus, setCampus] = useState('');
-    const [objetoPreparo, setObjetoPreparo] = useState('');
 
     const options = [
         { label: 'Comum', value: 'comum' },
@@ -77,81 +82,92 @@ export default function Form() {
     ];
 
     const indicesRisco = [
-        { label: 'Risco de Acidentes', value: 'riscoAcidentes' }, // Corrigir para corresponder à chave do pesosRisco
-        { label: 'Interrupções de Entrada de Parâmetros', value: 'integridade' },
-        { label: 'Integridade Estrutural', value: 'sistemas' },
-        { label: 'Fechamento de Áreas', value: 'acessibilidade' },
+        { label: 'Ação de sustentabilidade', value: 'sustentabilidade' },
+        { label: 'Estetica interna', value: 'estetica' },
+        { label: 'Conforto do usuario', value: 'confortoUsuario' },
+        { label: 'Danos maiores', value: 'danosMaiores' },
+        { label: 'Risco de acidentes', value: 'riscoAcidentes' }
     ];
-    
 
-    const handleRadioChange = (event) => {
-        setSelectedOption(event.target.value);
+    const campusMapping = {
+        'mab1': 'Marabá',
+        'mab2': 'Marabá',
+        'mab3': 'Marabá',
+        'santana': 'Santana do Araguaia',
+        'saoFelix': 'São Félix do Xingu',
+        'rondon': 'Rondon',
     };
+
+    const handleFieldChange = (field) => (value) => {
+        setFormData((prevData) => {
+            const updatedData = { ...prevData, [field]: value };
+
+            if (field === 'unidadeManutencao') {
+                updatedData.campus = campusMapping[value] || '';
+            }
+
+            return updatedData;
+        });
+
+
+    };
+
+    const validateFields = () => {
+        const newEmptyFields = {};
+        const requiredFields = ['origem', 'classe', 'requisicao', 'solicitante', 'unidade', 'manutencao', 'sistema', 'indiceRisco', 'unidadeManutencao', 'campus', 'objetoPreparo'];
+
+        requiredFields.forEach((field) => {
+            const value = formData[field];
+            if (typeof value !== 'string' || !value.trim()) {
+                newEmptyFields[field] = true;
+            }
+        });
+
+        setEmptyFields(newEmptyFields);
+        return Object.keys(newEmptyFields).length === 0;
+
+    };
+
+    console.log('formData antes da validação:', formData);
 
     const handleSave = () => {
-
-        console.log(`Classe: ${classe}, Índice de Risco: ${indiceRisco}`);
-
-        console.log({ origem, requisicao, solicitante, unidade, manutencao, sistema, indiceRisco, unidadeManutencao, campus, objetoPreparo }); // Para depuração
-        // Validar se todos os campos obrigatórios foram preenchidos
-        if (!origem || !requisicao.trim() || !solicitante.trim() || !unidade || !manutencao || !sistema || !indiceRisco || !unidadeManutencao || !campus.trim() || !objetoPreparo.trim()) {
-            setMessageContent({ type: 'error', message: 'Por favor, preencha todos os campos obrigatórios.' });
+        if (!validateFields()) {
+            setMessageContent({ type: 'error', title: 'Erro.', message: 'Por favor, preencha todos os campos obrigatórios.' });
             setShowMessageBox(true);
-            return; // Interrompe a função se a validação falhar
+            setTimeout(() => setShowMessageBox(false), 1500);
+            return;
         }
 
-        console.log(`Índice de Risco: ${indiceRisco}`);
-
-        // Se todos os campos obrigatórios estiverem preenchidos, continuar com o processamento
-        const valor = calcularValorRisco(classe, parseInt(indiceRisco)); // Certifique-se de que está passando um número
-        setValorRisco(valor);
+        const valor = calcularValorRisco(formData.classe, formData.indiceRisco);
+        setFormData((prevData) => ({ ...prevData, valorRisco: valor }));
 
         const prioridadeCalculada = calcularPrioridade(valor);
-        setPrioridade(prioridadeCalculada);
+        setFormData((prevData) => ({ ...prevData, prioridade: prioridadeCalculada }));
 
         const ordemDeServico = {
-            origem: selectedOption,
-            classe,
-            indiceRisco,
+            ...formData,
             valorRisco: valor,
             prioridade: prioridadeCalculada,
-            requisicao,
-            solicitante,
-            unidade,
-            objetoPreparo: campus,
-            tipoManutencao: manutencao,
-            sistema,
-            unidadeManutencao,
-            campus,
-            tratamento: selectedOption,
-            documento: "caminho_do_arquivo" // Adicionar lógica para lidar com uploads se necessário
+            tratamento: formData.selectedOption,
+            documento: "caminho_do_arquivo",
         };
 
-        // Exibir no console para verificar
         console.log('Dados da ordem de serviço:', ordemDeServico);
-        setIsSaved(true); // Marca o formulário como salvo
-        setIsEditing(false); // Desativa os inputs
-
+        setIsSaved(true);
+        setIsEditing(false);
         setMessageContent({ type: 'success', title: 'Sucesso.', message: `Ordem de serviço salva com prioridade: ${prioridadeCalculada}` });
         setShowMessageBox(true);
-
-        setTimeout(() => {
-            setShowMessageBox(false);
-        }, 2000);
+        setTimeout(() => setShowMessageBox(false), 2000);
     };
+
 
     const handleEdit = () => {
-        setIsEditing(true); // Ativa os inputs novamente
-        setIsSaved(false); // Marca o formulário como não salvo
-    };
-
-    const handleSelectChange = (e) => {
-        console.log('Valor selecionado:', e.target.value); // Adicione este log
-        setIndiceRisco(e.target.value);
+        setIsEditing(true);
+        setIsSaved(false);
     };
 
     const handleContinue = () => {
-        navigate("../Programing"); // Navega para a página de lista de OS
+        navigate("../Programing");
     };
 
     return (
@@ -173,27 +189,30 @@ export default function Form() {
                 <div className="flex flex-col mx-1.5 md:mx-4">
                     <div className="flex-1">
                         <SectionCard title={"Dados da ordem de serviço"}>
-                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
+                            <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6">
                                 <InputSelect
                                     label="Origem"
                                     options={origin}
-                                    onChange={(e) => setOrigem(e.target.value)}
-                                    value={origem}
+                                    onChange={handleFieldChange('origem')}
+                                    value={formData.origem}
                                     disabled={!isEditing}
+                                    className={emptyFields.origem ? 'border-red-500' : ''}
                                 />
                                 <InputPrimary
                                     label="N° da requisição"
                                     placeholder="Informe"
-                                    value={requisicao}
-                                    onChange={(e) => setRequisicao(e.target.value)}
+                                    value={formData.requisicao}
+                                    onChange={handleFieldChange('requisicao')}
                                     disabled={!isEditing}
+                                    className={emptyFields.requisicao ? 'border-red-500' : ''}
                                 />
                                 <InputSelect
                                     label="Classificação"
                                     options={classification}
-                                    onChange={(e) => setClasse(e.target.value)}
-                                    value={classe}
+                                    onChange={handleFieldChange('classe')}
+                                    value={formData.classe}
                                     disabled={!isEditing}
+                                    className={emptyFields.classe ? 'border-red-500' : ''}
                                 />
                             </div>
                         </SectionCard>
@@ -201,20 +220,22 @@ export default function Form() {
 
                     <div className="flex-1">
                         <SectionCard title="Dados do solicitante">
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                                 <InputPrimary
                                     label="Solicitante"
                                     placeholder="Informe"
-                                    value={solicitante}
-                                    onChange={(e) => setSolicitante(e.target.value)}
+                                    value={formData.solicitante}
+                                    onChange={handleFieldChange('solicitante')}
                                     disabled={!isEditing}
+                                    className={emptyFields.solicitante ? 'border-red-500' : ''}
                                 />
                                 <InputSelect
                                     label="Unidade"
                                     options={unit}
-                                    onChange={(e) => setUnidade(e.target.value)}
-                                    value={unidade}
+                                    onChange={handleFieldChange('unidade')}
+                                    value={formData.unidade}
                                     disabled={!isEditing}
+                                    className={emptyFields.unidade ? 'border-red-500' : ''}
                                 />
                             </div>
                         </SectionCard>
@@ -226,51 +247,58 @@ export default function Form() {
                                 <InputPrimary
                                     label="Objeto de preparo"
                                     placeholder="Informe"
-                                    onChange={(e) => setObjetoPreparo(e.target.value)}
-                                    value={objetoPreparo}
+                                    onChange={handleFieldChange('objetoPreparo')}
+                                    value={formData.objetoPreparo}
                                     disabled={!isEditing}
+                                    className={emptyFields.objetoPreparo ? 'border-red-500' : ''}
                                 />
                             </div>
 
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                                 <InputSelect
                                     label="Tipo de manutenção"
                                     options={maintence}
-                                    onChange={(e) => setManutencao(e.target.value)}
-                                    value={manutencao}
+                                    onChange={handleFieldChange('manutencao')}
+                                    value={formData.manutencao}
                                     disabled={!isEditing}
+                                    className={emptyFields.manutencao ? 'border-red-500' : ''}
                                 />
                                 <InputSelect
                                     label="Sistema"
                                     options={system}
-                                    onChange={(e) => setSistema(e.target.value)}
-                                    value={sistema}
+                                    onChange={handleFieldChange('sistema')}
+                                    value={formData.sistema}
                                     disabled={!isEditing}
+                                    className={emptyFields.sistema ? 'border-red-500' : ''}
                                 />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-4">
+                            <div className="grid grid-cols-1 md:grid-cols-1 gap-x-6">
                                 <InputSelect
                                     label="Indice de risco"
                                     options={indicesRisco}
-                                    onChange={handleSelectChange} // Armazene como string
-                                    value={indiceRisco}
+                                    onChange={handleFieldChange('indiceRisco')}
+                                    value={formData.indiceRisco}
                                     disabled={!isEditing}
+                                    className={emptyFields.indiceRisco ? 'border-red-500' : ''}
                                 />
                             </div>
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4">
+                            <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                                 <InputSelect
                                     label="Unidade da manutenção"
                                     options={unitMaintence}
-                                    onChange={(e) => setUnidadeManutencao(e.target.value)}
-                                    value={unidadeManutencao}
+                                    onChange={handleFieldChange('unidadeManutencao')}
+                                    value={formData.unidadeManutencao}
                                     disabled={!isEditing}
+                                    className={emptyFields.unidadeManutencao ? 'border-red-500' : ''}
                                 />
+
                                 <InputPrimary
                                     label="Campus"
                                     placeholder="Informe"
-                                    value={campus}
-                                    onChange={(e) => setCampus(e.target.value)}
+                                    value={formData.campus}
+                                    onChange={handleFieldChange('campus')}
                                     disabled={!isEditing}
+                                    className={emptyFields.campus ? 'border-red-500' : ''}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
@@ -278,11 +306,15 @@ export default function Form() {
                                     title="Tipo de tratamento"
                                     name="tipoTratamento"
                                     options={options}
-                                    selectedValue={selectedOption}
-                                    onChange={handleRadioChange}
+                                    selectedValue={formData.selectedOption}
+                                    onChange={handleFieldChange('selectedOption')}
+                                    disabled={!isEditing}
+                                    className={emptyFields.options ? 'border-red-500' : ''}
+                                />
+                                <InputUpload
+                                    label="Anexar documento(s)"
                                     disabled={!isEditing}
                                 />
-                                <InputUpload label="Anexar documento(s)" />
                             </div>
                         </SectionCard>
                     </div>
@@ -292,21 +324,13 @@ export default function Form() {
                     <div className="flex pr-0 md:pr-6">
                         {isSaved ? (
                             <>
-                                <ButtonSecondary onClick={handleEdit}>
-                                    Editar
-                                </ButtonSecondary>
-                                <ButtonPrimary onClick={handleContinue}>
-                                    Continuar
-                                </ButtonPrimary>
+                                <ButtonSecondary onClick={handleEdit}>Editar</ButtonSecondary>
+                                <ButtonPrimary onClick={handleContinue}>Continuar</ButtonPrimary>
                             </>
                         ) : (
                             <>
-                                <ButtonSecondary onClick={() => navigate("../Programing")}>
-                                    Cancelar
-                                </ButtonSecondary>
-                                <ButtonPrimary onClick={handleSave}>
-                                    Salvar
-                                </ButtonPrimary>
+                                <ButtonSecondary onClick={() => navigate("../Listing")}>Cancelar</ButtonSecondary>
+                                <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
                             </>
                         )}
                     </div>

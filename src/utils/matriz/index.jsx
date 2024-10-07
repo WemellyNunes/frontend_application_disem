@@ -5,23 +5,23 @@ const pesosClasse = {
 };
 
 const pesosRisco = {
-    riscoAcidentes: 17,
-    integridade: 16,
-    sistemas: 15,
-    acessibilidade: 14,
-    normasseguranca: 13,
-    corteenergia: 12,
-    recurso_hidrico: 11,
-    qualidadeAr: 10,
-    equipamentos_caros: 9,
-    instalacoes: 8,
-    residuos: 7,
-    retrofit: 6,
-    despesas: 5,
-    danos_maiores: 4,
-    conforto_usuario: 3,
+    sustentabilidade: 1,
     estetica: 2,
-    sustentabilidade: 1
+    confortoUsuario: 3,
+    danosMaiores: 4,
+    despesas: 5,
+    retrofit: 6,
+    residuos: 7,
+    instalacoes: 8,
+    equipamentos_caros: 9,
+    qualidadeAr: 10,
+    recursoHidrico: 11,
+    corteenergia: 12,
+    normasSeguranca: 13,
+    acessibilidade: 14,
+    sistemas: 15,
+    integridade: 16,
+    riscoAcidentes: 17,
 };
 
 export const calcularValorRisco = (classe, indiceRisco) => {

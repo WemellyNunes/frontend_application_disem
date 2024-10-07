@@ -1,27 +1,37 @@
-const RadioInput = ({ title, options, name, selectedValue, onChange }) => {
-    return (
-        <div>
-        <p className="text-primary-dark text-xs md:text-sm font-normal mb-1">{title}</p>
-        <div className="flex items-center space-x-6">
-          {options.map((option) => (
-            <label key={option.value} className="inline-flex items-center">
-              <input
-                type="radio"
-                name={name}
-                value={option.value}
-                checked={selectedValue === option.value}
-                onChange={onChange}
-                className="form-radio h-4 w-4 text-blue-600 border-2 border-blue-600 focus:ring-0"
-              />
-              <span className="ml-2 text-primary-dark text-sm">{option.label}</span>
-            </label>
-          ))}
-        </div>
-      </div>
-    );
+const RadioInput = ({ title, options, name, selectedValue, onChange, disabled }) => {
+  const handleChange = (value) => {
+      if (!disabled) {
+          onChange(value); // Chama onChange apenas se não estiver desativado
+      }
   };
-  
-  export default RadioInput;
+
+  return (
+      <div className="flex flex-col">
+          <p className="text-primary-dark text-xs md:text-sm font-normal mb-1">{title}</p>
+          <div className="flex items-center space-x-6">
+              {options.map((option) => (
+                  <label key={option.value} className="inline-flex items-center">
+                      <input
+                          type="radio"
+                          name={name}
+                          value={option.value}
+                          checked={selectedValue === option.value}
+                          onChange={() => handleChange(option.value)} // Chamando a nova função
+                          className={`form-radio h-4 w-4 ${disabled ? 'text-gray-500 border-gray-500 cursor-not-allowed' : 'text-blue-600 border-blue-600'} focus:ring-0`}
+                          disabled={disabled} // Desabilita o input
+                      />
+                      <span className={`ml-2 text-primary-dark text-sm ${disabled ? 'text-gray-500' : ''}`}>{option.label}</span>
+                  </label>
+              ))}
+          </div>
+      </div>
+  );
+};
+
+export default RadioInput;
+
+
+
 
   /*
 
