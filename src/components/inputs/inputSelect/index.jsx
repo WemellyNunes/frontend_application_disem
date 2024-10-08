@@ -8,14 +8,14 @@ const InputSelect = ({ label, options, onChange, value, disabled, className }) =
             </label>
             <div className="relative">
                 <select
-                    className={`block appearance-none w-full bg-white border border-gray-300 text-primary-dark
+                    className={`block appearance-none w-full text-primary-dark border border-gray-300 
                     h-9 md:h-10 px-4 rounded leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500
-                    focus:border-blue-500 text-xs md:text-sm italic cursor-pointer my-1 ${className} ${disabled ? 'bg-gray-100' : ''}`}
+                    focus:border-blue-500 text-xs md:text-sm italic cursor-pointer my-1 ${disabled ? 'bg-gray-100 border-none' : 'bg-white'} ${className} `}
                     onChange={(e) => onChange(e.target.value)}
-                    value={value} // Controle o valor do select com props
-                    disabled={disabled} // Permite desativar o select
+                    value={value} 
+                    disabled={disabled} 
                 >
-                    <option value="" disabled>
+                    <option  value="" disabled>
                         Selecione
                     </option>
                     {options.map((option, index) => (

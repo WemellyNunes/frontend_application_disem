@@ -5,9 +5,9 @@ const InputUpload = ({ label, disabled }) => {
   const [files, setFiles] = useState([]);
 
   const handleFileChange = (event) => {
-    const selectedFiles = Array.from(event.target.files).filter(file => 
-      file.type === 'application/pdf' || 
-      file.type === 'image/png' || 
+    const selectedFiles = Array.from(event.target.files).filter(file =>
+      file.type === 'application/pdf' ||
+      file.type === 'image/png' ||
       file.type === 'image/jpeg'
     );
 
@@ -21,12 +21,15 @@ const InputUpload = ({ label, disabled }) => {
   return (
     <div className="flex flex-col mb-4">
       <label 
-        className={`flex items-center border border-dashed border-primary-light rounded-md 
-        p-4 cursor-pointer w-full md:w-2/4 ${disabled ? 'bg-gray-100 ' : 'hover:bg-blue-50' } 
+        className={`flex items-center border border-dashed 
+        ${disabled ? 'bg-gray-100 border-gray-300 text-gray-400' : 'border-primary-light hover:bg-blue-50'} 
+        rounded-md p-4 cursor-pointer w-full md:w-2/4 
         h-9 md:h-10 transition-colors duration-200`}
       >
-        <FaUpload className="text-primary-light h-4 w-4 mr-3" />
-        <span className="text-primary-light text-xs md:text-sm italic font-normal">{label}</span>
+        <FaUpload className={`h-4 w-4 mr-3 ${disabled ? 'text-gray-400' : 'text-primary-light'}`} />
+        <span className={`text-xs md:text-sm italic font-normal ${disabled ? 'text-gray-400' : 'text-primary-light'}`}>
+          {label}
+        </span>
         <input 
           type="file" 
           className="hidden" 

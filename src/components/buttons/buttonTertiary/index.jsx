@@ -1,13 +1,13 @@
-const ButtonTertiary = ({ children, ...props }) => {
-   
-    return (
+const ButtonTertiary = ({ children, bgColor = 'bg-white', textColor = 'text-primary-light', hoverColor ='hover:bg-secondary-hover', icon, ...props }) => {
+  return (
       <button
-        className=" bg-white hover:bg-secondary-hover text-primary-light font-medium text-base h-10 px-6 rounded-full flex items-center justify-center"
-        {...props}
+          className={`${bgColor}  ${textColor} ${hoverColor} font-medium text-xs md:text-base h-10 px-8 rounded-full flex items-center justify-center mr-1.5`}
+          {...props}
       >
-        {children}
+          {icon && <span className="mr-2">{icon}</span>}
+          {children}
       </button>
-    );
-  };
+  );
+};
 
 export default ButtonTertiary;

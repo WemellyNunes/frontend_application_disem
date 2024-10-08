@@ -1,15 +1,14 @@
-const ButtonSecondary = ({ children, ...props }) => {
-   
-    return (
+const ButtonSecondary = ({ children, borderColor = 'border border-primary-light', bgColor = 'bg-white', hoverColor ='hover:bg-secondary-hover', textColor = 'text-primary-light', icon, ...props }) => {
+  return (
       <button
-        className="border border-primary-light bg-white hover:bg-secondary-hover
-        text-primary-light font-medium text-sm md:text-base h-9 md:h-10 px-10 rounded-full flex 
-        items-center justify-center mr-1.5"
-        {...props}
+          className={`${borderColor} ${bgColor} ${hoverColor} ${textColor} 
+          font-medium text-sm md:text-base h-9 md:h-10 px-8 rounded-full flex items-center justify-center mr-1.5`}
+          {...props}
       >
-        {children}
+          {icon && <span className="mr-2">{icon}</span>}
+          {children}
       </button>
-    );
-  };
+  );
+};
 
 export default ButtonSecondary;

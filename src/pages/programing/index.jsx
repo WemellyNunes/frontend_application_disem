@@ -6,14 +6,35 @@ import InputUpload from "../../components/inputs/inputUpload";
 import MultiSelect from "../../components/inputs/multiSelect";
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
+import ButtonTertiary from "../../components/buttons/buttonTertiary";
 import { useNavigate, useParams } from "react-router-dom";
 import DateTimePicker from "../../components/inputs/dateTimePicker";
 import { mockOrderServiceData } from "./dados";
 import HistoryCard from "../../components/cards/historyCard";
 import { useState } from "react";
+import MessageBox from "../../components/box/message";
+import { FaTrash, FaEdit } from "react-icons/fa";
+import { TbFileExport } from "react-icons/tb";
 
 export default function Programing() {
+    const navigate = useNavigate();
+    const { id } = useParams();
+
+    const [formData, setFormData] = useState({
+        data: '',
+        turno: '',
+        encarregado: '',
+        profissionais: [],
+        custo: '',
+        observacao: '',
+    });
+
     const [showHistory, setShowHistory] = useState(false);
+    const [emptyFields, setEmptyFields] = useState({});
+    const [showMessageBox, setShowMessageBox] = useState(false);
+    const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
+    const [isEditing, setIsEditing] = useState(true);
+    const [isSaved, setIsSaved] = useState(false);
 
     const history = [
         `OS Nº ${mockOrderServiceData.requisicao} Criada em 00/00/0000 agente: Fulano da Silva `,
@@ -21,8 +42,6 @@ export default function Programing() {
         `OS Nº ${mockOrderServiceData.requisicao} Programada em 00/00/0000 agente: Fulano da Silva`
     ];
 
-    const { id } = useParams();
-    const navigate = useNavigate();
     const orderServiceData = mockOrderServiceData;
 
     const overseer = [
@@ -45,11 +64,46 @@ export default function Programing() {
     ];
 
     const handleMultiSelectChange = (selectedOptions) => {
-        console.log('Selecionado:', selectedOptions);
+        setFormData((prevData) => ({ ...prevData, profissionais: selectedOptions }));
     };
 
-    const handleSelectChange = (event) => {
-        console.log('Selecionado:', event.target.value);
+    const handleFieldChange = (field) => (value) => {
+        setFormData((prevData) => ({ ...prevData, [field]: value }));
+    };
+
+    const validateFields = () => {
+        const newEmptyFields = {};
+        const requiredFields = ['data', 'turno', 'encarregado', 'profissionais']; 
+
+        requiredFields.forEach((field) => {
+            const value = formData[field];
+            if (Array.isArray(value) ? value.length === 0 : !value.trim()) {
+                newEmptyFields[field] = true;
+            }
+        });
+
+        setEmptyFields(newEmptyFields);
+        return Object.keys(newEmptyFields).length === 0;
+    };
+
+    const handleSave = () => {
+        if (!validateFields()) {
+            setMessageContent({ type: 'error', title: 'Erro.', message: 'Por favor, preencha todos os campos obrigatórios.' });
+            setShowMessageBox(true);
+            setTimeout(() => setShowMessageBox(false), 1500);
+            return;
+        }
+
+        setIsSaved(true);
+        setIsEditing(false);
+        setMessageContent({ type: 'success', title: 'Sucesso.', message: 'Ordem de serviço salva com sucesso!' });
+        setShowMessageBox(true);
+        setTimeout(() => setShowMessageBox(false), 1500);
+    };
+
+    const handleEdit = () => {
+        setIsEditing(true);
+        setIsSaved(false);
     };
 
     const handleHistoryClick = () => {
@@ -58,10 +112,19 @@ export default function Programing() {
 
     const handleDateChange = (date) => {
         console.log("Data selecionada:", date);
+        setFormData((prevData) => ({ ...prevData, data: date })); 
     };
 
     return (
         <>
+            {showMessageBox && (
+                <MessageBox
+                    type={messageContent.type}
+                    title={messageContent.title}
+                    message={messageContent.message}
+                    onClose={() => setShowMessageBox(false)}
+                />
+            )}
             <div className="flex flex-col mt-16 md:mt-16 mx-1.5 md:mx-4">
                 <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal">
                     <h2>Programação</h2>
@@ -69,14 +132,14 @@ export default function Programing() {
 
                 <div className="flex flex-col">
                     <StatusBar
-                        requisitionNumber={orderServiceData.requisicao} // Use o número real da OS
+                        requisitionNumber={orderServiceData.requisicao}
                         origin="SIPAC"
                         situation="A atender"
                         reopening="nenhuma"
-                        onHistoryClick={handleHistoryClick} // Ao clicar, abre o histórico
-                    /> 
+                        onHistoryClick={handleHistoryClick}
+                    />
                 </div>
-                
+
                 <div className="flex flex-col gap-x-2.5 md:flex-row">
                     <div className="w-full md:w-5/12">
                         <SectionCard title="Dados da ordem de serviço">
@@ -153,16 +216,24 @@ export default function Programing() {
                                     label="Data programada"
                                     placeholder="exemplo: 00/00/0000"
                                     onDateChange={handleDateChange}
+                                    disabled={!isEditing}
+                                    className={emptyFields.data ? 'border-red-500' : ''}
                                 />
                                 <InputSelect
                                     label="Turno"
                                     options={options}
-                                    onChange={handleSelectChange}
+                                    onChange={handleFieldChange('turno')}
+                                    value={formData.turno}
+                                    disabled={!isEditing}
+                                    className={emptyFields.turno ? 'border-red-500' : ''}
                                 />
                                 <InputSelect
                                     label="Encarregado"
                                     options={overseer}
-                                    onChange={handleSelectChange}
+                                    onChange={handleFieldChange('encarregado')}
+                                    value={formData.encarregado}
+                                    disabled={!isEditing}
+                                    className={emptyFields.encarregado ? 'border-red-500' : ''}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1">
@@ -170,26 +241,69 @@ export default function Programing() {
                                     label="Profissional(is)"
                                     options={professionals}
                                     onChange={handleMultiSelectChange}
+                                    selectedValues={formData.profissionais} // Passa as opções selecionadas corretamente
+                                    disabled={!isEditing}
+                                    className={emptyFields.profissionais ? 'border-red-500' : ''}
                                 />
                                 <InputPrimary
                                     label="Custo estimado"
                                     placeholder="Informe"
+                                    value={formData.custo}
+                                    onChange={handleFieldChange('custo')}
+                                    disabled={!isEditing}
                                 />
                                 <InputPrimary
                                     label="Observação"
                                     placeholder="Informe"
+                                    value={formData.observacao}
+                                    onChange={handleFieldChange('observacao')}
+                                    disabled={!isEditing}
                                 />
                             </div>
-                            <div className="flex flex-col md:flex-row justify-end gap-y-2">
-                                <ButtonSecondary onClick={e => navigate("../Listing")}>Cancelar</ButtonSecondary>
-                                <ButtonPrimary>Salvar</ButtonPrimary>
+                            <div className="flex flex-col md:flex-row justify-end">
+                                <div className="flex flex-col md:flex-row gap-y-1.5 ">
+                                    {isSaved ? (
+                                        <>
+                                            <ButtonTertiary
+                                                bgColor="bg-white"
+                                                textColor="text-red-500"
+                                                icon={<FaTrash />}
+                                                hoverColor="hover:bg-red-100">
+                                                Excluir
+                                            </ButtonTertiary>
+
+                                            <ButtonSecondary
+                                                borderColor="border border-primary-light"
+                                                bgColor="bg-white"
+                                                hoverColor="hover:bg-secondary-hover"
+                                                textColor="text-primary-light"
+                                                icon={<FaEdit />}
+                                                onClick={handleEdit}>
+                                                Editar
+                                            </ButtonSecondary>
+
+                                            <ButtonPrimary
+                                                bgColor="bg-primary-light"
+                                                hoverColor="hover:bg-primary-hover"
+                                                textColor="text-white"
+                                                icon={<TbFileExport/>}
+                                                >
+                                                Exportar
+                                            </ButtonPrimary>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <ButtonSecondary onClick={() => navigate("../Listing")}>Cancelar</ButtonSecondary>
+                                            <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
+                                        </>
+                                    )}
+                                </div>
                             </div>
                         </SectionCard>
                     </div>
                 </div>
             </div>
-
             {showHistory && <HistoryCard history={history} onClose={() => setShowHistory(false)} />}
         </>
     );
-};
+}

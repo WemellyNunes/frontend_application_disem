@@ -108,8 +108,6 @@ export default function Form() {
 
             return updatedData;
         });
-
-
     };
 
     const validateFields = () => {

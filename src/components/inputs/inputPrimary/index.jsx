@@ -1,5 +1,4 @@
-import {forwardRef } from "react"; // Certifique-se de incluir forwardRef aqui
-
+import { forwardRef } from "react"; 
 
 const InputPrimary = forwardRef(({ label, placeholder, value, onChange, className, disabled }, ref) => {
   return (
@@ -8,14 +7,14 @@ const InputPrimary = forwardRef(({ label, placeholder, value, onChange, classNam
         {label}
       </label>
       <input
-        className={`block appearance-none w-full text-primary-dark bg-white border border-gray-300 
+        className={`block appearance-none w-full text-primary-dark border border-gray-300 
           rounded px-4 h-9 md:h-10 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 
-          focus:border-blue-500 my-1 text-xs md:text-sm italic ${className} ${disabled ? 'bg-gray-100' : ''} `}
+          focus:border-blue-500 my-1 text-xs md:text-sm italic ${disabled ? 'bg-gray-100 border-none' : 'bg-white'} ${className}`}  
         id="inputField"
         type="text"
         placeholder={placeholder}
-        value={value} // Aqui estamos utilizando o valor passado como prop
-        onChange={(e) => onChange(e.target.value)} // Chama a função passada como prop
+        value={value} 
+        onChange={(e) => onChange(e.target.value)} 
         ref={ref}
         disabled={disabled}
       />
