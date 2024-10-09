@@ -18,6 +18,7 @@ import { TbFileExport } from "react-icons/tb";
 
 export default function Programing() {
     const navigate = useNavigate();
+
     const { id } = useParams();
 
     const [formData, setFormData] = useState({
@@ -115,6 +116,8 @@ export default function Programing() {
         setFormData((prevData) => ({ ...prevData, data: date })); 
     };
 
+    let colorBorder = 'border-primary-red'
+
     return (
         <>
             {showMessageBox && (
@@ -125,7 +128,7 @@ export default function Programing() {
                     onClose={() => setShowMessageBox(false)}
                 />
             )}
-            <div className="flex flex-col mt-16 md:mt-16 mx-1.5 md:mx-4">
+            <div className="flex flex-col mt mx-1.5 md:mx-4">
                 <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal">
                     <h2>Programação</h2>
                 </div>
@@ -133,7 +136,7 @@ export default function Programing() {
                 <div className="flex flex-col">
                     <StatusBar
                         requisitionNumber={orderServiceData.requisicao}
-                        origin="SIPAC"
+                        origin={orderServiceData.origem}
                         situation="A atender"
                         reopening="nenhuma"
                         onHistoryClick={handleHistoryClick}
@@ -217,7 +220,7 @@ export default function Programing() {
                                     placeholder="exemplo: 00/00/0000"
                                     onDateChange={handleDateChange}
                                     disabled={!isEditing}
-                                    className={emptyFields.data ? 'border-red-500' : ''}
+                                    className={emptyFields.data ? colorBorder : ''}
                                 />
                                 <InputSelect
                                     label="Turno"
@@ -225,7 +228,7 @@ export default function Programing() {
                                     onChange={handleFieldChange('turno')}
                                     value={formData.turno}
                                     disabled={!isEditing}
-                                    className={emptyFields.turno ? 'border-red-500' : ''}
+                                    className={emptyFields.turno ? colorBorder : ''}
                                 />
                                 <InputSelect
                                     label="Encarregado"
@@ -233,7 +236,7 @@ export default function Programing() {
                                     onChange={handleFieldChange('encarregado')}
                                     value={formData.encarregado}
                                     disabled={!isEditing}
-                                    className={emptyFields.encarregado ? 'border-red-500' : ''}
+                                    className={emptyFields.encarregado ? colorBorder : ''}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1">
@@ -243,7 +246,7 @@ export default function Programing() {
                                     onChange={handleMultiSelectChange}
                                     selectedValues={formData.profissionais} // Passa as opções selecionadas corretamente
                                     disabled={!isEditing}
-                                    className={emptyFields.profissionais ? 'border-red-500' : ''}
+                                    className={emptyFields.profissionais ? colorBorder : ''}
                                 />
                                 <InputPrimary
                                     label="Custo estimado"
@@ -306,4 +309,4 @@ export default function Programing() {
             {showHistory && <HistoryCard history={history} onClose={() => setShowHistory(false)} />}
         </>
     );
-}
+};

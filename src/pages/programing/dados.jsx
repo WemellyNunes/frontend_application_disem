@@ -1,5 +1,6 @@
 export const mockOrderServiceData = {
     requisicao: 293848,
+    origem: 'DISEM',
     classificacao: 'Classe A',
     unidade: 'Instituto de Ciências Exatas',
     solicitante: 'João Silva',

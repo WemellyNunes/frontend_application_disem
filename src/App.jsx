@@ -6,7 +6,6 @@ import AppRoutes from "./routers";
 function App() {
   return (
     <>
-      <Header />
       <AppRoutes />
 
       

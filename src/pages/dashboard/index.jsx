@@ -10,7 +10,7 @@ import Card from "../../components/cards/cardGraphic";
 export default function Dashboard() {
     return (
         <>
-            <div className="flex flex-col mt-16 md:mt-20">
+            <div className="flex flex-col">
 
                 <div className="flex justify-center mx-1.5 md:mx-4">
                     <PageTitle

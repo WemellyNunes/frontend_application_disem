@@ -4,22 +4,22 @@ import { FaCheckCircle, FaTimesCircle, FaExclamationCircle, FaInfoCircle, FaTime
 
 const MessageBox = ({ type, title, message, onClose }) => {
     const iconTypes = {
-        success: <FaCheckCircle className="text-green-700" />,
-        error: <FaTimesCircle className="text-red-500" />,
+        success: <FaCheckCircle className="text-status-resp" />,
+        error: <FaTimesCircle className="text-primary-red" />,
         warning: <FaExclamationCircle className="text-yellow-500" />,
-        info: <FaInfoCircle className="text-blue-500" />
+        info: <FaInfoCircle className="text-primary-light" />
     };
 
     const backgroundTypes = {
-        success: 'bg-green-100',
-        error: 'bg-red-100',
-        warning: 'bg-yellow-100',
-        info: 'bg-blue-100'
+        success: 'bg-green-200',
+        error: 'bg-red-200',
+        warning: 'bg-yellow-200',
+        info: 'bg-blue-200'
     };
 
     return (
-        <div className="fixed inset-0 flex justify-center items-start z-50">
-            <div className={`relative w-full mx-1.5 md:mx-0 md:w-1/2 py-6 px-2 md:px-6  shadow-lg ${backgroundTypes[type]} flex items-center justify-between`}>
+        <div className="fixed inset-0 flex justify-center items-start z-50 md:mx-24">
+            <div className={`relative w-full py-6 px-2 md:px-6  shadow-lg ${backgroundTypes[type]} flex items-center justify-between`}>
                 <div className="flex items-center space-x-3">
                     {iconTypes[type]}
                     <div className="flex items-center space-x-1">

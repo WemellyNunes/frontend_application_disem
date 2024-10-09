@@ -98,6 +98,8 @@ export default function Form() {
         'rondon': 'Rondon',
     };
 
+    let colorBorder = 'border-primary-red'
+
     const handleFieldChange = (field) => (value) => {
         setFormData((prevData) => {
             const updatedData = { ...prevData, [field]: value };
@@ -179,7 +181,7 @@ export default function Form() {
                 />
             )}
 
-            <div className="flex flex-col mt-16 md:mt-16 mx-1.5 md:mx-4">
+            <div className="flex flex-col mx-1.5 md:mx-4">
                 <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal">
                     <h2>Cadastro de Ordem de Serviço</h2>
                 </div>
@@ -194,7 +196,7 @@ export default function Form() {
                                     onChange={handleFieldChange('origem')}
                                     value={formData.origem}
                                     disabled={!isEditing}
-                                    className={emptyFields.origem ? 'border-red-500' : ''}
+                                    className={emptyFields.origem ? colorBorder : ''}
                                 />
                                 <InputPrimary
                                     label="N° da requisição"
@@ -202,7 +204,7 @@ export default function Form() {
                                     value={formData.requisicao}
                                     onChange={handleFieldChange('requisicao')}
                                     disabled={!isEditing}
-                                    className={emptyFields.requisicao ? 'border-red-500' : ''}
+                                    className={emptyFields.requisicao ? colorBorder : ''}
                                 />
                                 <InputSelect
                                     label="Classificação"
@@ -210,7 +212,7 @@ export default function Form() {
                                     onChange={handleFieldChange('classe')}
                                     value={formData.classe}
                                     disabled={!isEditing}
-                                    className={emptyFields.classe ? 'border-red-500' : ''}
+                                    className={emptyFields.classe ? colorBorder : ''}
                                 />
                             </div>
                         </SectionCard>
@@ -225,7 +227,7 @@ export default function Form() {
                                     value={formData.solicitante}
                                     onChange={handleFieldChange('solicitante')}
                                     disabled={!isEditing}
-                                    className={emptyFields.solicitante ? 'border-red-500' : ''}
+                                    className={emptyFields.solicitante ? colorBorder : ''}
                                 />
                                 <InputSelect
                                     label="Unidade"
@@ -233,7 +235,7 @@ export default function Form() {
                                     onChange={handleFieldChange('unidade')}
                                     value={formData.unidade}
                                     disabled={!isEditing}
-                                    className={emptyFields.unidade ? 'border-red-500' : ''}
+                                    className={emptyFields.unidade ? colorBorder : ''}
                                 />
                             </div>
                         </SectionCard>
@@ -248,7 +250,7 @@ export default function Form() {
                                     onChange={handleFieldChange('objetoPreparo')}
                                     value={formData.objetoPreparo}
                                     disabled={!isEditing}
-                                    className={emptyFields.objetoPreparo ? 'border-red-500' : ''}
+                                    className={emptyFields.objetoPreparo ? colorBorder : ''}
                                 />
                             </div>
 
@@ -259,7 +261,7 @@ export default function Form() {
                                     onChange={handleFieldChange('manutencao')}
                                     value={formData.manutencao}
                                     disabled={!isEditing}
-                                    className={emptyFields.manutencao ? 'border-red-500' : ''}
+                                    className={emptyFields.manutencao ? colorBorder : ''}
                                 />
                                 <InputSelect
                                     label="Sistema"
@@ -267,7 +269,7 @@ export default function Form() {
                                     onChange={handleFieldChange('sistema')}
                                     value={formData.sistema}
                                     disabled={!isEditing}
-                                    className={emptyFields.sistema ? 'border-red-500' : ''}
+                                    className={emptyFields.sistema ? colorBorder : ''}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1 gap-x-6">
@@ -277,7 +279,7 @@ export default function Form() {
                                     onChange={handleFieldChange('indiceRisco')}
                                     value={formData.indiceRisco}
                                     disabled={!isEditing}
-                                    className={emptyFields.indiceRisco ? 'border-red-500' : ''}
+                                    className={emptyFields.indiceRisco ? colorBorder : ''}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
@@ -287,7 +289,7 @@ export default function Form() {
                                     onChange={handleFieldChange('unidadeManutencao')}
                                     value={formData.unidadeManutencao}
                                     disabled={!isEditing}
-                                    className={emptyFields.unidadeManutencao ? 'border-red-500' : ''}
+                                    className={emptyFields.unidadeManutencao ? colorBorder : ''}
                                 />
 
                                 <InputPrimary
@@ -296,7 +298,7 @@ export default function Form() {
                                     value={formData.campus}
                                     onChange={handleFieldChange('campus')}
                                     disabled={!isEditing}
-                                    className={emptyFields.campus ? 'border-red-500' : ''}
+                                    className={emptyFields.campus ? colorBorder : ''}
                                 />
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1 gap-4">
@@ -307,7 +309,7 @@ export default function Form() {
                                     selectedValue={formData.selectedOption}
                                     onChange={handleFieldChange('selectedOption')}
                                     disabled={!isEditing}
-                                    className={emptyFields.options ? 'border-red-500' : ''}
+                                    className={emptyFields.options ? colorBorder : ''}
                                 />
                                 <InputUpload
                                     label="Anexar documento(s)"
