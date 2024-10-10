@@ -15,6 +15,7 @@ import { useState } from "react";
 import MessageBox from "../../components/box/message";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { TbFileExport } from "react-icons/tb";
+import MaintenanceSection from "../../components/section/sectionMaintenance";
 
 export default function Programing() {
     const navigate = useNavigate();
@@ -74,7 +75,7 @@ export default function Programing() {
 
     const validateFields = () => {
         const newEmptyFields = {};
-        const requiredFields = ['data', 'turno', 'encarregado', 'profissionais']; 
+        const requiredFields = ['data', 'turno', 'encarregado', 'profissionais'];
 
         requiredFields.forEach((field) => {
             const value = formData[field];
@@ -113,7 +114,7 @@ export default function Programing() {
 
     const handleDateChange = (date) => {
         console.log("Data selecionada:", date);
-        setFormData((prevData) => ({ ...prevData, data: date })); 
+        setFormData((prevData) => ({ ...prevData, data: date }));
     };
 
     let colorBorder = 'border-primary-red'
@@ -213,6 +214,9 @@ export default function Programing() {
                     </div>
 
                     <div className="flex-1">
+                        
+                        {isSaved && <MaintenanceSection orderServiceData={orderServiceData} />}
+
                         <SectionCard title="Programação">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
                                 <DateTimePicker
@@ -289,8 +293,8 @@ export default function Programing() {
                                                 bgColor="bg-primary-light"
                                                 hoverColor="hover:bg-primary-hover"
                                                 textColor="text-white"
-                                                icon={<TbFileExport/>}
-                                                >
+                                                icon={<TbFileExport />}
+                                            >
                                                 Exportar
                                             </ButtonPrimary>
                                         </>

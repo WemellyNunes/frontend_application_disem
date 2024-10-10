@@ -69,7 +69,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
     onClose();
   };
 
-  // Inicializando os campos de filtros com os appliedFilters passados como prop
+ 
   useEffect(() => {
     if (appliedFilters) {
       setFilters(appliedFilters);
