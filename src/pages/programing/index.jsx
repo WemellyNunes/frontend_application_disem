@@ -213,7 +213,7 @@ export default function Programing() {
                         </SectionCard>
                     </div>
 
-                    <div className="flex-1">
+                    <div className="flex-1 mb-4">
                         
                         {isSaved && <MaintenanceSection orderServiceData={orderServiceData} />}
 
@@ -261,7 +261,7 @@ export default function Programing() {
                                 />
                                 <InputPrimary
                                     label="Observação"
-                                    placeholder="Informe"
+                                    placeholder="Escreva uma observação (opcional)"
                                     value={formData.observacao}
                                     onChange={handleFieldChange('observacao')}
                                     disabled={!isEditing}

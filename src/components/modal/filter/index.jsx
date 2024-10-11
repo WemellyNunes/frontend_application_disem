@@ -31,8 +31,6 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
     { label: 'SIPAC', value: 'sipac' },
   ];
 
-  
-
   const [filters, setFilters] = useState({
     requisicao: '',
     dataCriacao: '',
