@@ -1,13 +1,12 @@
 import { useState } from "react";
-import InputSelect from "../../inputs/inputSelect";
 import InputUpload from "../../inputs/inputUpload";
 import InputPrimary from "../../inputs/inputPrimary";
 import ButtonPrimary from "../../buttons/buttonPrimary";
 import ButtonSecondary from "../../buttons/buttonSecondary";
+import Checklist from "../../checklist";
 
 const MaintenanceSection = ({ orderServiceData }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [checklistType, setChecklistType] = useState('');
     const [descriptionBefore, setDescriptionBefore] = useState('');
 
     const options = [
@@ -19,17 +18,22 @@ const MaintenanceSection = ({ orderServiceData }) => {
         setIsOpen(!isOpen);
     };
 
-    const dadoOS = orderServiceData;
+    const disciplines = ['Piso', 'Esquadraria', 'Pluvial', 'Estrutura'];
+    const services = [
+        'Tipo de serviço realizado 1',
+        'Tipo de serviço realizado 2',
+        'Tipo de serviço realizado 3',
+        'Tipo de serviço realizado 4',
+        'Tipo de serviço realizado 5',
+        'Tipo de serviço realizado 6',
+    ];
 
+    const dadoOS = orderServiceData;
     const maintenanceType = dadoOS.tipoManutencao.toLowerCase();
 
     // Verifica o tipo de manutenção na OS
     const isCorrective = maintenanceType === 'corretiva';
     const isPreventive = maintenanceType === 'preventiva';
-
-    const handleChecklistChange = (selectedOption) => {
-        setChecklistType(selectedOption.value);
-    };
 
     return (
         <div className="flex flex-col bg-white rounded mb-2 mt-2 shadow">
@@ -39,25 +43,24 @@ const MaintenanceSection = ({ orderServiceData }) => {
             </div>
             {isOpen && (
                 <div className="px-4 md:px-6">
-                    <div className="grid grid-cols-1 md:grid-cols-1 hidden">
-                        <InputSelect
-                            label="Checklist"
-                            options={options}
-                            onChange={handleChecklistChange}
-                            value={checklistType}
-                            disabled={isCorrective}  
-                        />
-                        {isPreventive && (
-                            <>
-                                <textarea
-                                    placeholder="Descreva o checklist aqui..."
-                                    className="border rounded-md p-2 mt-2"
-                                    value={descriptionBefore}
-                                    onChange={(e) => setDescriptionBefore(e.target.value)}
+                    {/* Exibir checklist apenas se for manutenção preventiva */}
+                    {isPreventive && (
+                        <div>
+                            <div className="font-normal text-sm md:text-sm text-primary-dark pb-2">
+                                <span>Checklist - Manutenção preventiva</span>
+                            </div>
+                            <div className="border rounded p-2 mb-4">
+                                <Checklist
+                                    disciplines={disciplines}
+                                    services={services}
+                                    onChange={(selectedDisciplines, selectedServices) => {
+                                        console.log(selectedDisciplines, selectedServices);
+                                    }}
                                 />
-                            </>
-                        )} 
-                    </div>
+                            </div>
+                        </div>
+                    )}
+
                     <div className="mb-4">
                         <p className="text-xs md:text-sm text-primary-dark mb-2">Imagens - antes da manutenção</p>
                         <InputUpload

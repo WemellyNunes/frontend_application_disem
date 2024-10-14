@@ -25,8 +25,8 @@ const pesosRisco = {
 };
 
 export const calcularValorRisco = (classe, indiceRisco) => {
-    const pesoClasse = pesosClasse[classe] || 0; // Usando 0 como fallback
-    const pesoIndice = pesosRisco[indiceRisco] || 0; // Usando 0 como fallback
+    const pesoClasse = pesosClasse[classe] || 0;
+    const pesoIndice = pesosRisco[indiceRisco] || 0; 
 
     console.log(`Classe: ${classe}, Peso Classe: ${pesoClasse}, Índice de Risco: ${indiceRisco}, Peso Índice: ${pesoIndice}`);
 

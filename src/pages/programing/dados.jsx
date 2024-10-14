@@ -5,7 +5,7 @@ export const mockOrderServiceData = {
     unidade: 'Instituto de Ciências Exatas',
     solicitante: 'João Silva',
     objetoPreparo: 'Manutenção da sala de aula',
-    tipoManutencao: 'Corretiva',
+    tipoManutencao: 'Preventiva',
     sistema: 'Civil',
     unidadeManutencao: 'UNIDADE I - MARABÁ',
     campus: 'Marabá',
