@@ -166,8 +166,8 @@ const TabsAndTable = () => {
     };
 
     return (
-        <div className="mx-4 mt-1 w-full">
-            <div className='flex mx-1.5 md:mx-0 gap-x-2 '>
+        <div className=" mx-4 mt-1"> {/* w-full para ocupar 100% da largura */}
+            <div className='flex mx-1.5 md:mx-0 gap-x-2'>
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
                     onClick={() => setIsFilterModalOpen(true)}
@@ -176,41 +176,22 @@ const TabsAndTable = () => {
                     <span>
                         <FaSlidersH size={15} />
                     </span>
-                    <span className='hidden md:block'>
-                        Filtrar
-                    </span>
+                    <span className='hidden md:block'>Filtrar</span>
                 </button>
             </div>
 
-            <div className="flex flex-wrap gap-2 mb-1.5">
-                {Object.keys(appliedFilters).map((filterKey) => (
-                    appliedFilters[filterKey].length > 0 && (
-                        Array.isArray(appliedFilters[filterKey]) ? (
-                            appliedFilters[filterKey].map((item, idx) => (
-                                <Tag
-                                    key={`${filterKey}-${idx}`}
-                                    label={item.label || item.value || item}
-                                    onRemove={() => removeFilter(filterKey, item)}
-                                />
-                            ))
-                        ) : (
-                            <Tag
-                                key={filterKey}
-                                label={filterKey === 'dataCriacao' ? `Data: ${appliedFilters[filterKey]}` : appliedFilters[filterKey]}
-                                onRemove={() => removeFilter(filterKey)}
-                            />
-                        )
-                    )
-                ))}
+            {/* Evitar que as tabs causem overflow horizontal */}
+            <div className="w-full overflow-x-auto">
+                <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
 
-            <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
-            <Table filteredData={currentItems} onProgramClick={handleProgramClick} />
+            {/* Ajuste de tabela */}
+            <div className="w-full">
+                <Table filteredData={currentItems} onProgramClick={handleProgramClick} />
+            </div>
 
             <div className="flex justify-between bg-white items-center px-4 py-2 text-xs text-primary-dark">
-                <div>
-                    {filteredData.length} itens de {filteredData.length}
-                </div>
+                <div>{filteredData.length} itens de {filteredData.length}</div>
                 <div>
                     <select value={itemsPerPage} onChange={handleItemsPerPageChange}>
                         <option value={10}>10</option>
@@ -219,19 +200,11 @@ const TabsAndTable = () => {
                     </select>
                 </div>
                 <div>
-                    <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>
-                        Primeira
-                    </button>
-                    <button onClick={() => handlePageChange(Math.max(currentPage - 1, 1))} disabled={currentPage === 1}>
-                        &lt;
-                    </button>
+                    <button onClick={() => handlePageChange(1)} disabled={currentPage === 1}>Primeira</button>
+                    <button onClick={() => handlePageChange(Math.max(currentPage - 1, 1))} disabled={currentPage === 1}>&lt;</button>
                     <span>{currentPage} de {totalPages}</span>
-                    <button onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))} disabled={currentPage === totalPages}>
-                        &gt;
-                    </button>
-                    <button onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>
-                        Última
-                    </button>
+                    <button onClick={() => handlePageChange(Math.min(currentPage + 1, totalPages))} disabled={currentPage === totalPages}>&gt;</button>
+                    <button onClick={() => handlePageChange(totalPages)} disabled={currentPage === totalPages}>Última</button>
                 </div>
             </div>
 

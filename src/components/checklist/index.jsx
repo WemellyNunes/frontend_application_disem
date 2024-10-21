@@ -1,8 +1,7 @@
 import { useState } from "react";
 import Checkbox from "../checkbox";
 
-
-const Checklist = ({ disciplines, services, onChange }) => {
+const Checklist = ({ disciplines, services, onChange, disabled }) => {
     const [selectedDisciplines, setSelectedDisciplines] = useState([]);
     const [selectedServices, setSelectedServices] = useState([]);
 
@@ -27,7 +26,6 @@ const Checklist = ({ disciplines, services, onChange }) => {
     return (
         <div className="flex flex-col mb-4">
             <div className="font-normal mt-2 text-xs md:text-sm text-primary-dark mb-2">1. Disciplinas</div>
-        
             <div className="flex flex-wrap gap-y-2 gap-x-4">
                 {disciplines.map((discipline, index) => (
                     <Checkbox
@@ -35,6 +33,7 @@ const Checklist = ({ disciplines, services, onChange }) => {
                         label={discipline}
                         checked={selectedDisciplines.includes(discipline)}
                         onChange={() => handleDisciplineChange(discipline)}
+                        disabled={disabled} // Passa a propriedade disabled para o Checkbox
                     />
                 ))}
             </div>
@@ -51,6 +50,7 @@ const Checklist = ({ disciplines, services, onChange }) => {
                         label={service}
                         checked={selectedServices.includes(service)}
                         onChange={() => handleServiceChange(service)}
+                        disabled={disabled} // Passa a propriedade disabled para o Checkbox
                     />
                 ))}
             </div>

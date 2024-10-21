@@ -130,10 +130,7 @@ export default function Programing() {
                 />
             )}
             <div className="flex flex-col mt mx-1.5 md:mx-4">
-                <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal">
-                    <h2>Programação</h2>
-                </div>
-
+                
                 <div className="flex flex-col">
                     <StatusBar
                         requisitionNumber={orderServiceData.requisicao}
