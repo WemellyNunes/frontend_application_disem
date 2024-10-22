@@ -129,7 +129,7 @@ export default function Programing() {
                     onClose={() => setShowMessageBox(false)}
                 />
             )}
-            <div className="flex flex-col mt mx-1.5 md:mx-4">
+            <div className="flex flex-col mx-1.5">
                 
                 <div className="flex flex-col">
                     <StatusBar
@@ -217,14 +217,14 @@ export default function Programing() {
                         <SectionCard title="Programação">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
                                 <DateTimePicker
-                                    label="Data programada"
+                                    label="Data programada *"
                                     placeholder="exemplo: 00/00/0000"
                                     onDateChange={handleDateChange}
                                     disabled={!isEditing}
                                     className={emptyFields.data ? colorBorder : ''}
                                 />
                                 <InputSelect
-                                    label="Turno"
+                                    label="Turno *"
                                     options={options}
                                     onChange={handleFieldChange('turno')}
                                     value={formData.turno}
@@ -232,7 +232,7 @@ export default function Programing() {
                                     className={emptyFields.turno ? colorBorder : ''}
                                 />
                                 <InputSelect
-                                    label="Encarregado"
+                                    label="Encarregado *"
                                     options={overseer}
                                     onChange={handleFieldChange('encarregado')}
                                     value={formData.encarregado}
@@ -242,7 +242,7 @@ export default function Programing() {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1">
                                 <MultiSelect
-                                    label="Profissional(is)"
+                                    label="Profissional(is) *"
                                     options={professionals}
                                     onChange={handleMultiSelectChange}
                                     selectedValues={formData.profissionais} // Passa as opções selecionadas corretamente

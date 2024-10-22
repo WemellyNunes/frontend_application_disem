@@ -181,8 +181,8 @@ export default function Form() {
                 />
             )}
 
-            <div className="flex flex-col mx-1.5 md:mx-4">
-                <div className="flex py-4 md:py-6 text-base md:text-2xl text-primary-light font-normal">
+            <div className="flex flex-col mx-1.5">
+                <div className="flex py-4 md:py-6 text-base md:text-xl text-primary-light font-normal">
                     <h2>Cadastro de Ordem de Serviço</h2>
                 </div>
 
@@ -191,7 +191,7 @@ export default function Form() {
                         <SectionCard title={"Dados da ordem de serviço"}>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6">
                                 <InputSelect
-                                    label="Origem"
+                                    label="Origem *"
                                     options={origin}
                                     onChange={handleFieldChange('origem')}
                                     value={formData.origem}
@@ -199,7 +199,7 @@ export default function Form() {
                                     className={emptyFields.origem ? colorBorder : ''}
                                 />
                                 <InputPrimary
-                                    label="N° da requisição"
+                                    label="N° da requisição *"
                                     placeholder="Informe"
                                     value={formData.requisicao}
                                     onChange={handleFieldChange('requisicao')}
@@ -207,7 +207,7 @@ export default function Form() {
                                     className={emptyFields.requisicao ? colorBorder : ''}
                                 />
                                 <InputSelect
-                                    label="Classificação"
+                                    label="Classificação *"
                                     options={classification}
                                     onChange={handleFieldChange('classe')}
                                     value={formData.classe}
@@ -222,7 +222,7 @@ export default function Form() {
                         <SectionCard title="Dados do solicitante">
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                                 <InputPrimary
-                                    label="Solicitante"
+                                    label="Solicitante *"
                                     placeholder="Informe"
                                     value={formData.solicitante}
                                     onChange={handleFieldChange('solicitante')}
@@ -230,7 +230,7 @@ export default function Form() {
                                     className={emptyFields.solicitante ? colorBorder : ''}
                                 />
                                 <InputSelect
-                                    label="Unidade"
+                                    label="Unidade *"
                                     options={unit}
                                     onChange={handleFieldChange('unidade')}
                                     value={formData.unidade}
@@ -241,11 +241,11 @@ export default function Form() {
                         </SectionCard>
                     </div>
 
-                    <div className="flex-1 mb-20">
+                    <div className="flex-1 mb-4">
                         <SectionCard title="Dados da manutenção">
                             <div className="grid grid-cols-1 md:grid-cols-1">
                                 <InputPrimary
-                                    label="Objeto de preparo"
+                                    label="Objeto de preparo *"
                                     placeholder="Informe"
                                     onChange={handleFieldChange('objetoPreparo')}
                                     value={formData.objetoPreparo}
@@ -256,7 +256,7 @@ export default function Form() {
 
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                                 <InputSelect
-                                    label="Tipo de manutenção"
+                                    label="Tipo de manutenção *"
                                     options={maintence}
                                     onChange={handleFieldChange('manutencao')}
                                     value={formData.manutencao}
@@ -264,7 +264,7 @@ export default function Form() {
                                     className={emptyFields.manutencao ? colorBorder : ''}
                                 />
                                 <InputSelect
-                                    label="Sistema"
+                                    label="Sistema *"
                                     options={system}
                                     onChange={handleFieldChange('sistema')}
                                     value={formData.sistema}
@@ -274,7 +274,7 @@ export default function Form() {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-1 gap-x-6">
                                 <InputSelect
-                                    label="Indice de risco"
+                                    label="Indice de risco *"
                                     options={indicesRisco}
                                     onChange={handleFieldChange('indiceRisco')}
                                     value={formData.indiceRisco}
@@ -284,7 +284,7 @@ export default function Form() {
                             </div>
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6">
                                 <InputSelect
-                                    label="Unidade da manutenção"
+                                    label="Unidade da manutenção *"
                                     options={unitMaintence}
                                     onChange={handleFieldChange('unidadeManutencao')}
                                     value={formData.unidadeManutencao}
@@ -293,7 +293,7 @@ export default function Form() {
                                 />
 
                                 <InputPrimary
-                                    label="Campus"
+                                    label="Campus *"
                                     placeholder="Informe"
                                     value={formData.campus}
                                     onChange={handleFieldChange('campus')}
@@ -320,7 +320,7 @@ export default function Form() {
                     </div>
                 </div>
 
-                <div className="flex flex-col fixed bottom-0 left-0 right-0 mx-auto border-t border-primary-light bg-white py-2 md:py-4 mt-4 items-center justify-end md:flex-row h-14 md:h-16 gap-y-2 z-50">
+                <div className="flex flex-col border-t border-primary-light bg-white items-center justify-end md:flex-row h-14 md:h-16 gap-y-2 z-50">
                     <div className="flex pr-0 md:pr-6">
                         {isSaved ? (
                             <>

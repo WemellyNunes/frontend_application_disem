@@ -2,10 +2,10 @@ import Row from "../rows";
 
 const Table = ({ filteredData, onProgramClick }) => {
     return (
-        <div className="w-full bg-white mx-1.5 md:mx-0 mt-1"> {/* w-full para ocupar a largura completa */}
-            <table className="min-w-full table-auto"> {/* min-w-full para ajustar largura */}
+        <div className="flex  bg-white mt-1"> {/* w-full para ocupar a largura completa */}
+            <table className=" w-full table-auto"> {/* min-w-full para ajustar largura */}
                 <thead>
-                    <tr className="bg-white text-primary-light text-xs md:text-base">
+                    <tr className="bg-white text-primary-light text-sm">
                         {/* Definir classes de largura menores para tabelas em telas menores */}
                         <th className="px-4 py-6 font-medium">N° Requisição</th>
                         <th className="px-4 py-6 font-medium">Criação</th>

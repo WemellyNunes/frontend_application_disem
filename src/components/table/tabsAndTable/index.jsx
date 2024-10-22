@@ -166,8 +166,8 @@ const TabsAndTable = () => {
     };
 
     return (
-        <div className=" mx-4 mt-1"> {/* w-full para ocupar 100% da largura */}
-            <div className='flex mx-1.5 md:mx-0 gap-x-2'>
+        <div className="flex w-full flex-col mt-1"> {/* w-full para ocupar 100% da largura */}
+            <div className='flex flex-row gap-x-2'>
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
                     onClick={() => setIsFilterModalOpen(true)}

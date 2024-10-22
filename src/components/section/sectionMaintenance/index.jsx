@@ -77,7 +77,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
                     {isPreventive && (
                         <div className={`border rounded p-2 mb-4 ${emptyFields.checklistType ? 'border-red-500' : ''}`}>
                             <div className="font-normal text-sm md:text-sm text-primary-dark pb-2">
-                                <span>Checklist - Manutenção preventiva</span>
+                                <span>Checklist - Manutenção preventiva *</span>
                             </div>
                             <Checklist
                                 disciplines={disciplines}
@@ -93,7 +93,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
                     )}
 
                     <div className="mb-4">
-                        <p className="text-xs md:text-sm text-primary-dark mb-2">Imagens - antes da manutenção</p>
+                        <p className="text-xs md:text-sm text-primary-dark mb-2">Imagens - antes da manutenção *</p>
                         <InputUpload
                             label="Anexar arquivo(s)"
                             onFilesUpload={(files) => handleFieldChange('filesBefore')(files)}
@@ -102,7 +102,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
                         />
                     </div>
                     <div className="mb-4">
-                        <p className="text-xs md:text-sm text-primary-dark mb-2">Imagens - pós manutenção</p>
+                        <p className="text-xs md:text-sm text-primary-dark mb-2">Imagens - pós manutenção *</p>
                         <InputUpload
                             label="Anexar arquivo(s)"
                             onFilesUpload={(files) => handleFieldChange('filesAfter')(files)}
