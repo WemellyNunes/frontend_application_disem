@@ -3,34 +3,25 @@ import { FaChevronDown, FaChevronUp } from 'react-icons/fa';
 
 const MultiSelect = ({ label, options, onChange, disabled, selectedValues = [], className }) => {
     const [isOpen, setIsOpen] = useState(false);
-    const [selectedOptions, setSelectedOptions] = useState(selectedValues);
-
-    useEffect(() => {
-        // Atualiza selectedOptions sempre que selectedValues muda
-        setSelectedOptions(selectedValues);
-    }, [selectedValues]);
 
     const handleToggle = () => {
         setIsOpen((prev) => !prev); // Alterna a visibilidade
     };
 
     const handleSelectOption = (option) => {
-        const alreadySelected = selectedOptions.find((item) => item.value === option.value);
+        const alreadySelected = selectedValues.find((item) => item.value === option.value);
         let updatedSelections;
 
         if (alreadySelected) {
-            // Se já selecionado, remove da lista
-            updatedSelections = selectedOptions.filter((item) => item.value !== option.value);
+            updatedSelections = selectedValues.filter((item) => item.value !== option.value);
         } else {
-            // Adiciona nova seleção
-            updatedSelections = [...selectedOptions, option];
+            updatedSelections = [...selectedValues, option];
         }
 
-        setSelectedOptions(updatedSelections);
         onChange(updatedSelections); // Passa as opções atualizadas para o componente pai
     };
 
-    const isSelected = (option) => selectedOptions.some((item) => item.value === option.value);
+    const isSelected = (option) => selectedValues.some((item) => item.value === option.value);
 
     return (
         <div className="w-full mb-4">
@@ -39,16 +30,14 @@ const MultiSelect = ({ label, options, onChange, disabled, selectedValues = [], 
             </label>
             <div className="relative">
                 <button
-                    className={`appearance-none w-full border 
-                     text-gray-400 px-4 h-9 md:h-10 rounded leading-tight focus:outline-none 
-                     focus:ring-2 focus:ring-blue-500 focus:border-blue-500 flex justify-between 
-                     items-center my-1 text-sm italic ${disabled ? 'bg-gray-100 border-none' : 'bg-white'} ${className}`}
+                    className={`appearance-none w-full border text-gray-400 px-4 h-9 md:h-10 rounded leading-tight focus:outline-none 
+                    focus:ring-2 focus:ring-blue-500 focus:border-blue-500 flex justify-between items-center my-1 text-sm italic ${disabled ? 'bg-gray-100 border-none' : 'bg-white'} ${className}`}
                     onClick={handleToggle}
                     type="button"
                     disabled={disabled}
                 >
-                    {selectedOptions.length > 0
-                        ? selectedOptions.map((option) => option.label).join(', ')
+                    {selectedValues.length > 0
+                        ? selectedValues.map((option) => option.label).join(', ')
                         : 'Selecione'}
                     {isOpen ? <FaChevronUp className="h-4 w-4 text-primary-light" /> : <FaChevronDown className="h-4 w-4 text-primary-light" />}
                 </button>

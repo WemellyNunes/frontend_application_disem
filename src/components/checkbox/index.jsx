@@ -1,6 +1,6 @@
 const Checkbox = ({ label, checked, onChange, disabled, isError }) => {
     return (
-        <label className={`flex items-center  cursor-pointer ${disabled ? 'cursor-not-allowed opacity-50' : ''}`}>
+        <label className={`flex items-center  cursor-pointer ${disabled ? 'cursor-not-allowed opacity-80' : ''}`}>
             <input
                 type="checkbox"
                 checked={checked}

@@ -8,7 +8,7 @@ const LocationBarChart = ({ data }) => {
         labels: [
             'Campus Marabá',
             'Campus Santana do Araguaia',
-            'Campus Guarani',
+            'Campus Xinguara',
             'Campus São Felix do Xingu',
             'Campus Rondon do Pará'
         ],
@@ -16,7 +16,7 @@ const LocationBarChart = ({ data }) => {
             {
                 label: 'OS Abertas',
                 data: [50, 30, 20, 40, 25], // Substitua esses valores pelos dados da API futuramente
-                backgroundColor: ['#1351b4', '#63ABFD', '#2783ED', '#005EA2', '#58B4FF'],
+                backgroundColor: ['#2F4858', '#33658A', '#86BBD8', '#F6AE2D', '#F26419'],
                 borderWidth: 0,
             },
         ],

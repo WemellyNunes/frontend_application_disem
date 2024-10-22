@@ -167,7 +167,7 @@ const TabsAndTable = () => {
 
     return (
         <div className="flex w-full flex-col mt-1"> {/* w-full para ocupar 100% da largura */}
-            <div className='flex flex-row gap-x-2'>
+            <div className='flex flex-row gap-x-2 '>
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
                     onClick={() => setIsFilterModalOpen(true)}
@@ -178,6 +178,30 @@ const TabsAndTable = () => {
                     </span>
                     <span className='hidden md:block'>Filtrar</span>
                 </button>
+            </div>
+            <div className="flex flex-wrap gap-2 mb-1.5">
+                {Object.keys(appliedFilters).map((filterKey) => {
+                    const filterValue = appliedFilters[filterKey];
+
+                    // Verificar se o filtro é uma array (como os multiselects) ou um valor único
+                    if (Array.isArray(filterValue)) {
+                        return filterValue.map((item) => (
+                            <Tag
+                                key={`${filterKey}-${item.value}`} // Usar chave única
+                                label={`${item.label}`} // Mostrar o nome do filtro e o valor selecionado
+                                onRemove={() => removeFilter(filterKey, item)}
+                            />
+                        ));
+                    } else {
+                        return (
+                            <Tag
+                                key={filterKey}
+                                label={`${filterKey}: ${filterValue}`}
+                                onRemove={() => removeFilter(filterKey)}
+                            />
+                        );
+                    }
+                })}
             </div>
 
             {/* Evitar que as tabs causem overflow horizontal */}

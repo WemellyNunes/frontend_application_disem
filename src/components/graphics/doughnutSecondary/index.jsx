@@ -5,18 +5,18 @@ ChartJS.register(ArcElement, Tooltip, Legend);
 
 const DoughnutSystem = ({ data }) => {
     const chartData = {
-        labels: ['Civil', 'Estrutural', 'Sanitário', 'Pluvial', 'Hidráulico', 'Elétrico'],
+        labels: ['Civil', 'Hidrosanitário', 'Refrigeração', 'Elétrico', 'Misto'],
         datasets: [
             {
                 label: 'Manutenções',
-                data: [10, 15, 20, 25, 30, 40], // Substitiyir esses valores pelos dados da API no futuro
+                data: [10, 15, 20, 25, 30,], // Substitiyir esses valores pelos dados da API no futuro
                 backgroundColor: [
-                    '#667eea', // Civil
-                    '#2b6cb0', // Estrutural
-                    '#3182ce', // Sanitário
-                    '#4299e1', // Pluvial
-                    '#63b3ed', // Hidráulico
-                    '#2a4365', // Elétrico
+                    '#FFBE0B', // Civil
+                    '#FB5607', // Hidrosanitário
+                    '#FF006E', // Refrigeração
+                    '#8338EC', // Elétrico
+                    '#3A86FF', // Misto
+                   
                 ],
                 hoverBackgroundColor: [
                     '#667eea',
@@ -24,7 +24,6 @@ const DoughnutSystem = ({ data }) => {
                     '#3182ce',
                     '#4299e1',
                     '#63b3ed',
-                    '#2a4365',
                 ],
                 borderWidth: 2,
             },

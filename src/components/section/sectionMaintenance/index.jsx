@@ -6,18 +6,26 @@ import ButtonSecondary from "../../buttons/buttonSecondary";
 import Checklist from "../../checklist";
 import MessageBox from "../../box/message";
 
-const MaintenanceSection = ({ orderServiceData }) => {
+const MaintenanceSection = ({ orderServiceData, onMaintenanceClose }) => {
+    const [emptyFields, setEmptyFields] = useState({});
+    const [showMessageBox, setShowMessageBox] = useState(false);
+    const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
+    const [isMaintenanceClosed, setIsMaintenanceClosed] = useState(false);  
     const [isOpen, setIsOpen] = useState(false);
-    const [isEditing, setIsEditing] = useState(true); // Controla se os campos estão em modo edição
+    const [isEditing, setIsEditing] = useState(true); 
+
+    const handleClose = () => {
+        setIsEditing(false);
+        setIsMaintenanceClosed(true);
+        onMaintenanceClose(true); 
+    };
+
     const [formData, setFormData] = useState({
         checklistType: [],
         observation: '',
         filesBefore: [],
         filesAfter: [],
     });
-    const [emptyFields, setEmptyFields] = useState({});
-    const [showMessageBox, setShowMessageBox] = useState(false);
-    const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
 
     const disciplines = ['Piso', 'Esquadraria', 'Pluvial', 'Estrutura'];
     const services = [
@@ -66,6 +74,8 @@ const MaintenanceSection = ({ orderServiceData }) => {
         setIsOpen(!isOpen);
     };
 
+    let colorBorder = 'border-primary-red';
+
     return (
         <div className="flex flex-col bg-white rounded mb-2 mt-2 shadow">
             <div className="flex justify-between rounded items-center px-4 md:px-6 py-4 cursor-pointer bg-white" onClick={toggleSection}>
@@ -75,7 +85,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
             {isOpen && (
                 <div className="px-4 md:px-6">
                     {isPreventive && (
-                        <div className={`border rounded p-2 mb-4 ${emptyFields.checklistType ? 'border-red-500' : ''}`}>
+                        <div className={`border rounded p-2 mb-4 ${emptyFields.checklistType ? colorBorder : ''}`}>
                             <div className="font-normal text-sm md:text-sm text-primary-dark pb-2">
                                 <span>Checklist - Manutenção preventiva *</span>
                             </div>
@@ -87,7 +97,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
                                         handleFieldChange('checklistType')(selectedDisciplines);
                                     }
                                 }}
-                                disabled={!isEditing} // Desabilita os checkboxes se não estiver em edição
+                                disabled={!isEditing} 
                             />
                         </div>
                     )}
@@ -97,7 +107,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
                         <InputUpload
                             label="Anexar arquivo(s)"
                             onFilesUpload={(files) => handleFieldChange('filesBefore')(files)}
-                            className={emptyFields.filesBefore ? 'border-red-500' : ''}
+                            className={emptyFields.filesBefore ? colorBorder : ''}
                             disabled={!isEditing}
                         />
                     </div>
@@ -106,7 +116,7 @@ const MaintenanceSection = ({ orderServiceData }) => {
                         <InputUpload
                             label="Anexar arquivo(s)"
                             onFilesUpload={(files) => handleFieldChange('filesAfter')(files)}
-                            className={emptyFields.filesAfter ? 'border-red-500' : ''}
+                            className={emptyFields.filesAfter ? colorBorder : ''}
                             disabled={!isEditing}
                         />
                     </div>
@@ -121,15 +131,16 @@ const MaintenanceSection = ({ orderServiceData }) => {
                     </div>
                     <div className="flex flex-col md:flex-row justify-end">
                         <div className="flex flex-col pb-4 md:flex-row gap-y-1.5 ">
-                            {isEditing ? (
+                            {isEditing && !isMaintenanceClosed ? (
                                 <>
                                     <ButtonSecondary onClick={() => setIsOpen(false)}>Cancelar</ButtonSecondary>
                                     <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
                                 </>
                             ) : (
+                                !isMaintenanceClosed && 
                                 <>
                                     <ButtonSecondary onClick={() => setIsEditing(true)}>Editar</ButtonSecondary>
-                                    <ButtonPrimary>Encerrar</ButtonPrimary>
+                                    <ButtonPrimary onClick={handleClose}>Encerrar</ButtonPrimary>
                                 </>
                             )}
                         </div>

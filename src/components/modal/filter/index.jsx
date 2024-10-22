@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { FaTimes } from 'react-icons/fa';
 import DateTimePicker from "../../inputs/dateTimePicker";
 import MultiSelect from "../../inputs/multiSelect";
 import ButtonPrimary from "../../buttons/buttonPrimary";
 import ButtonSecondary from "../../buttons/buttonSecondary";
 
-const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  // Recebendo appliedFilters
+const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
   const options = [
     { label: 'IGE', value: 'ige' },
     { label: 'ICE', value: 'ice' },
@@ -52,12 +52,12 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
     setFilters({ ...filters, dataCriacao: date });
   };
 
-  const handleMultiSelectChange = (name, selectedOptions) => {
+  const handleMultiSelectChange = useCallback((name, selectedOptions) => {
     setFilters((prevFilters) => ({
-        ...prevFilters,
-        [name]: selectedOptions,  // Atualiza o estado com as seleções do MultiSelect
+      ...prevFilters,
+      [name]: selectedOptions,
     }));
-};
+  }, []);
 
   const handleApplyFilters = () => {
     const validFilters = Object.fromEntries(
@@ -67,7 +67,7 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
     onClose();
   };
 
- 
+
   useEffect(() => {
     if (appliedFilters) {
       setFilters(appliedFilters);
@@ -106,31 +106,31 @@ const FilterModal = ({ isOpen, onClose, onApplyFilters, appliedFilters }) => {  
             label="Data de criação"
             placeholder="00/00/0000"
             onDateChange={handleDateChange}
-            value={filters.dataCriacao}  // Setando valor
+            value={filters.dataCriacao} 
           />
           <MultiSelect
             label="Unidade"
             options={options}
             onChange={(selectedOptions) => handleMultiSelectChange('unidade', selectedOptions)}
-            selectedValues={filters.unidade}  // Setando valor
+            selectedValues={filters.unidade} 
           />
           <MultiSelect
             label="Sistemas"
             options={system}
             onChange={(selectedOptions) => handleMultiSelectChange('sistemas', selectedOptions)}
-            selectedValues={filters.sistemas}  // Setando valor
+            selectedValues={filters.sistemas}  
           />
           <MultiSelect
             label="Tipo de manutenção"
             options={maintence}
             onChange={(selectedOptions) => handleMultiSelectChange('tipoManutencao', selectedOptions)}
-            selectedValues={filters.tipoManutencao}  // Setando valor
+            selectedValues={filters.tipoManutencao}  
           />
           <MultiSelect
             label="Origem"
             options={origin}
             onChange={(selectedOptions) => handleMultiSelectChange('origem', selectedOptions)}
-            selectedValues={filters.origem}  // Setando valor
+            selectedValues={filters.origem}  
           />
         </div>
 

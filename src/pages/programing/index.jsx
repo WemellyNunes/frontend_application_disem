@@ -16,6 +16,7 @@ import MessageBox from "../../components/box/message";
 import { FaTrash, FaEdit } from "react-icons/fa";
 import { TbFileExport } from "react-icons/tb";
 import MaintenanceSection from "../../components/section/sectionMaintenance";
+import FinalizeSection from "../../components/section/FinalizeSection";
 
 export default function Programing() {
     const navigate = useNavigate();
@@ -37,6 +38,15 @@ export default function Programing() {
     const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
     const [isEditing, setIsEditing] = useState(true);
     const [isSaved, setIsSaved] = useState(false);
+    const [isMaintenanceClosed, setIsMaintenanceClosed] = useState(false);
+    const [isFinalized, setIsFinalized] = useState(false);
+
+    const handleFinalization = (finalObservation) => {
+        setIsFinalized(true); // Marca a OS como finalizada
+        // Aqui, a seção de finalização deve permanecer visível
+    };
+
+
 
     const history = [
         `OS Nº ${mockOrderServiceData.requisicao} Criada em 00/00/0000 agente: Fulano da Silva `,
@@ -130,7 +140,7 @@ export default function Programing() {
                 />
             )}
             <div className="flex flex-col mx-1.5">
-                
+
                 <div className="flex flex-col">
                     <StatusBar
                         requisitionNumber={orderServiceData.requisicao}
@@ -211,8 +221,14 @@ export default function Programing() {
                     </div>
 
                     <div className="flex-1 mb-4">
-                        
-                        {isSaved && <MaintenanceSection orderServiceData={orderServiceData} />}
+
+                        {isMaintenanceClosed && !isFinalized && (
+                            <FinalizeSection onFinalize={handleFinalization} />
+                        )}
+
+                        {isFinalized && <FinalizeSection onFinalize={handleFinalization} />}
+
+                        {isSaved && <MaintenanceSection orderServiceData={orderServiceData} onMaintenanceClose={setIsMaintenanceClosed} />}
 
                         <SectionCard title="Programação">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
@@ -266,7 +282,7 @@ export default function Programing() {
                             </div>
                             <div className="flex flex-col md:flex-row justify-end">
                                 <div className="flex flex-col md:flex-row gap-y-1.5 ">
-                                    {isSaved ? (
+                                    {isSaved && !isMaintenanceClosed ? (
                                         <>
                                             <ButtonTertiary
                                                 bgColor="bg-white"
@@ -296,13 +312,17 @@ export default function Programing() {
                                             </ButtonPrimary>
                                         </>
                                     ) : (
-                                        <>
-                                            <ButtonSecondary onClick={() => navigate("../Listing")}>Cancelar</ButtonSecondary>
-                                            <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
-                                        </>
+                                        !isMaintenanceClosed && (
+                                            <>
+                                                <ButtonSecondary onClick={() => navigate("../Listing")}>Cancelar</ButtonSecondary>
+                                                <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
+                                            </>
+                                        )
                                     )}
                                 </div>
                             </div>
+
+
                         </SectionCard>
                     </div>
                 </div>
