@@ -17,6 +17,8 @@ import { FaTrash, FaEdit } from "react-icons/fa";
 import { TbFileExport } from "react-icons/tb";
 import MaintenanceSection from "../../components/section/sectionMaintenance";
 import FinalizeSection from "../../components/section/FinalizeSection";
+import AddReport from "../../components/modal/report";
+import ViewReports from "../../components/modal/viewReports";
 
 export default function Programing() {
     const navigate = useNavigate();
@@ -40,13 +42,19 @@ export default function Programing() {
     const [isSaved, setIsSaved] = useState(false);
     const [isMaintenanceClosed, setIsMaintenanceClosed] = useState(false);
     const [isFinalized, setIsFinalized] = useState(false);
+    const [isMaintenanceSaved, setIsMaintenanceSaved] = useState(false);
+    const [showAddReport, setShowAddReport] = useState(false);
+    const [showViewReports, setShowViewReports] = useState(false);
+    const [reports, setReports] = useState([])
 
     const handleFinalization = (finalObservation) => {
         setIsFinalized(true); // Marca a OS como finalizada
         // Aqui, a seção de finalização deve permanecer visível
     };
 
-
+    const handleMaintenanceSave = () => {
+        setIsMaintenanceSaved(true); // Atualiza o estado quando a manutenção é salva
+    };
 
     const history = [
         `OS Nº ${mockOrderServiceData.requisicao} Criada em 00/00/0000 agente: Fulano da Silva `,
@@ -74,6 +82,16 @@ export default function Programing() {
         { label: 'BELTRANO', value: 'beltrano' },
         { label: 'CABOCLO', value: 'caboclo' }
     ];
+
+    const handleAddReport = (newReport) => {
+        const reportWithUser = {
+            usuario: "Fulano da Silva", 
+            texto: newReport,
+            data: new Date().toLocaleString('pt-BR'),
+        };
+        setReports([...reports, reportWithUser]);
+        setShowAddReport(false);
+    };
 
     const handleMultiSelectChange = (selectedOptions) => {
         setFormData((prevData) => ({ ...prevData, profissionais: selectedOptions }));
@@ -139,7 +157,7 @@ export default function Programing() {
                     onClose={() => setShowMessageBox(false)}
                 />
             )}
-            <div className="flex flex-col mx-1.5">
+            <div className="flex flex-col">
 
                 <div className="flex flex-col">
                     <StatusBar
@@ -148,6 +166,9 @@ export default function Programing() {
                         situation="A atender"
                         reopening="nenhuma"
                         onHistoryClick={handleHistoryClick}
+                        onAddReportClick={() => setShowAddReport(true)}
+                        onViewReportsClick={() => setShowViewReports(true)}
+                        reportsCount={reports.length}
                     />
                 </div>
 
@@ -228,7 +249,10 @@ export default function Programing() {
 
                         {isFinalized && <FinalizeSection onFinalize={handleFinalization} />}
 
-                        {isSaved && <MaintenanceSection orderServiceData={orderServiceData} onMaintenanceClose={setIsMaintenanceClosed} />}
+                        {isSaved && <MaintenanceSection
+                            orderServiceData={orderServiceData}
+                            onMaintenanceClose={setIsMaintenanceClosed} onMaintenanceSave={handleMaintenanceSave}
+                        />}
 
                         <SectionCard title="Programação">
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-4">
@@ -282,7 +306,7 @@ export default function Programing() {
                             </div>
                             <div className="flex flex-col md:flex-row justify-end">
                                 <div className="flex flex-col md:flex-row gap-y-1.5 ">
-                                    {isSaved && !isMaintenanceClosed ? (
+                                    {isSaved && !isMaintenanceSaved && !isMaintenanceClosed ? (
                                         <>
                                             <ButtonTertiary
                                                 bgColor="bg-white"
@@ -312,7 +336,7 @@ export default function Programing() {
                                             </ButtonPrimary>
                                         </>
                                     ) : (
-                                        !isMaintenanceClosed && (
+                                        !isMaintenanceSaved && !isMaintenanceClosed && (
                                             <>
                                                 <ButtonSecondary onClick={() => navigate("../Listing")}>Cancelar</ButtonSecondary>
                                                 <ButtonPrimary onClick={handleSave}>Salvar</ButtonPrimary>
@@ -327,7 +351,22 @@ export default function Programing() {
                     </div>
                 </div>
             </div>
+            {showAddReport && (
+                <AddReport
+                    onAdd={handleAddReport} // Função chamada ao adicionar um relato
+                    onCancel={() => setShowAddReport(false)} // Fecha o modal de adicionar
+                />
+            )}
+
+            {showViewReports && (
+                <ViewReports
+                    reports={reports} // Passa os relatos para visualização
+                    onClose={() => setShowViewReports(false)} // Fecha o modal de ver relatos
+                />
+            )}
+
             {showHistory && <HistoryCard history={history} onClose={() => setShowHistory(false)} />}
         </>
     );
 };
+

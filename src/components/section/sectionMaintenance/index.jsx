@@ -6,7 +6,7 @@ import ButtonSecondary from "../../buttons/buttonSecondary";
 import Checklist from "../../checklist";
 import MessageBox from "../../box/message";
 
-const MaintenanceSection = ({ orderServiceData, onMaintenanceClose }) => {
+const MaintenanceSection = ({ orderServiceData, onMaintenanceClose, onMaintenanceSave  }) => {
     const [emptyFields, setEmptyFields] = useState({});
     const [showMessageBox, setShowMessageBox] = useState(false);
     const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
@@ -67,6 +67,7 @@ const MaintenanceSection = ({ orderServiceData, onMaintenanceClose }) => {
         setIsEditing(false); // Desabilita os campos
         setMessageContent({ type: 'success', title: 'Sucesso.', message: 'Dados da manutenção salvos com sucesso!' });
         setShowMessageBox(true);
+        onMaintenanceSave();
         setTimeout(() => setShowMessageBox(false), 1500);
     };
 

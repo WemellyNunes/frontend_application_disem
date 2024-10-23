@@ -2,7 +2,7 @@ import Row from "../rows";
 
 const Table = ({ filteredData, onProgramClick }) => {
     return (
-        <div className="flex bg-white mt-1"> {/* w-full para ocupar a largura completa */}
+        <div className="flex h-full bg-white mt-1"> {/* w-full para ocupar a largura completa */}
             <table className="w-full table-auto"> {/* min-w-full para ajustar largura */}
                 <thead>
                     <tr className="bg-white text-primary-light text-sm">

@@ -3,7 +3,6 @@ import { NavLink } from "react-router-dom";
 import { MdOutlineDashboard } from "react-icons/md";
 import { FaFilePen } from "react-icons/fa6";
 import { FaRegListAlt } from "react-icons/fa";
-import { MdEngineering } from "react-icons/md";
 import { FaBars } from "react-icons/fa"; // Ícone de menu sanduíche
 
 const Sidebar = ({ isCollapsed, toggleSidebar }) => {

@@ -166,7 +166,7 @@ const TabsAndTable = () => {
     };
 
     return (
-        <div className="flex w-full flex-col mt-1"> {/* w-full para ocupar 100% da largura */}
+        <div className="flex w-full  flex-col mt-1"> {/* w-full para ocupar 100% da largura */}
             <div className='flex flex-row gap-x-2 '>
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
@@ -214,7 +214,7 @@ const TabsAndTable = () => {
                 <Table filteredData={currentItems} onProgramClick={handleProgramClick} />
             </div>
 
-            <div className="flex justify-between bg-white items-center px-4 py-2 text-xs text-primary-dark">
+            <div className="flex justify-between bg-white items-center mt-10 px-4 py-2 text-xs text-primary-dark">
                 <div>{filteredData.length} itens de {filteredData.length}</div>
                 <div>
                     <select value={itemsPerPage} onChange={handleItemsPerPageChange}>

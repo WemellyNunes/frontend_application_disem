@@ -181,13 +181,13 @@ export default function Form() {
                 />
             )}
 
-            <div className="flex flex-col mx-1.5">
-                <div className="flex py-4 md:py-6 text-base md:text-xl text-primary-light font-normal">
+            <div className="flex flex-col px-0 md:px-36 ">
+                <div className="flex justify-center py-2 md:py-2 text-sm md:text-xl text-primary-light font-medium">
                     <h2>Cadastro de Ordem de Serviço</h2>
                 </div>
 
-                <div className="flex flex-col ">
-                    <div className="flex-1">
+                <div className="flex flex-col">
+                    <div className="flex-1 ">
                         <SectionCard title={"Dados da ordem de serviço"}>
                             <div className="grid grid-cols-1 md:grid-cols-3 gap-x-6">
                                 <InputSelect
