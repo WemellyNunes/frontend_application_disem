@@ -25,7 +25,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
               <FaBars className='h-4 md:h-5 w-4 md:w-5' />
             </button>
             <span className={`text-sm md:text-lg font-semibold text-primary-light ${isCollapsed ? 'hidden' : ''}`}>
-              E.M System
+              E.M Control
             </span>
           </div>
         </div>

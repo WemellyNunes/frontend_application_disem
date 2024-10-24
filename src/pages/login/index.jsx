@@ -9,21 +9,18 @@ export default function Login() {
     const navigate = useNavigate();
 
     return (
-        <>
-            <div className="flex flex-col items-center justify-around mt-16 md:mt-20 m-10 md:flex-row">
-                <div className="flex flex-col justify-center items-center content-center w-full mt-10">
-                    <div className="mb-6">
-                        <h2 className="text-3xl font-semibold text-primary-light">Olá, colaborador. Bem vindo de volta!</h2>
-                        <p className="text-lg font-normal text-primary-dark">Realize seu login e bom trabalho!</p>
-                    </div>
-                    <div className="hidden md:block">
-                        <img src="./images/imgLogin.png" alt="" width={"550px"} />
-                    </div>
-                </div>
-               
+            <div className="flex flex-col items-center p-10 justify-center md:flex-row">
+
+
                 <div className="flex flex-col justify-center items-center content-center w-full">
-                    
-                    <div className="flex flex-col p-8 h-full w-96 max-w-xs md:max-w-md rounded-md bg-white shadow-lg">
+                    <div className="flex flex-col mb-10 h-3 w-44">
+                        <img src="./public/images/E.M System (300 x 60 px).png" alt="" />
+                    </div>
+                    <div className="flex flex-col items-center mb-10">
+                        <h2 className="text-3xl font-semibold text-primary-light">Acesse sua conta</h2>
+                        <p className="text-lg font-light text-primary-dark">Realize seu login e bom trabalho!</p>
+                    </div>
+                    <div className="flex flex-col p-8 h-full w-96 max-w-xs md:max-w-md rounded-md bg-white border border-primary-light">
                         <p className="text-2xl font-semibold text-primary-light mb-8">Login</p>
                         <div className="mb-6">
                             <InputSecondary
@@ -42,10 +39,9 @@ export default function Login() {
                             />
                             <p className="text-xs text-primary-dark">Esqueci a senha</p>
                         </div>
-                        <ButtonPrimary onClick={ e => navigate("../Form")}  >Entrar</ButtonPrimary>
+                        <ButtonPrimary onClick={e => navigate("../Form")}  >Entrar</ButtonPrimary>
                     </div>
                 </div>
             </div>
-        </>
     )
 };
