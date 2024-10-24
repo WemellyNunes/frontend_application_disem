@@ -1,4 +1,4 @@
-import { FaCirclePlus,  FaRegClock} from "react-icons/fa6";
+import { FaCirclePlus, FaRegClock } from "react-icons/fa6";
 import { MdHistory } from "react-icons/md";
 import { useState } from "react";
 import HistoryCard from "../../cards/historyCard";
@@ -10,7 +10,7 @@ const Row = ({ item, index, onProgramClick }) => {
     const [showHistory, setShowHistory] = useState(false);
     const [showConfirmation, setShowConfirmation] = useState(false);
     const [actionType, setActionType] = useState(null);
-    
+
     const statusClasses = {
         'A atender': 'font-medium bg-status-open text-white rounded-md p-1',
         'Em atendimento': 'font-medium  text-status-prog bg-status-bgProg rounded-md p-1',
@@ -24,7 +24,7 @@ const Row = ({ item, index, onProgramClick }) => {
         `OS Nº ${item.requisicao} Editada em 00/00/0000 agente: Fulano da Silva`,
         `OS Nº ${item.requisicao} Programada em 00/00/0000 agente: Fulano da Silva`
     ];
-    
+
     const handleView = () => {
         console.log(`Visualizar OS ${item.id}`);
     };
@@ -52,19 +52,19 @@ const Row = ({ item, index, onProgramClick }) => {
 
     return (
         <>
-            <tr className={`text-center text-xs font-normal md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
-                <td className="p-1 md:p-2">{item.requisicao}</td>
-                <td className="p-1 md:p-2">{item.criacao}</td>
-                <td className="p-1 md:p-2">{item.origem}</td>
-                <td className="p-1 md:p-2">{item.tipo}</td>
-                <td className="p-1 md:p-2">{item.sistema}</td>
-                <td className="p-1 md:p-2">{item.unidade}</td>
-                <td className="p-1 md:p-2">{item.solicitante}</td>
-                <td className="p-1 md:p-2">
-                    <button onClick={() => onProgramClick(item.id)} className="flex w-full flex-col text-primary-dark items-center justify-center hover:underline">
-                        {item.programada ? (
+            <tr className={`flex flex-row items-center justify-between text-xs font-normal md:text-sm hover:bg-blue-50 text-primary-dark ${index % 2 === 0 ? 'bg-white' : 'bg-gray-50'}`}>
+                <td className="flex p-6 justify-center items-center text-center">{item.requisicao}</td>
+                <td className="hidden md:flex p-6 justify-center items-center text-center">{item.criacao}</td>
+                <td className="hidden md:flex p-6 justify-center items-center text-center">{item.origem}</td>
+                <td className="hidden md:flex p-6 justify-center items-center text-center">{item.tipo}</td>
+                <td className="p-6 justify-center items-center text-center">{item.sistema}</td>
+                <td className="flex p-6 justify-center items-center text-center">{item.unidade}</td>
+                <td className="hidden md:flex p-6 justify-center items-center text-center min-w-[120px]">{item.solicitante}</td>
+                <td className="flex p-6 justify-center items-center text-center">
+                    <button onClick={() => onProgramClick(item.id)} className="flex w-full flex-col items-center justify-center hover:underline">
+                        {item.programacao ? (
                             <>
-                                Programada
+                                Programacao
                                 <div className="text-primary-light">
                                     <FaRegClock />
                                 </div>
@@ -79,33 +79,23 @@ const Row = ({ item, index, onProgramClick }) => {
                         )}
                     </button>
                 </td>
-                <td className="p-1 md:p-2">
-                    <button onClick={() => setShowHistory(true)} className="flex w-full flex-col text-primary-dark items-center justify-cente ">
+                <td className="hidden md:flex p-6 justify-center items-center text-center">
+                    <button onClick={() => setShowHistory(true)} className="flex w-full flex-col items-center justify-center">
                         <div className="text-primary-light rounded-full hover:bg-status-bgProg p-1" ><MdHistory size={20} /></div>
                     </button>
                 </td>
-                <td className="p-2">
-                    <div className={`py-2 ${statusClasses[item.status]}`}>
+                <td className="hidden md:flex p-6 justify-center items-center text-center">
+                    <div className={`py-2 ${statusClasses[item.status]} text-center`}>
                         {item.status}
                     </div>
                 </td>
-                <td className="p-1 md:p-2">
+                <td className="hidden md:flex p-6 justify-center items-center text-center">
                     <div className="flex justify-center">
                         <Circle prioridade={item.prioridade} />
-
                     </div>
                 </td>
-                <td className="p-2">
+                <td className="hidden md:flex p-6 justify-center items-center text-center">
                     <ActionsMenu onView={handleView} onEdit={handleEdit} onDelete={handleDelete} />
-
-                    {showConfirmation && (
-                <ConfirmationModal
-                    title={actionType === 'delete' ? "Confirmar Exclusão" : "Confirmar Edição"}
-                    message={`Tem certeza que deseja ${actionType === 'delete' ? "excluir" : "editar"} a OS ${item.id}?`}
-                    onConfirm={handleConfirmAction}
-                    onCancel={() => setShowConfirmation(false)}
-                />
-            )}
                 </td>
             </tr>
 

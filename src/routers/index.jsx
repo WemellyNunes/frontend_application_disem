@@ -20,7 +20,7 @@ function AppRoutes() {
             {!isLoginPage && <Sidebar isCollapsed={isCollapsed} toggleSidebar={() => setIsCollapsed(!isCollapsed)} />}
             
             {/* Conteúdo principal, que varia conforme a rota e ocupa o restante do espaço */}
-            <div className={`transition-all duration-300 flex-grow p-4 ${!isLoginPage ? (isCollapsed ? 'ml-16' : 'ml-64') : ''}`}>
+            <div className={`transition-all w-full duration-300 flex-grow p-1 md:p-4 ${!isLoginPage ? (isCollapsed ? 'ml-0 md:ml-14' : 'ml-0 md:ml-64') : ''}`}>
                 <Routes>
                     <Route path="/" element={<Login />} />
                     <Route path="dashboard" element={<Dashboard />} />

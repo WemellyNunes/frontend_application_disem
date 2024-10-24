@@ -6,15 +6,16 @@ import SearchInput from '../../inputs/searchInput';
 import FilterModal from '../../modal/filter';
 import Tag from '../../tag';
 import { FaSlidersH } from "react-icons/fa";
+import List from '../list';
 
 const data = [
-    { id: 1, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 7 dias' },
-    { id: 2, requisicao: '15230', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'ICH', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 15 dias' },
-    { id: 3, requisicao: '00000', criacao: '24/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programada: true, prioridade: 'Execução em até 2 dias' },
-    { id: 4, requisicao: '00000', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programada: true, prioridade: 'Execução em até 7 dias' },
-    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução em até 2 dias' },
-    { id: 6, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução Imediata' },
-    { id: 7, requisicao: '90000', criacao: '01/10/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'ELETRICO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programada: false, prioridade: 'Execução Imediata' }
+    { id: 1, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programacao: false, prioridade: 'Execução em até 7 dias' },
+    { id: 2, requisicao: '15230', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'ICH', solicitante: 'ANA DA SILVA COSTA', status: 'A atender', programacao: false, prioridade: 'Execução em até 15 dias' },
+    { id: 3, requisicao: '00000', criacao: '24/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'ANA DA SILVA COSTA', status: 'Em atendimento', programacao: true, prioridade: 'Execução em até 2 dias' },
+    { id: 4, requisicao: '00000', criacao: '30/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'ICE', solicitante: 'FULANO DA SILVA COSTA', status: 'Resolvido', programacao: true, prioridade: 'Execução em até 7 dias' },
+    { id: 5, requisicao: '00000', criacao: '01/10/2024', origem: 'SIPAC', tipo: 'CORRETIVA', sistema: 'CIVIL', unidade: 'CTIC', solicitante: 'FULANO DA SILVA COSTA', status: 'A atender', programacao: false, prioridade: 'Execução em até 2 dias' },
+    { id: 6, requisicao: '90000', criacao: '27/09/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'HIDROSANITARIO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programacao: false, prioridade: 'Execução Imediata' },
+    { id: 7, requisicao: '90000', criacao: '01/10/2024', origem: 'DISEM', tipo: 'CORRETIVA', sistema: 'ELETRICO', unidade: 'IGE', solicitante: 'JOAO DA SILVA COSTA', status: 'A atender', programacao: false, prioridade: 'Execução Imediata' }
 ];
 
 const TabsAndTable = () => {
@@ -39,7 +40,7 @@ const TabsAndTable = () => {
         navigate(`/programing/${id}`);
 
         const updatedData = osData.map((item) =>
-            item.id === id ? { ...item, status: 'Em atendimento', programada: true } : item
+            item.id === id ? { ...item, status: 'Em atendimento', programacao: true } : item
         );
         setOsData(updatedData);
     };
@@ -166,7 +167,7 @@ const TabsAndTable = () => {
     };
 
     return (
-        <div className="flex w-full  flex-col mt-1"> {/* w-full para ocupar 100% da largura */}
+        <div className="flex w-full flex-col mt-1"> {/* w-full para ocupar 100% da largura */}
             <div className='flex flex-row gap-x-2 '>
                 <SearchInput placeholder="Buscar..." onSearch={handleSearch} />
                 <button
@@ -205,16 +206,16 @@ const TabsAndTable = () => {
             </div>
 
             {/* Evitar que as tabs causem overflow horizontal */}
-            <div className="w-full overflow-x-auto">
+            <div className="w-full overflow-auto">
                 <Tabs activeTab={activeTab} setActiveTab={setActiveTab} />
             </div>
 
             {/* Ajuste de tabela */}
             <div className="w-full">
-                <Table filteredData={currentItems} onProgramClick={handleProgramClick} />
+                <List filteredData={currentItems} onProgramClick={handleProgramClick} />
             </div>
 
-            <div className="flex justify-between bg-white items-center mt-10 px-4 py-2 text-xs text-primary-dark">
+            <div className="flex justify-between bg-white items-center mt-2 px-4 py-2 text-xs text-primary-dark">
                 <div>{filteredData.length} itens de {filteredData.length}</div>
                 <div>
                     <select value={itemsPerPage} onChange={handleItemsPerPageChange}>

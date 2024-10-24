@@ -48,9 +48,15 @@ const MaintenanceSection = ({ orderServiceData, onMaintenanceClose, onMaintenanc
     const validateFields = () => {
         const newEmptyFields = {};
         
-        if (isPreventive && formData.checklistType.length === 0) newEmptyFields.checklistType = true;
-        if (isPreventive && formData.filesBefore.length === 0) newEmptyFields.filesBefore = true; 
-        if (isPreventive && formData.filesAfter.length === 0) newEmptyFields.filesAfter = true; 
+        if (isPreventive && formData.checklistType.length === 0) {
+            newEmptyFields.checklistType = true;
+        }
+        if (formData.filesBefore.length === 0) {
+            newEmptyFields.filesBefore = true; 
+        }
+        if (formData.filesAfter.length === 0){
+            newEmptyFields.filesAfter = true;
+        }
 
         setEmptyFields(newEmptyFields);
         return Object.keys(newEmptyFields).length === 0;

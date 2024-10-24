@@ -9,6 +9,8 @@ import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import ButtonSecondary from "../../components/buttons/buttonSecondary";
 import MessageBox from "../../components/box/message";
 import { calcularValorRisco, calcularPrioridade } from "../../utils/matriz";
+import PageTitle from "../../components/title";
+import { FaFilePen } from "react-icons/fa6";
 
 export default function Form() {
     const navigate = useNavigate();
@@ -182,9 +184,15 @@ export default function Form() {
             )}
 
             <div className="flex flex-col px-0 md:px-36 ">
-                <div className="flex justify-center py-2 md:py-2 text-sm md:text-xl text-primary-light font-medium">
-                    <h2>Cadastro de Ordem de Serviço</h2>
+                <div className="flex justify-center">
+                    <PageTitle
+                        icon={FaFilePen}
+                        text="Cadastro de Ordem de Serviço"
+                        backgroundColor="bg-white"
+                        textColor="text-primary-light"
+                    />
                 </div>
+    
 
                 <div className="flex flex-col">
                     <div className="flex-1 ">

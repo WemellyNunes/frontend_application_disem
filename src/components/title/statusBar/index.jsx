@@ -39,7 +39,7 @@ const StatusBar = ({ requisitionNumber, origin, situation, reopening, onHistoryC
         {/* Botão para Ver Relatos */}
         <button
           onClick={onViewReportsClick}
-          className="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 bg-blue-500 hover:bg-blue-700 text-white rounded-full focus:outline-none relative" title="Ver relatos"
+          className="md:flex hidden items-center justify-center w-7 h-7 md:w-8 md:h-8 bg-blue-500 hover:bg-blue-700 text-white rounded-full focus:outline-none relative " title="Ver relatos"
         >
           <span><AiOutlineFileText size={16} /></span>
           {reportsCount > 0 && (
@@ -52,7 +52,7 @@ const StatusBar = ({ requisitionNumber, origin, situation, reopening, onHistoryC
         {/* Botão de Histórico */}
         <button
           onClick={onHistoryClick}
-          className="flex items-center justify-center w-7 h-7 md:w-8 md:h-8 bg-orange-400 hover:bg-orange-700 text-white rounded-full focus:outline-none" title="Histórico"
+          className="md:flex hidden items-center justify-center w-7 h-7 md:w-8 md:h-8 bg-orange-400 hover:bg-orange-700 text-white rounded-full focus:outline-none" title="Histórico"
         >
           <span><GiBackwardTime size={16} /></span>
         </button>
