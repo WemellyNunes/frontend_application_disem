@@ -72,7 +72,6 @@ export default function Programing() {
 
     const handleFinalization = (observation) => {
         setIsFinalized(true);
-        console.log("Observação finalizada:", observation);
     };
 
     const handleMaintenanceClose = () => {
@@ -526,15 +525,15 @@ export default function Programing() {
         return (
             <div className="flex flex-col space-y-4 p-4">
                 <div className="animate-pulse flex flex-col space-y-4">
-                    <div className="h-6 w-3/4 bg-gray-100 rounded-xl mb-1"></div> {/* Título */}
-                    <div className="h-4 w-1/2 bg-gray-100 rounded-xl mb-1"></div> {/* Subtítulo */}
+                    <div className="h-6 w-3/4 bg-gray-100 rounded-xl mb-1"></div> 
+                    <div className="h-4 w-1/2 bg-gray-100 rounded-xl mb-1"></div> 
                 </div>
                 
                 <div className="animate-pulse flex flex-col space-y-3 mt-6">
-                    <div className="h-10 bg-gray-100 rounded-xl mb-1"></div> {/* StatusBar */}
-                    <div className="h-16 bg-gray-100 rounded-xl mb-1"></div> {/* Detalhes */}
-                    <div className="h-10 bg-gray-100 rounded-xl mb-1"></div> {/* Botões */}
-                    <div className="h-40 bg-gray-100 rounded-xl mb-1"></div> {/* Seção de programação */}
+                    <div className="h-10 bg-gray-100 rounded-xl mb-1"></div>
+                    <div className="h-16 bg-gray-100 rounded-xl mb-1"></div>
+                    <div className="h-10 bg-gray-100 rounded-xl mb-1"></div> 
+                    <div className="h-40 bg-gray-100 rounded-xl mb-1"></div>
                 </div>
             </div>
         );

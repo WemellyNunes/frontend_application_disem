@@ -5,10 +5,14 @@ import ButtonSecondary from "../../buttons/buttonSecondary";
 import MessageBox from "../../box/message";
 import { IoIosRemoveCircleOutline, IoIosAddCircleOutline } from "react-icons/io";
 import { useUser } from "../../../contexts/user";
+import { hasPermission, UserRoles } from "../../../utils/api/permissions";
 
 import { updateOrderServiceStatus, uploadFiles, getAllImages } from "../../../utils/api/api";
 
 const MaintenanceSection = ({ orderServiceData, onMaintenanceClose, onMaintenanceSave }) => {
+
+    const userSession = JSON.parse(sessionStorage.getItem("userSession"));
+
     const [emptyFields, setEmptyFields] = useState({});
     const [showMessageBox, setShowMessageBox] = useState(false);
     const [messageContent, setMessageContent] = useState({ type: '', title: '', message: '' });
@@ -318,7 +322,9 @@ const MaintenanceSection = ({ orderServiceData, onMaintenanceClose, onMaintenanc
                         ) : (
                             <>
                                 <ButtonSecondary onClick={handleEdit}>Ativar edição</ButtonSecondary>
-                                <ButtonPrimary onClick={handleClose}>Encerrar</ButtonPrimary>
+                                {hasPermission(userSession.papel, [UserRoles.ADMIN]) && (
+                                    <ButtonPrimary onClick={handleClose}>Encerrar</ButtonPrimary>
+                                )}
                             </>
                         )
                     ) : null}

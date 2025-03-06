@@ -7,7 +7,7 @@ const webservice = axios.create({
 export const getToken = async () => {
   try {
     const response = await webservice.get();
-    localStorage.setItem("authToken", response.data);
+    sessionStorage.setItem("authToken", response.data);
     return response.data;
   } catch (error) {
     console.error("Erro ao gerar token", error);
@@ -17,7 +17,7 @@ export const getToken = async () => {
 
 export const buscarUsuario = async (login) => {
   try {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
     const response = await webservice.get("/buscar-usuario", {
       params: { login, token },
     });
@@ -28,9 +28,19 @@ export const buscarUsuario = async (login) => {
   }
 };
 
+export const listarUsuarioPorId = async (idUsuario) => {
+  try {
+      const response = await webservice.get(`/buscar-usuario-bd/${idUsuario}`);
+      return response.data || null;
+  } catch (error) {
+      console.error("Erro ao buscar usuário no banco", error);
+      throw error;
+  }
+};
+
 export const login = async (login, senha) => {
   try {
-    const token = localStorage.getItem("authToken");
+    const token = sessionStorage.getItem("authToken");
     const response = await webservice.post("/login", null, {
       params: { login, senha, token },
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
@@ -45,7 +55,6 @@ export const login = async (login, senha) => {
 export const listarUsuarios = async () => {
   try {
       const response = await webservice.get("/usuarios");
-      console.log("📌 Dados recebidos do backend:", response.data);
       return response.data;
   } catch (error) {
       console.error("Erro ao listar usuários", error);
@@ -63,6 +72,26 @@ export const salvarUsuario = async (usuario) => {
   }
 };
 
+
+export const atualizarUsuario = async (id, usuario) => {
+  try {
+    const response = await webservice.put(`/atualizar-usuário/${id}`, usuario);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    throw error;
+  }
+};
+
+export const removerUsuario = async (id) => {
+  try {
+    const response = await webservice.delete(`/remover-usuário/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao remover usuário:", error);
+    throw error;
+  }
+};
 
 
 

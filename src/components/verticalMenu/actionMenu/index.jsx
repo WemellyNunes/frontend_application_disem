@@ -1,7 +1,12 @@
 import { useState } from 'react';
 import { GoKebabHorizontal } from "react-icons/go";
+import { hasPermission, UserRoles } from '../../../utils/api/permissions';
 
 const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
+
+  const userSession = JSON.parse(sessionStorage.getItem("userSession"));
+
+
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => {
@@ -16,7 +21,7 @@ const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
       >
         <GoKebabHorizontal />
       </button>
-      {isOpen && (
+      {hasPermission(userSession.papel, [UserRoles.ADMIN, UserRoles.COLABORADOR_I]) &&  isOpen && (
         <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10 text-primary-dark">
           {showEdit && (
             <button
@@ -40,8 +45,8 @@ const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
             Excluir
           </button>
 
-          {/* Só exibe "Negar" se showNegate for verdadeiro */}
-          {showNegate && (
+          
+          {hasPermission(userSession.papel, [UserRoles.ADMIN]) && showNegate && (
             <button
               onClick={() => {
                 onNegate();

@@ -81,7 +81,7 @@ const FinalizeSection = ({ orderServiceData, onFinalize, isFinalized }) => {
 
   const handleSave = async () => {
     if (!validateFields()) {
-      setMessageContent({ type: "error", title: "Erro.", message: "Este campo é obrigatório." });
+      setMessageContent({ type: "error", message: "Este campo é obrigatório." });
       setShowMessageBox(true);
       setTimeout(() => setShowMessageBox(false), 1000);
       return;

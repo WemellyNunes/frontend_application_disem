@@ -7,21 +7,20 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
   const navigate = useNavigate();
 
   const handleLogoutClick = () => {
-    setShowModal(true); // Mostra o modal quando o usuário clica em "Sair"
+    setShowModal(true);
   };
 
   const handleConfirmLogout = () => {
-    setShowModal(false); // Esconde o modal
-    navigate("/"); // Redireciona para a página de login
+    setShowModal(false); 
+    navigate("/");
   };
 
   const handleCancelLogout = () => {
-    setShowModal(false); // Apenas fecha o modal
+    setShowModal(false); 
   };
 
   return (
     <div className="md:hidden">
-      {/* Cabeçalho fixado no topo */}
       <div className="w-full bg-white border-b fixed top-0 z-50">
         <button
           className="bg-white text-primary-dark px-4 py-2 rounded-md flex items-center gap-2"
@@ -32,7 +31,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
         </button>
       </div>
 
-      {/* Menu deslizante */}
+    
       {isOpen && (
         <div className="absolute top-10 left-0 w-full bg-white shadow-lg z-40">
           <ul className="flex flex-col">
@@ -53,7 +52,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
             </li>
             <li className="border-b">
               <NavLink
-                to="/form"
+                to="/formulario"
                 className={({ isActive }) =>
                   `block px-4 py-2 ${
                     isActive
@@ -68,7 +67,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
             </li>
             <li className="border-b">
               <NavLink
-                to="/listing"
+                to="/filas"
                 className={({ isActive }) =>
                   `block px-4 py-2 ${
                     isActive
@@ -83,7 +82,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
             </li>
             <li className="border-b">
               <NavLink
-                to="/users"
+                to="/usuarios"
                 className={({ isActive }) =>
                   `block px-4 py-2 ${
                     isActive
@@ -98,7 +97,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
             </li>
             <li className="border-b">
               <NavLink
-                to="/team"
+                to="/equipe"
                 className={({ isActive }) =>
                   `block px-4 py-2 ${
                     isActive
@@ -139,7 +138,6 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
         </div>
       )}
 
-      {/* Modal de confirmação */}
       {showModal && (
         <ConfirmationModal
           title="Confirmação de saída"

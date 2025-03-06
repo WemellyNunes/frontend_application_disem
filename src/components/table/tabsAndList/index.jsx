@@ -26,7 +26,6 @@ const TabsAndList = () => {
         const fetchOrders = async () => {
             try {
                 const data = await getAllOrders();
-                console.log("OS Data:", data); 
 
                 const calculatedData = data.map((item) => {
                     const valorRisco = calcularValorRisco(item.classification, item.maintenanceIndicators);
@@ -51,7 +50,7 @@ const TabsAndList = () => {
     
     
     const handleProgramClick = async (id) => {
-        navigate(`/programing/${id}`);
+        navigate(`/atendimento/${id}`);
     
         const updatedData = osData.map((item) =>
             item.id === id ? { ...item, programingId: true } : item

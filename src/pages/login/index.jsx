@@ -3,15 +3,15 @@ import InputSecondary from "../../components/inputs/inputSecondary";
 import { FaEye, FaArrowRight } from 'react-icons/fa';
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import { useNavigate } from "react-router-dom";
-import { getToken, login as loginAPI, buscarUsuario, salvarUsuario } from "../../utils/api/webservice";
+import { getToken, login as loginAPI, buscarUsuario, salvarUsuario, listarUsuarioPorId } from "../../utils/api/webservice";
 import MessageBox from "../../components/box/message";
 
 export default function Login() {
-    const [isLoading, setIsLoading] = useState(true);
+    const [isSaving, setIsSaving] = useState(false);
     const [usuario, setUsuario] = useState("");
     const [senha, setSenha] = useState("");
     const [errorFields, setErrorFields] = useState({ usuario: false, senha: false });
-    const [showErrorMessage, setShowErrorMessage] = useState(false); 
+    const [showErrorMessage, setShowErrorMessage] = useState(false);
 
     const navigate = useNavigate();
 
@@ -32,7 +32,7 @@ export default function Login() {
 
     const handleLogin = async () => {
         setShowErrorMessage(false);
-
+    
         if (!usuario.trim() || !senha.trim()) {
             setErrorFields({
                 usuario: usuario.trim() === "",
@@ -40,45 +40,56 @@ export default function Login() {
             });
             return;
         }
-
+    
         try {
+            setIsSaving(true);
             const token = await getToken();
-            console.log("Token gerado:", token);
             sessionStorage.setItem("authToken", token);
-
-            const response = await loginAPI(usuario, senha);
-            console.log("Login bem-sucedido:", response);
-
+    
+            await loginAPI(usuario, senha);
+    
             const userInfo = await buscarUsuario(usuario);
-            console.log("dados da api: ", userInfo)
-
+    
             if (!userInfo || !userInfo.id_usuario || !userInfo.nome) {
                 console.error("Erro: Dados do usuário incompletos", userInfo);
                 setShowErrorMessage(true);
                 return;
             }
-
+    
+            let userFromDB = await listarUsuarioPorId(userInfo.id_usuario);
+    
+            if (!userFromDB) {
+                const newUser = {
+                    idUsuario: userInfo.id_usuario,
+                    nome: userInfo.nome,
+                    email: userInfo.email,
+                    papel: 3
+                };
+                await salvarUsuario(newUser);
+                userFromDB = newUser;  
+            }
+    
             const userData = {
-                idUsuario: userInfo.id_usuario,
-                nome: userInfo.nome,
-                email: userInfo.email || "sem-email",
-                papel: "Usuário"
+                idUsuario: userFromDB.idUsuario,
+                nome: userFromDB.nome,
+                email: userFromDB.email || "sem-email",
+                papel: userFromDB.papel
             };
-
-            await salvarUsuario(userData);
-
+    
             sessionStorage.setItem("userSession", JSON.stringify(userData));
-
+    
             navigate("/dashboard");
-
+    
         } catch (error) {
             console.error("Erro ao acessar o sistema:", error);
-
+    
             if (error.response && error.response.status === 500) {
                 setShowErrorMessage(true);
             }
+        } finally {
+            setIsSaving(false);
         }
-    };
+    };    
 
 
     return (
@@ -114,7 +125,7 @@ export default function Login() {
                         />
                         <p className="text-xs text-primary-dark">Esqueci a senha</p>
                     </div>
-                    <ButtonPrimary onClick={handleLogin}>Entrar</ButtonPrimary>
+                    <ButtonPrimary onClick={handleLogin} loading={isSaving}>Entrar</ButtonPrimary>
                 </div>
             </div>
             {showErrorMessage && (

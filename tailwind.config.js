@@ -22,6 +22,7 @@ export default {
               hover: '#D7E3F5',
               back: '#f7f7f7',
               light: '#13BFD7',
+              dark: '#32553B',
             },
             tertiary: {
               light: '#2783ED',

@@ -9,11 +9,13 @@ import MessageBox from "../../box/message";
 import { TbClipboardOff } from "react-icons/tb";
 import { MdEngineering, MdHistory } from "react-icons/md";
 import { FiTool } from "react-icons/fi";
+import { hasPermission, UserRoles } from "../../../utils/api/permissions";
 
 
 import { updateOrderServiceStatus, deleteOrder, getHistoryByOrderId } from "../../../utils/api/api";
 
 const List = ({ filteredData, onDeleteItem }) => {
+    const userSession = JSON.parse(sessionStorage.getItem("userSession"));
     const navigate = useNavigate();
 
     const [selectedItems, setSelectedItems] = useState(new Set());
@@ -37,8 +39,8 @@ const List = ({ filteredData, onDeleteItem }) => {
     const fetchHistory = async (orderId) => {
         setLoadingHistory(true);
         try {
-            const history = await getHistoryByOrderId(orderId); // Chamada da API
-            setCurrentHistory(history); // Armazena o histórico retornado
+            const history = await getHistoryByOrderId(orderId); 
+            setCurrentHistory(history); 
         } catch (error) {
             console.error("Erro ao buscar o histórico:", error);
         } finally {
@@ -47,7 +49,7 @@ const List = ({ filteredData, onDeleteItem }) => {
     };
 
     const handleShowHistory = (orderId) => {
-        fetchHistory(orderId); // Busca o histórico ao abrir o modal
+        fetchHistory(orderId); 
         setShowHistory(true);
     };
 
@@ -70,7 +72,7 @@ const List = ({ filteredData, onDeleteItem }) => {
     }
 
     const handleProgramClick = (id) => {
-        navigate(`/programing/${id}`);
+        navigate(`/atendimento/${id}`);
     };
 
     const handleConfirmAction = async () => {
@@ -79,7 +81,6 @@ const List = ({ filteredData, onDeleteItem }) => {
         if (actionType === 'delete') {
             try {
                 await deleteOrder(selectedId);
-                console.log(`OS ${selectedId} deletada com sucesso.`);
 
                 if (onDeleteItem) {
                     onDeleteItem(selectedId);
@@ -103,7 +104,6 @@ const List = ({ filteredData, onDeleteItem }) => {
         } else if (actionType === 'negate') {
             try {
                 await updateOrderServiceStatus(selectedId, 'Negada');
-                console.log(`OS ${selectedId} negada com sucesso.`);
 
                 setMessageContent({
                     type: 'success',
