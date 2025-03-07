@@ -7,7 +7,6 @@ import { BsCart4 } from "react-icons/bs";
 import { FaUsersRectangle, FaUsersLine, FaListUl } from "react-icons/fa6";
 import { LiaClipboardListSolid } from "react-icons/lia";
 
-
 import { useState, useEffect } from "react";
 import ConfirmationModal from "../modal/confirmation";
 
@@ -24,7 +23,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
     }
   }, []);
 
-
   const getRoleName = (role) => {
     const roles = {
       0: "Administrador",
@@ -34,7 +32,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
     };
     return roles[role] || "Desconhecido";
   };
-
 
   const handleLogoutClick = () => {
     setShowModal(true);
@@ -51,7 +48,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
 
   return (
     <>
-      <div className={`hidden md:flex flex-col h-1/2 md:h-full bg-secondary-dark  border-r  md:fixed transition-all duration-300 z-50 ${isCollapsed ? 'w-12 md:w-14' : 'w-60'} transform`}>
+      <div className={`hidden md:flex flex-col h-1/2 md:h-full bg-secondary-dark overflow-auto border-r  md:fixed transition-all duration-300 z-50 ${isCollapsed ? 'w-12 md:w-14' : 'w-60'} transform`}>
         <div className="flex flex-col p-4">
           <div className="flex flex-col">
             <div className="flex items-center justify-start  text-primary-dark mt-2">
@@ -164,8 +161,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
               </span>
             </NavLink>
 
-
-
             <span className={`text-xs text-gray-200  font-medium mt-6 mb-2 px-2 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : 'opacity-100 translate-x-0 w-auto'} `}>INFRAESTRUTURA</span>
 
             <NavLink
@@ -198,7 +193,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                 Almoxerifado
               </span>
             </NavLink>
-
 
             <NavLink
               to="/503"
