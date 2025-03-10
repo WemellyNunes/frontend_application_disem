@@ -93,6 +93,17 @@ export const removerUsuario = async (id) => {
   }
 };
 
+export const buscarPermissoesUsuario = async () => {
+  try {
+      const response = await axios.get("/api/permissoes", { withCredentials: true });
+      return response.data.permissoes || [];
+  } catch (error) {
+      console.error("Erro ao buscar permissões:", error);
+      return [];
+  }
+};
+
+
 
 
 export default webservice;

@@ -5,6 +5,8 @@ import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import { useNavigate } from "react-router-dom";
 import { getToken, login as loginAPI, buscarUsuario, salvarUsuario, listarUsuarioPorId } from "../../utils/api/webservice";
 import MessageBox from "../../components/box/message";
+import { getDefaultRouteForRole } from "../../routers/privateRoute";
+
 
 export default function Login() {
     const [isSaving, setIsSaving] = useState(false);
@@ -77,8 +79,10 @@ export default function Login() {
             };
     
             sessionStorage.setItem("userSession", JSON.stringify(userData));
-    
-            navigate("/dashboard");
+
+            
+            const defaultRoute = getDefaultRouteForRole(userData.papel);
+            navigate(defaultRoute);
     
         } catch (error) {
             console.error("Erro ao acessar o sistema:", error);

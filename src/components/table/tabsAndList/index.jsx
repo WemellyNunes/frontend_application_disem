@@ -12,8 +12,13 @@ import { MdNavigateNext, MdNavigateBefore  } from "react-icons/md";
 import MessageCard from '../../cards/menssegeCard';
 
 const TabsAndList = () => {
+    const userSession = JSON.parse(sessionStorage.getItem("userSession"));
+    const initialTab = (userSession.papel === 0 || userSession.papel === 1) ? "Abertas" : "Programadas";
+
+
     const [osData, setOsData] = useState([]);
-    const [activeTab, setActiveTab] = useState('Abertas');
+    
+    const [activeTab, setActiveTab] = useState(initialTab);
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage, setItemsPerPage] = useState(20);
     const [searchTerm, setSearchTerm] = useState('');

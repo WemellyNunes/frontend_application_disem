@@ -9,8 +9,6 @@ import MessageBox from "../../box/message";
 import { TbClipboardOff } from "react-icons/tb";
 import { MdEngineering, MdHistory } from "react-icons/md";
 import { FiTool } from "react-icons/fi";
-import { hasPermission, UserRoles } from "../../../utils/api/permissions";
-
 
 import { updateOrderServiceStatus, deleteOrder, getHistoryByOrderId } from "../../../utils/api/api";
 
@@ -99,7 +97,7 @@ const List = ({ filteredData, onDeleteItem }) => {
                 console.error(`Erro ao deletar OS ${selectedId}:`, error);
             }
         } else if (actionType === 'edit') {
-            navigate(`/form/${selectedId}`);
+            navigate(`/formulario/${selectedId}`);
 
         } else if (actionType === 'negate') {
             try {
@@ -112,7 +110,7 @@ const List = ({ filteredData, onDeleteItem }) => {
                 });
                 setShowMessageBox(true);
 
-                navigate(`/programing/${selectedId}`);
+                navigate(`/atendimento/${selectedId}`);
 
                 setTimeout(() => setShowMessageBox(false), 1500);
             } catch (error) {
@@ -226,8 +224,8 @@ const List = ({ filteredData, onDeleteItem }) => {
                                             <p className="font-medium mr-1">Solicitante:</p>
                                             <p className="uppercase">{item.requester}</p>
                                         </span>
-                                        <span className="hidden md:flex flex-row flex-wrap">
-                                            <p className="font-medium mr-0 md:mr-1">Descrição:</p>
+                                        <span className="flex flex-row flex-wrap">
+                                            <p className="font-medium mr-1">Descrição:</p>
                                             <p className="uppercase">{item.preparationObject}</p>
                                         </span>
                                     </div>

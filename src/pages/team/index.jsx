@@ -250,26 +250,26 @@ export default function TeamPage() {
                     </div>
                 </div>
 
-                {showModal && <TeamModal onClose={handleCloseModal}
-                    teamData={selectedTeam} />}
 
                 {showConfirmationModal && (
                     <ConfirmationModal
-                        title="Excluir Profissional"
-                        message="Tem certeza que deseja excluir este profissional?"
-                        onConfirm={handleConfirmDelete}
-                        onCancel={() => setShowConfirmationModal(false)}
+                    title="Excluir Profissional"
+                    message="Tem certeza que deseja excluir este profissional?"
+                    onConfirm={handleConfirmDelete}
+                    onCancel={() => setShowConfirmationModal(false)}
                     />
                 )}
                 {showMessageBox && (
                     <MessageBox
-                        type={messageContent.type}
-                        title={messageContent.title}
-                        message={messageContent.message}
-                        onClose={() => setShowMessageBox(false)}
+                    type={messageContent.type}
+                    title={messageContent.title}
+                    message={messageContent.message}
+                    onClose={() => setShowMessageBox(false)}
                     />
                 )}
             </div>
+            {showModal && <TeamModal onClose={handleCloseModal}
+                teamData={selectedTeam} />}
         </>
     );
 }

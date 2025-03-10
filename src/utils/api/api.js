@@ -4,6 +4,26 @@ const api = axios.create({
   baseURL: 'http://localhost:8080/api',
 });
 
+api.interceptors.request.use(
+  (config) => {
+    const token = sessionStorage.getItem('authToken'); 
+    const userSession = sessionStorage.getItem('userSession'); 
+
+    if (token) {
+      config.headers['Authorization'] = `Bearer ${token}`; 
+    }
+
+    if (userSession && !config.url.includes('/webservice/login') && !config.url.includes('/webservice')) {
+      const { papel } = JSON.parse(userSession);
+      config.headers['X-Role'] = String(papel);
+    }
+    return config;
+  },
+  (error) => {
+    return Promise.reject(error);
+  }
+);
+
 export const createOrder = async (orderData) => {
   try {
     const response = await api.post('/serviceOrder', orderData);
@@ -36,7 +56,6 @@ export const getOrderById = async (id) => {
 
 export const downloadReport = async (id) => {
   try {
-
     const order = await getOrderById(id);
     const status = order.status;
 
@@ -110,7 +129,6 @@ export const updateOpenDays = async (orderServiceId) => {
   }
 };
 
-
 export const uploadDocument = async (formData) => {
   try {
     const response = await api.post('/uploadDocument', formData, {
@@ -125,7 +143,6 @@ export const uploadDocument = async (formData) => {
   }
 };
 
-
 export const getDocumentBase64 = async (fileName) => {
   try {
       const response = await api.get(`/files/${fileName}`);
@@ -135,9 +152,6 @@ export const getDocumentBase64 = async (fileName) => {
       throw error;
   }
 };
-
-
-
 
 export const getDocumentsByOrderServiceId = async (orderServiceId) => {
   try {
@@ -151,7 +165,6 @@ export const getDocumentsByOrderServiceId = async (orderServiceId) => {
   }
 };
 
-
 export const deleteDocument = async (documentId) => {
   try {
       await api.delete(`/document/${documentId}`);
@@ -160,7 +173,6 @@ export const deleteDocument = async (documentId) => {
       throw error;
   }
 };
-
 
 export const getClassStatistics = async (year, month) => {
   try {
@@ -580,6 +592,9 @@ export const updateUnit = async (id, uniData) => {
       throw error;
   }
 };
+
+
+
 
 
 

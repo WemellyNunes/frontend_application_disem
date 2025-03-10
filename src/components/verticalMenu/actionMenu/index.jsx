@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { GoKebabHorizontal } from "react-icons/go";
-import { hasPermission, UserRoles } from '../../../utils/api/permissions';
 
 const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
 
@@ -21,7 +20,7 @@ const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
       >
         <GoKebabHorizontal />
       </button>
-      {hasPermission(userSession.papel, [UserRoles.ADMIN, UserRoles.COLABORADOR_I]) &&  isOpen && (
+      {isOpen && (
         <div className="absolute right-0 mt-2 w-40 bg-white border rounded shadow-lg z-10 text-primary-dark">
           {showEdit && (
             <button
@@ -46,7 +45,7 @@ const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
           </button>
 
           
-          {hasPermission(userSession.papel, [UserRoles.ADMIN]) && showNegate && (
+          {showNegate && (
             <button
               onClick={() => {
                 onNegate();

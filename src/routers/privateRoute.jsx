@@ -1,5 +1,15 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { hasPermission, getDefaultRouteForRole } from "../utils/api/permissions";
+
+export const getDefaultRouteForRole = (userRole) => {
+    const roleRoutes = {
+        0: "/dashboard",
+        1: "/dashboard",
+        2: "/filas", 
+        3: "/401",
+    };
+
+    return roleRoutes[userRole] || "/dashboard"; 
+};
 
 export default function PrivateRoute({ allowedRoles }) {
     const userSession = JSON.parse(sessionStorage.getItem("userSession"));
@@ -8,8 +18,7 @@ export default function PrivateRoute({ allowedRoles }) {
         return <Navigate to="/" replace />;
     }
 
-    const hasAccess = hasPermission(userSession.papel, allowedRoles);
-    
+    const hasAccess = allowedRoles.includes(userSession.papel);
 
     return hasAccess ? <Outlet /> : <Navigate to={getDefaultRouteForRole(userSession.papel)} replace />;
 }
