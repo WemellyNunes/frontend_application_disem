@@ -9,14 +9,31 @@ api.interceptors.request.use(
     const token = sessionStorage.getItem('authToken'); 
     const userSession = sessionStorage.getItem('userSession'); 
 
-    if (token) {
-      config.headers['Authorization'] = `Bearer ${token}`; 
+    if (!token) {
+      throw new Error('Token de autenticação ausente.');
     }
 
-    if (userSession && !config.url.includes('/webservice/login') && !config.url.includes('/webservice')) {
-      const { papel } = JSON.parse(userSession);
-      config.headers['X-Role'] = String(papel);
+    config.headers['Authorization'] = `Bearer ${token}`; 
+
+    if(!userSession){
+      throw new Error('Sessão de usuário inválida.');
     }
+
+    const { papel } = JSON.parse(userSession);
+
+    const rotasNaoPermitidas = [
+      '/webservice/login',
+      '/webservice',
+    ];
+
+    const permiteAcesso = !rotasNaoPermitidas.some(rota => config.url.includes(rota));
+
+    if(!permiteAcesso){
+      throw new Error('Acesso não permitido para esta rota.');
+    }
+
+    config.headers['X-Role'] = String(papel);
+
     return config;
   },
   (error) => {
