@@ -44,7 +44,7 @@ function AppRoutes() {
         <Routes>
           <Route path="/" element={<Login />} />
 
-          <Route element={<PrivateRoute allowedRoles={[0, 1]} />}>
+          <Route element={<PrivateRoute allowedRoles={[1, 2]} />}>
             <Route path="/formulario" element={<Form />} />
             <Route path="/formulario/:id" element={<Form />} />
             <Route path="/equipe" element={<TeamPage />} />
@@ -52,12 +52,12 @@ function AppRoutes() {
             <Route path="/dashboard" element={<Dashboard />} />
           </Route>
 
-          <Route element={<PrivateRoute allowedRoles={[0, 1, 2]} />}>
+          <Route element={<PrivateRoute allowedRoles={[1, 2, 3]} />}>
             <Route path="/filas" element={<Listing />} />
             <Route path="/atendimento/:id" element={<Programing />}/>
           </Route>
 
-          <Route element={<PrivateRoute allowedRoles={[0]} />}>
+          <Route element={<PrivateRoute allowedRoles={[1]} />}>
             <Route path="/usuarios" element={<UserPage />} />
           </Route>
 

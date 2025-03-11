@@ -27,11 +27,11 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
 
   const getRoleName = (role) => {
     const roles = {
-      0: "Administrador",
-      1: "Colaborador I",
-      2: "Colaborador II",
-      3: "Usuário",
+      1: "Administrador",
+      2: "Colaborador I",
+      3: "Colaborador II",
     };
+
     return roles[role] || "Desconhecido";
   };
 
@@ -151,7 +151,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                 </span>
               </NavLink>
 
-              {userSession.papel === 0 && (
+              {userSession.papel === 1 && (
                 <NavLink
                   to="/usuarios"
                   className={({ isActive }) =>

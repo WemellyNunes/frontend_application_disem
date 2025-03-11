@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
+import {FaTrash } from "react-icons/fa";
 import PageTitle from "../../components/title";
 import SearchInput from "../../components/inputs/searchInput";
 import { listarUsuarios, atualizarUsuario, removerUsuario } from "../../utils/api/webservice";
@@ -14,14 +14,21 @@ export default function UserPage() {
     const [error, setError] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [showChangeModal, setShowChangeModal] = useState(false);
     const [userToDelete, setUserToDelete] = useState(null);
+    const [userToChangeRole, setUserToChangeRole] = useState(null);
+    const [newRole, setNewRole] = useState(null);
 
     const papelOptions = [
-        { value: 0, label: "Admin" },
-        { value: 1, label: "Colaborador I" },
-        { value: 2, label: "Colaborador II" },
-        { value: 3, label: "Usuário" }
+        { value: 1, label: "Admin" },
+        { value: 2, label: "Colaborador I" },
+        { value: 3, label: "Colaborador II" },
+        { value: 4, label: "Usuário" }
     ];
+
+    const userSession = JSON.parse(sessionStorage.getItem("userSession"));
+    const idUsuarioSessao = userSession?.id;
+    const papelUsuarioSessao = userSession?.papel;
     
     useEffect(() => {
         const fetchUsers = async () => {
@@ -43,33 +50,56 @@ export default function UserPage() {
         fetchUsers();
     }, []);
 
+    const confirmRoleChange = (id, novoPapelTexto) => {
+        if (id === idUsuarioSessao) {
+            alert("Você não pode alterar o seu próprio papel.");
+            return;
+        }
+
+        if (
+            papelUsuarioSessao !== 1 && 
+            papelOptions.find(option => option.label === novoPapelTexto)?.value === 1
+        ) {
+            alert("Somente um administrador pode alterar o papel de outro administrador.");
+            return;
+        }
+
+        setUserToChangeRole(users.find(user => user.id === id));
+        setNewRole(novoPapelTexto);
+        setShowChangeModal(true);
+    };
     
+    const handleConfirmRoleChange = async () => {
+        if (userToChangeRole && newRole) {
+            await handleRoleChange(userToChangeRole.id, newRole);
+            setShowChangeModal(false);
+            setUserToChangeRole(null);
+            setNewRole(null);
+        }
+    };
 
     const handleRoleChange = async (id, novoPapelTexto) => {
         try {
             const novoPapelValor = papelOptions.find(option => option.label === novoPapelTexto)?.value;
-    
             if (novoPapelValor === undefined) {
                 console.error("Papel inválido selecionado");
                 return;
             }
-    
+
             await atualizarUsuario(id, { papel: novoPapelValor });
-    
-            setUsers(prevUsers => prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user));
-            setFilteredUsers(prevUsers => prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user));
-    
-            const userSession = JSON.parse(sessionStorage.getItem("userSession"));
-            
-            if (userSession && userSession.idUsuario) {
-                const usuarioCorrespondente = users.find(user => user.idUsuario === userSession.idUsuario);
-                
-                if (usuarioCorrespondente && usuarioCorrespondente.id === id) {
-                    const updatedSession = { ...userSession, papel: novoPapelValor };
-                    sessionStorage.setItem("userSession", JSON.stringify(updatedSession));
-                }
+
+            setUsers(prevUsers =>
+                prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user)
+            );
+            setFilteredUsers(prevUsers =>
+                prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user)
+            );
+
+            if (id === idUsuarioSessao) {
+                const updatedSession = { ...userSession, papel: novoPapelValor };
+                sessionStorage.setItem("userSession", JSON.stringify(updatedSession));
             }
-    
+
             setSuccessMessage("Papel atualizado com sucesso!");
             setTimeout(() => setSuccessMessage(""), 2000);
         } catch (error) {
@@ -78,7 +108,18 @@ export default function UserPage() {
         }
     };
 
+
     const confirmDeleteUser = (user) => {
+        if (user.id === idUsuarioSessao) {
+            alert("Você não pode excluir a si mesmo.");
+            return;
+        }
+
+        if (user.papel === 1 && papelUsuarioSessao !== 1) {
+            alert("Somente um administrador pode excluir outro administrador.");
+            return;
+        }
+
         setUserToDelete(user);
         setShowDeleteModal(true);
     };
@@ -117,8 +158,6 @@ export default function UserPage() {
         filterData(term); 
     };
 
-    
-    
     return (
         <>
             {error && (
@@ -169,7 +208,7 @@ export default function UserPage() {
                             <div className="md:w-1/3 uppercase">
                                 <select
                                     value={papelOptions.find(option => option.value === user.papel)?.label}
-                                    onChange={(e) => handleRoleChange(user.id, e.target.value)}
+                                    onChange={(e) => confirmRoleChange(user.id, e.target.value)}
                                     className="rounded py-1.5 uppercase hover:border bg-white focus:ring-1 focus:ring-primary-light cursor-pointer font-medium"
                                 >
                                     {papelOptions.map(option => (
@@ -194,9 +233,18 @@ export default function UserPage() {
             </div>
             {showDeleteModal && (
                 <ConfirmationModal
-                    title="Confirmar Exclusão"
-                    message={`Tem certeza que deseja remover ${userToDelete?.nome}?`}
+                    title="Remover usuário"
+                    message={`Tem certeza que deseja remover o usuário ${userToDelete?.nome}?`}
                     onConfirm={handleDeleteUser}
+                    onCancel={() => setShowDeleteModal(false)}
+                />
+            )}
+
+            {showChangeModal && (
+                <ConfirmationModal
+                    title="Atualizar papel do usuário"
+                    message={`Tem certeza que deseja alterar o opapel do usuário ${userToDelete?.nome}?`}
+                    onConfirm={handleConfirmRoleChange}
                     onCancel={() => setShowDeleteModal(false)}
                 />
             )}

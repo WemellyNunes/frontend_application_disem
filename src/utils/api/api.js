@@ -21,15 +21,15 @@ api.interceptors.request.use(
 
     const { papel } = JSON.parse(userSession);
 
-    const rotasNaoPermitidas = [
+    const requisicaoNaoIncluida = [
       '/webservice/login',
       '/webservice',
     ];
 
-    const permiteAcesso = !rotasNaoPermitidas.some(rota => config.url.includes(rota));
+    const naoIncluir = !requisicaoNaoIncluida.some(rota => config.url.includes(rota));
 
-    if(!permiteAcesso){
-      throw new Error('Acesso não permitido para esta rota.');
+    if(!naoIncluir){
+      throw new Error('Requisição não incluida para envio da sessão.');
     }
 
     config.headers['X-Role'] = String(papel);

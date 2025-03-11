@@ -2,10 +2,10 @@ import { Navigate, Outlet } from "react-router-dom";
 
 export const getDefaultRouteForRole = (userRole) => {
     const roleRoutes = {
-        0: "/dashboard",
         1: "/dashboard",
-        2: "/filas", 
-        3: "/401",
+        2: "/dashboard",
+        3: "/filas", 
+        4: "/401",
     };
 
     return roleRoutes[userRole] || "/dashboard"; 

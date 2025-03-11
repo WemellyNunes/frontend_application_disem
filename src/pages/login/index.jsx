@@ -65,7 +65,7 @@ export default function Login() {
                     idUsuario: userInfo.id_usuario,
                     nome: userInfo.nome,
                     email: userInfo.email,
-                    papel: 3
+                    papel: 4
                 };
                 await salvarUsuario(newUser);
                 userFromDB = newUser;  
@@ -75,7 +75,8 @@ export default function Login() {
                 idUsuario: userFromDB.idUsuario,
                 nome: userFromDB.nome,
                 email: userFromDB.email || "sem-email",
-                papel: userFromDB.papel
+                papel: userFromDB.papel,
+                id: userFromDB.id
             };
     
             sessionStorage.setItem("userSession", JSON.stringify(userData));
