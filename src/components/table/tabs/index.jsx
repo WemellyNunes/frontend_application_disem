@@ -4,7 +4,7 @@ const Tabs = ({ activeTab, setActiveTab }) => {
     const todasAsTabs = ["Abertas", "Programadas", "Atendidas", "Finalizadas", "Negadas"];
     const tabsLimitadas = ["Programadas", "Atendidas"];
 
-    const tabs = (userSession.papel === 0 || userSession.papel === 1) ? todasAsTabs : tabsLimitadas;
+    const tabs = (userSession.papel === 1 || userSession.papel === 2) ? todasAsTabs : tabsLimitadas;
 
     return (
         <nav className="flex w-full bg-white font-normal text-xs md:text-sm border-b border-gray-300">

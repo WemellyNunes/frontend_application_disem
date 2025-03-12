@@ -50,7 +50,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
 
   return (
     <>
-      {(userSession.papel === 0 || userSession.papel === 1) && (
+      {(userSession.papel === 1 || userSession.papel === 2) && (
 
         <div className={`hidden md:flex flex-col h-1/2 md:h-full bg-secondary-dark overflow-auto border-r  md:fixed transition-all duration-300 z-50 ${isCollapsed ? 'w-12 md:w-14' : 'w-60'} transform`}>
           <div className="flex flex-col p-4">
@@ -151,7 +151,7 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                 </span>
               </NavLink>
 
-              {userSession.papel === 1 && (
+              {userSession.papel === 1  && (
                 <NavLink
                   to="/usuarios"
                   className={({ isActive }) =>

@@ -13,7 +13,7 @@ import MessageCard from '../../cards/menssegeCard';
 
 const TabsAndList = () => {
     const userSession = JSON.parse(sessionStorage.getItem("userSession"));
-    const initialTab = (userSession.papel === 0 || userSession.papel === 1) ? "Abertas" : "Programadas";
+    const initialTab = (userSession.papel === 1 || userSession.papel === 2) ? "Abertas" : "Programadas";
 
 
     const [osData, setOsData] = useState([]);

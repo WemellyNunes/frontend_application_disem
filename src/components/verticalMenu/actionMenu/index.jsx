@@ -34,18 +34,19 @@ const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
             </button>
           )}
 
-          <button
-            onClick={() => {
-              onDelete();
-              toggleMenu();
-            }}
-            className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-200"
-          >
-            Excluir
-          </button>
+          {userSession.papel === 1 && (
+            <button
+              onClick={() => {
+                onDelete();
+                toggleMenu();
+              }}
+              className="block w-full px-4 py-2 text-left text-sm hover:bg-gray-200"
+            >
+              Excluir
+            </button>
+          )}
 
-          
-          {showNegate && (
+          {userSession.papel === 1 && showNegate && (
             <button
               onClick={() => {
                 onNegate();
@@ -56,6 +57,7 @@ const ActionsMenu = ({ onEdit, onDelete, onNegate, showNegate, showEdit }) => {
               Negar
             </button>
           )}
+          
         </div>
       )}
     </div>

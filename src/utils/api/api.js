@@ -4,35 +4,34 @@ const api = axios.create({
   baseURL: 'http://localhost:8080/api',
 });
 
+
 api.interceptors.request.use(
   (config) => {
     const token = sessionStorage.getItem('authToken'); 
     const userSession = sessionStorage.getItem('userSession'); 
 
-    if (!token) {
-      throw new Error('Token de autenticação ausente.');
-    }
-
-    config.headers['Authorization'] = `Bearer ${token}`; 
-
-    if(!userSession){
-      throw new Error('Sessão de usuário inválida.');
-    }
-
-    const { papel } = JSON.parse(userSession);
-
     const requisicaoNaoIncluida = [
       '/webservice/login',
-      '/webservice',
+      '/webservice/token',
+      '/webservice/buscar-usuario',
     ];
 
-    const naoIncluir = !requisicaoNaoIncluida.some(rota => config.url.includes(rota));
+    const naoIncluir = requisicaoNaoIncluida.some(rota => config.url.includes(rota));
 
-    if(!naoIncluir){
-      throw new Error('Requisição não incluida para envio da sessão.');
+    if (!naoIncluir) {
+      if (!token) {
+        throw new Error('Token de autenticação ausente.');
+      }
+
+      config.headers['Authorization'] = `Bearer ${token}`;
+
+      if (!userSession) {
+        throw new Error('Sessão de usuário inválida.');
+      }
+
+      const { papel } = JSON.parse(userSession);
+      config.headers['X-Role'] = String(papel);
     }
-
-    config.headers['X-Role'] = String(papel);
 
     return config;
   },
@@ -40,6 +39,97 @@ api.interceptors.request.use(
     return Promise.reject(error);
   }
 );
+
+export const getToken = async () => {
+  try {
+    const response = await api.get("/webservice/token");
+    sessionStorage.setItem("authToken", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao gerar token", error);
+    throw error;
+  }
+};
+
+export const buscarUsuario = async (login) => {
+  try {
+    const token = sessionStorage.getItem("authToken");
+    const response = await api.get("/webservice/buscar-usuario", {
+      params: { login, token },
+    });
+    return response.data;
+  } catch (error) {
+    console.error("erro ao buscar usuario", error);
+    throw error;
+  }
+};
+
+export const listarUsuarioPorId = async (idUsuario) => {
+  try {
+      const response = await api.get(`/webservice/buscar-usuario-bd/${idUsuario}`);
+      return response.data || null;
+  } catch (error) {
+      console.error("Erro ao buscar usuário no banco", error);
+      throw error;
+  }
+};
+
+export const login = async (login, senha) => {
+  try {
+    const token = sessionStorage.getItem("authToken");
+    const response = await api.post("/webservice/login", null, {
+      params: { login, senha, token },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    });
+    return response.data;
+  } catch (error) {
+    console.error("erro ao acessar o sistema", error);
+    throw error;
+  }
+};
+
+export const listarUsuarios = async () => {
+  try {
+      const response = await api.get("/webservice/usuarios");
+      return response.data;
+  } catch (error) {
+      console.error("Erro ao listar usuários", error);
+      throw error;
+  }
+};
+
+export const salvarUsuario = async (usuario) => {
+  try {
+      const response = await api.post("/webservice/salvar-usuario", usuario);
+      return response.data;
+  } catch (error) {
+      console.error("Erro ao salvar usuário:", error);
+      throw error;
+  }
+};
+
+
+export const atualizarUsuario = async (id, usuario) => {
+  try {
+    const response = await api.put(`/webservice/atualizar-usuário/${id}`, usuario);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao atualizar usuário:", error);
+    throw error;
+  }
+};
+
+export const removerUsuario = async (id) => {
+  try {
+    const response = await api.delete(`/webservice/remover-usuário/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Erro ao remover usuário:", error);
+    throw error;
+  }
+};
+
+
 
 export const createOrder = async (orderData) => {
   try {

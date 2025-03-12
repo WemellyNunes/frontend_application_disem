@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import {FaTrash } from "react-icons/fa";
+import { FaPlus, FaEdit, FaTrash } from "react-icons/fa";
 import PageTitle from "../../components/title";
 import SearchInput from "../../components/inputs/searchInput";
-import { listarUsuarios, atualizarUsuario, removerUsuario } from "../../utils/api/webservice";
+import { listarUsuarios, atualizarUsuario, removerUsuario } from "../../utils/api/api";
 import MessageBox from "../../components/box/message";
 import ConfirmationModal from "../../components/modal/confirmation";
 
@@ -27,8 +27,6 @@ export default function UserPage() {
     ];
 
     const userSession = JSON.parse(sessionStorage.getItem("userSession"));
-    const idUsuarioSessao = userSession?.id;
-    const papelUsuarioSessao = userSession?.papel;
     
     useEffect(() => {
         const fetchUsers = async () => {
@@ -49,21 +47,8 @@ export default function UserPage() {
 
         fetchUsers();
     }, []);
-
+    
     const confirmRoleChange = (id, novoPapelTexto) => {
-        if (id === idUsuarioSessao) {
-            alert("Você não pode alterar o seu próprio papel.");
-            return;
-        }
-
-        if (
-            papelUsuarioSessao !== 1 && 
-            papelOptions.find(option => option.label === novoPapelTexto)?.value === 1
-        ) {
-            alert("Somente um administrador pode alterar o papel de outro administrador.");
-            return;
-        }
-
         setUserToChangeRole(users.find(user => user.id === id));
         setNewRole(novoPapelTexto);
         setShowChangeModal(true);
@@ -81,25 +66,28 @@ export default function UserPage() {
     const handleRoleChange = async (id, novoPapelTexto) => {
         try {
             const novoPapelValor = papelOptions.find(option => option.label === novoPapelTexto)?.value;
+    
             if (novoPapelValor === undefined) {
                 console.error("Papel inválido selecionado");
                 return;
             }
-
+    
             await atualizarUsuario(id, { papel: novoPapelValor });
-
-            setUsers(prevUsers =>
-                prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user)
-            );
-            setFilteredUsers(prevUsers =>
-                prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user)
-            );
-
-            if (id === idUsuarioSessao) {
-                const updatedSession = { ...userSession, papel: novoPapelValor };
-                sessionStorage.setItem("userSession", JSON.stringify(updatedSession));
+    
+            setUsers(prevUsers => prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user));
+            setFilteredUsers(prevUsers => prevUsers.map(user => user.id === id ? { ...user, papel: novoPapelValor } : user));
+    
+            const userSession = JSON.parse(sessionStorage.getItem("userSession"));
+            
+            if (userSession && userSession.idUsuario) {
+                const usuarioCorrespondente = users.find(user => user.idUsuario === userSession.idUsuario);
+                
+                if (usuarioCorrespondente && usuarioCorrespondente.id === id) {
+                    const updatedSession = { ...userSession, papel: novoPapelValor };
+                    sessionStorage.setItem("userSession", JSON.stringify(updatedSession));
+                }
             }
-
+    
             setSuccessMessage("Papel atualizado com sucesso!");
             setTimeout(() => setSuccessMessage(""), 2000);
         } catch (error) {
@@ -108,18 +96,7 @@ export default function UserPage() {
         }
     };
 
-
     const confirmDeleteUser = (user) => {
-        if (user.id === idUsuarioSessao) {
-            alert("Você não pode excluir a si mesmo.");
-            return;
-        }
-
-        if (user.papel === 1 && papelUsuarioSessao !== 1) {
-            alert("Somente um administrador pode excluir outro administrador.");
-            return;
-        }
-
         setUserToDelete(user);
         setShowDeleteModal(true);
     };
@@ -196,7 +173,6 @@ export default function UserPage() {
                     <p className="flex flex-col md:w-1/3">Papel do usuário</p>
                     <p className="flex ">Ações</p>
                 </div>
-
                 {loading ? (
                     <p className="text-center text-gray-500 py-4">Carregando usuários...</p>
                 ) : filteredUsers.length > 0 ? (
@@ -209,7 +185,10 @@ export default function UserPage() {
                                 <select
                                     value={papelOptions.find(option => option.value === user.papel)?.label}
                                     onChange={(e) => confirmRoleChange(user.id, e.target.value)}
-                                    className="rounded py-1.5 uppercase hover:border bg-white focus:ring-1 focus:ring-primary-light cursor-pointer font-medium"
+                                    className={`rounded py-1.5 uppercase hover:border bg-white focus:ring-1 focus:ring-primary-light cursor-pointer font-medium ${
+                                        userSession.id === user.id && userSession.papel === 1 ? 'opacity-50 cursor-not-allowed' : ''
+                                    }`}
+                                    disabled={userSession.id === user.id && userSession.papel === 1}
                                 >
                                     {papelOptions.map(option => (
                                         <option key={option.value} value={option.label}>
@@ -219,12 +198,16 @@ export default function UserPage() {
                                 </select>
 
                             </div>
-                            <div className="flex md:mr-1">
-                                <button className="text-gray-700 bg-gray-100 p-2 rounded-full hover:text-red-500" 
-                                onClick={() => confirmDeleteUser(user)}>
-                                    <FaTrash />
-                                </button>
-                            </div>
+                                <div className="flex md:mr-1">
+                                <button
+                                    className={`text-gray-700 bg-gray-100 p-2 rounded-full hover:text-red-500 ${userSession.id === user.id && userSession.papel === 1 ? 'opacity-50 cursor-not-allowed' : ''
+                                        }`}
+                                    onClick={() => confirmDeleteUser(user)}
+                                    disabled={userSession.id === user.id && userSession.papel === 1}
+                                >
+                                        <FaTrash />
+                                    </button>
+                                </div>
                         </div>
                     ))
                 ) : (
@@ -243,7 +226,7 @@ export default function UserPage() {
             {showChangeModal && (
                 <ConfirmationModal
                     title="Atualizar papel do usuário"
-                    message={`Tem certeza que deseja alterar o opapel do usuário ${userToDelete?.nome}?`}
+                    message={`Tem certeza que deseja alterar o papel do usuário ?`}
                     onConfirm={handleConfirmRoleChange}
                     onCancel={() => setShowDeleteModal(false)}
                 />

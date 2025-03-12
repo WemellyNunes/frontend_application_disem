@@ -23,7 +23,7 @@ function AppRoutes() {
   const is401Page = location.pathname === "/401";
 
   const userSession = JSON.parse(sessionStorage.getItem("userSession"));
-  const showSidebar = !isLoginPage && !is401Page && (userSession?.papel === 0 || userSession?.papel === 1);
+  const showSidebar = !isLoginPage && !is401Page && (userSession?.papel === 1 || userSession?.papel === 2);
 
   const contentMargin = showSidebar ? (isCollapsed ? "md:ml-14" : "md:ml-60") : "ml-0";
 

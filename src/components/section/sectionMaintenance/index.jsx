@@ -322,7 +322,9 @@ const MaintenanceSection = ({ orderServiceData, onMaintenanceClose, onMaintenanc
                             <>
                                 <ButtonSecondary onClick={handleEdit}>Ativar edição</ButtonSecondary>
                             
+                            {userSession.papel === 1 && (
                                 <ButtonPrimary onClick={handleClose}>Encerrar</ButtonPrimary>
+                            )}
                             </>
                         )
                     ) : null}

@@ -3,7 +3,7 @@ import InputSecondary from "../../components/inputs/inputSecondary";
 import { FaEye, FaArrowRight } from 'react-icons/fa';
 import ButtonPrimary from "../../components/buttons/buttonPrimary";
 import { useNavigate } from "react-router-dom";
-import { getToken, login as loginAPI, buscarUsuario, salvarUsuario, listarUsuarioPorId } from "../../utils/api/webservice";
+import { getToken, login as loginAPI, buscarUsuario, salvarUsuario, listarUsuarioPorId } from "../../utils/api/api";
 import MessageBox from "../../components/box/message";
 import { getDefaultRouteForRole } from "../../routers/privateRoute";
 
@@ -65,10 +65,9 @@ export default function Login() {
                     idUsuario: userInfo.id_usuario,
                     nome: userInfo.nome,
                     email: userInfo.email,
-                    papel: 4
                 };
                 await salvarUsuario(newUser);
-                userFromDB = newUser;  
+                userFromDB = await listarUsuarioPorId(userInfo.id_usuario);
             }
     
             const userData = {
