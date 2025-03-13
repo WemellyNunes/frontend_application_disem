@@ -24,7 +24,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
 
   return (
     <>
-      {(userSession.papel === 0 || userSession.papel === 1) && (
+      {(userSession.papel === 1 || userSession.papel === 2) && (
         <div className="md:hidden">
           <div className="w-full bg-white border-b fixed top-0 z-50">
             <button
@@ -82,7 +82,7 @@ const MobileMenu = ({ isOpen, toggleMenu }) => {
                     Listas
                   </NavLink>
                 </li>
-                {userSession.papel === 0 && (
+                {userSession.papel === 1 && (
                   <li className="border-b">
                     <NavLink
                       to="/usuarios"

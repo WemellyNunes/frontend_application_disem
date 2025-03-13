@@ -69,8 +69,8 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
             </div>
           </div>
 
-          <div className={`mt-2.5 px-2 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : ''}`}>
-            <div className="flex flex-row items-center py-4 px-4 gap-x-4 border border-white rounded-xl">
+          <div className={`mt-2.5 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : ''}`}>
+            <div className="flex flex-row items-center py-4 px-4 gap-x-4  rounded-xl">
               <FaUserCircle className='h-9 w-9 text-white' />
               <div className="flex flex-col text-white">
                 <p className="text-sm font-medium">

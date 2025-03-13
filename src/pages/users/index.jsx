@@ -32,11 +32,13 @@ export default function UserPage() {
         const fetchUsers = async () => {
             setLoading(true);
             setError(false);
-
+    
             try {
                 const userData = await listarUsuarios();
-                setUsers(userData);
-                setFilteredUsers(userData);
+                // Ordena os usuários por ID em ordem crescente
+                const sortedUsers = userData.sort((a, b) => a.id - b.id);
+                setUsers(sortedUsers);
+                setFilteredUsers(sortedUsers);
             } catch (err) {
                 console.error("Erro ao carregar usuários:", err);
                 setError(true);
@@ -44,9 +46,9 @@ export default function UserPage() {
                 setLoading(false);
             }
         };
-
+    
         fetchUsers();
-    }, []);
+    }, []);    
     
     const confirmRoleChange = (id, novoPapelTexto) => {
         setUserToChangeRole(users.find(user => user.id === id));

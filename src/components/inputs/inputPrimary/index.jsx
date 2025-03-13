@@ -7,7 +7,7 @@ const InputPrimary = forwardRef(({ label, placeholder, value, onChange, classNam
         {label}
       </label>
       <input
-        className={`block appearance-none w-full border border-gray-400
+        className={`block appearance-none w-full border border-gray-500
           rounded px-4 h-11 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 
           focus:border-blue-500 my-1 text-xs md:text-sm italic ${disabled ? 'text-gray-500 bg-gray-50 border-none' : 'bg-white text-gray-500'} ${className}`}  
         id="inputField"
