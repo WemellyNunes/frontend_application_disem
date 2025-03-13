@@ -97,49 +97,62 @@ export default function Login() {
 
 
     return (
-        <div className="flex flex-col items-center p-10 justify-center ">
-            <div className="flex flex-col justify-center items-center w-full px-0 mt-10 ">
-                <div className="flex flex-col md:items-center mb-6 gap-y-4">
-                    <img src="./logo-app.png" alt="logo" width={60} />
-                    <h2 className="text-3xl font-semibold text-gray-700">Bem vindo ao NomeSistema!</h2>
-                    <p className="text-base font-light text-primary-dark">Preencha os dados abaixo para a acessar a plataforma e um bom trabalho!</p>
-                </div>
-                <div className="flex flex-col h-full w-full md:w-[600px] mt-12">
-
-                    <div className="mb-6">
-                        <InputSecondary
-                            label="Usuário"
-                            placeholder="Nome"
-                            type="text"
-                            value={usuario}
-                            onChange={(e) => handleInputChange("usuario", e.target.value)}
-                            buttonIcon={<FaArrowRight />}
-                            errorMessage={errorFields.usuario ? "Usuário é obrigatório" : ""}
-                        />
+        <div className="flex flex-col min-h-screen">
+            {/* Conteúdo principal */}
+            <div className="flex flex-col items-center justify-center flex-grow px-4 md:px-0">
+                <div className="flex flex-col justify-center items-center w-full px-0">
+                    <div className="flex flex-col md:items-center mb-6 gap-y-4 bg">
+                        <img src="./logo-app.png" alt="logo" width={60} />
+                        <h2 className="text-3xl font-semibold text-gray-700">
+                            Bem vindo ao ReparaUni!
+                        </h2>
+                        <p className="text-base font-light text-primary-dark">
+                            Preencha os dados abaixo para acessar a plataforma e um bom trabalho!
+                        </p>
                     </div>
-                    <div className="mb-10">
-                        <InputSecondary
-                            label="Senha"
-                            placeholder="Digite sua senha "
-                            type="password"
-                            value={senha}
-                            onChange={(e) => handleInputChange("senha", e.target.value)}
-                            buttonIcon={<FaEye />}
-                            errorMessage={errorFields.senha ? "Senha é obrigatória" : ""}
-                        />
-                        <p className="text-xs text-primary-dark">Esqueci a senha</p>
+                    <div className="flex flex-col h-full w-full md:w-[500px] mt-12">
+                        <div className="mb-6">
+                            <InputSecondary
+                                label="Usuário"
+                                placeholder="Nome"
+                                type="text"
+                                value={usuario}
+                                onChange={(e) => handleInputChange("usuario", e.target.value)}
+                                buttonIcon={<FaArrowRight />}
+                                errorMessage={errorFields.usuario ? "Usuário é obrigatório" : ""}
+                            />
+                        </div>
+                        <div className="mb-10">
+                            <InputSecondary
+                                label="Senha"
+                                placeholder="Digite sua senha"
+                                type="password"
+                                value={senha}
+                                onChange={(e) => handleInputChange("senha", e.target.value)}
+                                buttonIcon={<FaEye />}
+                                errorMessage={errorFields.senha ? "Senha é obrigatória" : ""}
+                            />
+                        </div>
+                        <ButtonPrimary onClick={handleLogin} loading={isSaving}>
+                            Entrar
+                        </ButtonPrimary>
                     </div>
-                    <ButtonPrimary onClick={handleLogin} loading={isSaving}>Entrar</ButtonPrimary>
                 </div>
+                {showErrorMessage && (
+                    <MessageBox
+                        type="error"
+                        title="Erro de autenticação."
+                        message="Usuário ou senha inválidos. Tente novamente."
+                        onClose={() => setShowErrorMessage(false)}
+                    />
+                )}
             </div>
-            {showErrorMessage && (
-                <MessageBox
-                    type="error"
-                    title="Erro de autenticação."
-                    message="Usuário ou senha inválidos. Tente novamente."
-                    onClose={() => setShowErrorMessage(false)}
-                />
-            )}
+            
+            {/* Footer fixado no fim da tela */}
+            <footer className="mt-auto text-center text-sm py-4 text-gray-500">
+                © ReparaUni - 2025
+            </footer>
         </div>
-    )
+    );
+    
 };

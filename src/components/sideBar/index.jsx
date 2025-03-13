@@ -63,14 +63,14 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                   <FaBars className='h-4 w-4' />
                 </button>
                 <span className={`transition-all duration-300 ease-in-out transform text-sm md:text-base font-semibold text-white ${isCollapsed ? 'opacity-0 translate-x-[-10px] w-0 overflow-hidden' : 'opacity-100 translate-x-0 w-auto pl-4'}`}>
-                  NomeSistema
+                  ReparaUni
                 </span>
               </div>
             </div>
           </div>
 
-          <div className={`mt-2 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : ''}`}>
-            <div className="flex flex-row items-center py-4 px-4 gap-x-4">
+          <div className={`mt-2.5 px-2 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : ''}`}>
+            <div className="flex flex-row items-center py-4 px-4 gap-x-4 border border-white rounded-xl">
               <FaUserCircle className='h-9 w-9 text-white' />
               <div className="flex flex-col text-white">
                 <p className="text-sm font-medium">
@@ -89,12 +89,15 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
             </div>
           </div>
 
-          <div className="mt-5">
+          <div className="mt-2.5">
             <div className="flex flex-col">
+
+              <span className={`text-xs text-gray-200  font-medium mt-6 mb-2 px-2 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : ''} `}>SERVIÇO</span>
+              
               <NavLink
                 to="/dashboard"
                 className={({ isActive }) =>
-                  `flex items-center border-bgreen-900 px-4 py-4 hover:bg-green-200 hover:text-gray-700 ${isActive ? 'bg-white text-primary-dark hover:text-primary-dark' : 'text-white'}`
+                  `flex items-center border-b border-green-900 px-4 py-4 hover:bg-green-200 hover:text-gray-700 ${isActive ? 'bg-white text-primary-dark hover:text-primary-dark' : 'text-white'}`
                 }>
                 <MdOutlineDashboard className='h-4 w-5' />
                 <span
@@ -104,8 +107,6 @@ const Sidebar = ({ isCollapsed, toggleSidebar }) => {
                   Dashboard
                 </span>
               </NavLink>
-
-              <span className={`text-xs text-gray-200  font-medium mt-6 mb-2 px-2 ${isCollapsed ? 'opacity-0 translate-x-[-10px] hidden' : ''} `}>SERVIÇO</span>
 
               <NavLink
                 to="/formulario"

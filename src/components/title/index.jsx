@@ -45,7 +45,7 @@ const PageTitle = ({ text, backgroundColor, children }) => {
 
       <div className='flex gap-x-1'>
         <div>
-        <NotificationButton />
+          <NotificationButton/>
         </div>
         <div className="flex items-center justify-center space-x-2" onClick={handleLogoutClick}>
           <RiLogoutCircleRLine className="text-gray-700 md:h-5 md:w-5 cursor-pointer hover:text-primary-light" title="Sair" /> 

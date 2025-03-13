@@ -14,6 +14,7 @@ api.interceptors.request.use(
       '/webservice/login',
       '/webservice/token',
       '/webservice/buscar-usuario',
+      '/webservice/salvar-usuario',
     ];
 
     const naoIncluir = requisicaoNaoIncluida.some(rota => config.url.includes(rota));

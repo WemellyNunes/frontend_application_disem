@@ -32,7 +32,7 @@ const NotificationButton = () => {
     return (
         <div className="relative">
             <button 
-                className="relative p-1.5 text-gray-700 hover:text-blue-600"
+                className="relative p-1.5 text-gray-700 hover:text-primary-light"
                 onClick={() => { setIsOpen(!isOpen); markAllAsRead(); }}
             >
                 <RiNotificationLine className="w-5 h-5" />
